@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -31,6 +31,7 @@
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v143</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
+    <EnableUnitySupport>true</EnableUnitySupport>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
@@ -38,12 +39,14 @@
     <PlatformToolset>v143</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
+    <EnableUnitySupport>true</EnableUnitySupport>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v143</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
+    <EnableUnitySupport>true</EnableUnitySupport>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
@@ -51,6 +54,7 @@
     <PlatformToolset>v143</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
+    <EnableUnitySupport>true</EnableUnitySupport>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
@@ -104,6 +108,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -127,13 +132,92 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="yaAnimation.h" />
+    <ClInclude Include="yaBackPack.h" />
+    <ClInclude Include="Common.h" />
+    <ClInclude Include="def.h" />
     <ClInclude Include="framework.h" />
+    <ClInclude Include="yaAnimator.h" />
+    <ClInclude Include="yaBgImageObject.h" />
+    <ClInclude Include="yaButton.h" />
+    <ClInclude Include="yaCamera.h" />
+    <ClInclude Include="yaCollider.h" />
+    <ClInclude Include="yaCollisionManager.h" />
+    <ClInclude Include="yaComponent.h" />
+    <ClInclude Include="yaEndScene.h" />
+    <ClInclude Include="yaGameObject.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="WindowsAPI.h" />
+    <ClInclude Include="yaApplication.h" />
+    <ClInclude Include="yaEntity.h" />
+    <ClInclude Include="yaGround.h" />
+    <ClInclude Include="yaHUD.h" />
+    <ClInclude Include="yaImage.h" />
+    <ClInclude Include="yaInput.h" />
+    <ClInclude Include="yaLogoScene.h" />
+    <ClInclude Include="Maths.h" />
+    <ClInclude Include="yaMissile.h" />
+    <ClInclude Include="yaMonster.h" />
+    <ClInclude Include="yaObject.h" />
+    <ClInclude Include="yaPanel.h" />
+    <ClInclude Include="yaPlayer.h" />
+    <ClInclude Include="yaPlayScene.h" />
+    <ClInclude Include="yaResource.h" />
+    <ClInclude Include="yaResources.h" />
+    <ClInclude Include="yaRigidbody.h" />
+    <ClInclude Include="yaScene.h" />
+    <ClInclude Include="yaSceneManager.h" />
+    <ClInclude Include="yaSound.h" />
+    <ClInclude Include="yaSoundManager.h" />
+    <ClInclude Include="yaTile.h" />
+    <ClInclude Include="yaTilePalette.h" />
+    <ClInclude Include="yaTime.h" />
+    <ClInclude Include="yaTitleScene.h" />
+    <ClInclude Include="yaToolScene.h" />
+    <ClInclude Include="yaUiBase.h" />
+    <ClInclude Include="yaUIManager.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="WindowsAPI.cpp" />
+    <ClCompile Include="Maths.cpp" />
+    <ClCompile Include="yaAnimation.cpp" />
+    <ClCompile Include="yaAnimator.cpp" />
+    <ClCompile Include="yaBackPack.cpp" />
+    <ClCompile Include="yaBgImageObject.cpp" />
+    <ClCompile Include="yaButton.cpp" />
+    <ClCompile Include="yaCamera.cpp" />
+    <ClCompile Include="yaCollider.cpp" />
+    <ClCompile Include="yaCollisionManager.cpp" />
+    <ClCompile Include="yaComponent.cpp" />
+    <ClCompile Include="yaEndScene.cpp" />
+    <ClCompile Include="yaGameObject.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="yaApplication.cpp" />
+    <ClCompile Include="yaEntity.cpp" />
+    <ClCompile Include="yaGround.cpp" />
+    <ClCompile Include="yaHUD.cpp" />
+    <ClCompile Include="yaImage.cpp" />
+    <ClCompile Include="yaInput.cpp" />
+    <ClCompile Include="yaLogoScene.cpp" />
+    <ClCompile Include="yaMissile.cpp" />
+    <ClCompile Include="yaMonster.cpp" />
+    <ClCompile Include="yaPanel.cpp" />
+    <ClCompile Include="yaPlayer.cpp" />
+    <ClCompile Include="yaPlayScene.cpp" />
+    <ClCompile Include="yaResource.cpp" />
+    <ClCompile Include="yaResources.cpp" />
+    <ClCompile Include="yaRigidbody.cpp" />
+    <ClCompile Include="yaScene.cpp" />
+    <ClCompile Include="yaSceneManager.cpp" />
+    <ClCompile Include="yaSound.cpp" />
+    <ClCompile Include="yaSoundManager.cpp" />
+    <ClCompile Include="yaTile.cpp" />
+    <ClCompile Include="yaTilePalette.cpp" />
+    <ClCompile Include="yaTime.cpp" />
+    <ClCompile Include="yaTitleScene.cpp" />
+    <ClCompile Include="yaToolScene.cpp" />
+    <ClCompile Include="yaUiBase.cpp" />
+    <ClCompile Include="yaUIManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="WindowsAPI.rc" />
