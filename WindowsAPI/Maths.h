@@ -102,6 +102,8 @@ namespace ya
             return *this;
         }
 
+
+
         bool operator ==(const Vector2& other)
         {
             return (x == other.x && y == other.y);

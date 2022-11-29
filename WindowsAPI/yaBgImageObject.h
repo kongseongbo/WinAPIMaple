@@ -18,10 +18,14 @@ namespace ya
 
 		void SetImage(const std::wstring& key ,const std::wstring& fileName);
 		void SetPixelImage(const std::wstring& key, const std::wstring& fileName);
+		
 		Player* mPlayer;
 
 	private:
 		bool mbDebug;
+		bool mGroundOX;
+		bool mBlueGroundOX;
+		bool ox ;
 		Image* mImage;
 		Image* mPixelImage;
 	};

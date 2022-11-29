@@ -29,8 +29,10 @@ namespace ya
 		bgImage->SetImage(L"Map", L"Map\\HenesysGolemSawonBG.bmp");*/
 		
 		BgImageObject* bg = ya::object::Instantiate<BgImageObject>(eColliderLayer::PixelBackGround);
-		bg->SetPixelImage(L"PIXEL", L"Map\\Pixel.bmp");
-		bg->SetImage(L"Map", L"Map\\HenesysGolemSawon.bmp");
+		bg->SetPixelImage(L"PIXEL", L"Map\\Pixel2.bmp");
+		bg->SetImage(L"Map", L"Map\\HenesysGolemSawon2.bmp");
+		BgImageObject* bg2 = ya::object::Instantiate<BgImageObject>(eColliderLayer::BackGround);
+		bg2->SetImage(L"BGMap",L"Map\\HenesysGolemSawonBG2.bmp");
 		
 		
 		Player* player = ya::object::Instantiate<Player>(eColliderLayer::Player);

@@ -5,15 +5,20 @@
 #include "yaRigidbody.h"
 #include "yaInput.h"
 #include "yaCamera.h"
+#include "yaTime.h"
 
 namespace ya
 {
 	BgImageObject::BgImageObject()
 		: mImage(nullptr)
 		, mbDebug(false)
+		, mGroundOX(false)
+		, mBlueGroundOX(false)
+		, ox(true)
 	{
 		SetPos(Vector2::Zero);
 		SetScale(Vector2::One);
+		//SetScale({1.3f, 1.3f});
 	}
 
 	BgImageObject::~BgImageObject()
@@ -29,52 +34,89 @@ namespace ya
 	{
 		GameObject::Tick();
 
-		//Playerpos;
-		//mPixelImage->GetPixel(Playerpos);
-
 		if (mPlayer == nullptr)
 			return;
 
 		Vector2 pos = mPlayer->GetPos();
 
-		Pixel pixel = mPixelImage->GetPixelImage(pos.x, pos.y + 100.0f);
-		Pixel pixel2 = mPixelImage->GetPixelImage(pos.x + 20, pos.y + 50.0f);
-		Pixel pixel3 = mPixelImage->GetPixelImage(pos.x - 20, pos.y + 50.0f);
+		Pixel pixel = mPixelImage->GetPixelImage(pos.x, pos.y + 110.0f);
+		Pixel pixelRight = mPixelImage->GetPixelImage(pos.x + 20, pos.y + 50.0f);
+		Pixel pixelLeft = mPixelImage->GetPixelImage(pos.x - 20, pos.y + 50.0f);
+
+		// ¹Ù´Ú
 		if (pixel.R == 255 && pixel.G == 0 && pixel.B == 255)
 		{
-			mPlayer->GetComponent<Rigidbody>()->SetGravity(Vector2(0.0f,0.1f));
-			mPlayer->GetComponent<Rigidbody>()->SetGround(true);
-			Vector2 playerPos = mPlayer->GetPos();
-			playerPos.y -= 1.0f;
-			mPlayer->SetPos(playerPos);
-		}
-		else if (pixel2.R == 255 && pixel2.G == 0 && pixel2.B == 255)
-		{
-			mPlayer->SetMove(false);
+			
+			if (mGroundOX == false)
+			{
+				mPlayer->GetComponent<Rigidbody>()->SetGravity(Vector2(0.0f, 0.01f));
+				mPlayer->GetComponent<Rigidbody>()->SetGround(true);
+				mGroundOX = true;
+			}
 
-			mPlayer->GetComponent<Rigidbody>()->SetGround(true);
-			Vector2 playerPos = mPlayer->GetPos();
-			playerPos.x -= 1.0f;
-			mPlayer->SetPos(playerPos);
 		}
-		else if (pixel3.R == 255 && pixel3.G == 0 && pixel3.B == 255)
+		else if (!(pixel.R == 255 && pixel.G == 0 && pixel.B == 255)&& !(pixel.R == 0 && pixel.G == 0 && pixel.B == 255))
 		{
-			mPlayer->SetMove(false);
-
-			mPlayer->GetComponent<Rigidbody>()->SetGround(true);
-			Vector2 playerPos = mPlayer->GetPos();
-			playerPos.x += 1.0f;
-			mPlayer->SetPos(playerPos);
-		}
-		else
-		{
-			mPlayer->SetMove(true);
+			mGroundOX = false;
 			mPlayer->GetComponent<Rigidbody>()->SetGravity(Vector2(0.0f, 800.0f));
 			mPlayer->GetComponent<Rigidbody>()->SetGround(false);
 		}
+		
+		// ÆÄ¶û ¹Ù´Ú
+		if (pixel.R == 0 && pixel.G == 0 && pixel.B == 255)
+		{
+			if (KEY_PREESE(eKeyCode::S) && KEY_DOWN(eKeyCode::SPACE))
+			{
+				ox = false;
+				if (ox == false)
+				{
+					mPlayer->GetComponent<Rigidbody>()->SetGround(false);
+					pos.y += 30.0f /** Time::DeltaTime()*/;
+					mPlayer->SetPos({ pos.x,pos.y });
+					
+				}
+				
+			}
+			else
+			{
+				if (mBlueGroundOX == false && ox == true)
+				{
+					mPlayer->GetComponent<Rigidbody>()->SetGravity(Vector2(0.0f, 0.01f));
+					mPlayer->GetComponent<Rigidbody>()->SetGround(true);
+					mBlueGroundOX = true;
+				}
+			}
+		}
+		else if (!(pixel.R == 0 && pixel.G == 0 && pixel.B == 255))
+		{
+			ox = true;
+			mBlueGroundOX = false;
+			mPlayer->GetComponent<Rigidbody>()->SetGravity(Vector2(0.0f, 800.0f));
+			//mPlayer->GetComponent<Rigidbody>()->SetGround(false);
+		}
 
-		
-		
+		// ¿À¸¥ÂÊ º®
+		if (pixelRight.R == 255 && pixelRight.G == 0 && pixelRight.B == 255)
+		{
+			mPlayer->SetMoveRight(false);
+			mPlayer->GetComponent<Rigidbody>()->SetGround(true);
+		}
+		else
+		{
+			mPlayer->SetMoveRight(true);
+		}
+		// ¿ÞÂÊ º®
+		if (pixelLeft.R == 255 && pixelLeft.G == 0 && pixelLeft.B == 255)
+		{
+			mPlayer->SetMoveLeft(false);			
+			mPlayer->GetComponent<Rigidbody>()->SetGround(true);
+		}
+		else
+		{
+			mPlayer->SetMoveLeft(true);
+		}
+
+
 
 		if (KEY_DOWN(eKeyCode::P))
 		{
@@ -92,12 +134,12 @@ namespace ya
 		Vector2 finalPos = Camera::CalculatePos(pos);
 
 		Vector2 rect;
-		/*rect.x = mImage->GetWidth() * scale.x;
-		rect.y = mImage->GetHeight() * scale.y;
+		/*rect.x = mimage->getwidth() * scale.x;
+		rect.y = mimage->getheight() * scale.y;
 
-		TransparentBlt(hdc, finalPos.x, finalPos.y, rect.x, rect.y
-			, mImage->GetDC(), 0, 0, mImage->GetWidth(), mImage->GetHeight()
-			, RGB(255, 255, 255));*/
+		transparentblt(hdc, finalpos.x, finalpos.y, rect.x, rect.y
+			, mimage->getdc(), 0, 0, mimage->getwidth(), mimage->getheight()
+			, rgb(255, 255, 255));*/
 
 		
 
@@ -105,7 +147,7 @@ namespace ya
 		rect.y = mImage->GetHeight() * scale.y;
 
 		TransparentBlt(hdc, finalPos.x, finalPos.y, rect.x, rect.y
-			, mImage->GetDC(), 0, 0, mImage->GetWidth(), mImage->GetHeight()
+			, mImage->GetDC(), 0, 0, mImage->GetWidth() , mImage->GetHeight()
 			, RGB(255, 0, 255));
 
 

@@ -13,6 +13,7 @@
 #include "yaRigidbody.h"
 #include "yaUIManager.h"
 
+
 namespace ya
 {
 	Player::Player()
@@ -20,11 +21,11 @@ namespace ya
 		, mHp(100)
 		, skillstack(0)
 		, skillTime(0.0f)
-		, mMove(true)
+		, mMoveLeft(true)
 		, RL('L')
 	{
 		SetName(L"Player");
-		SetPos({ 500.0f, -300.0f });
+		SetPos({ 500.0f, -650.0f });
 		SetScale({ 1.0f, 1.0f });
 
 		
@@ -67,13 +68,29 @@ namespace ya
 		mAnimator->CreateAnimations(L"..\\Resources\\Animations\\Player\\RIdle"
 			, L"RIdle");
 		mAnimator->CreateAnimations(L"..\\Resources\\Animations\\Player\\MoveRight"
-			, L"MoveRight");
+			, L"MoveRight", Vector2(-15.0f, 0.0f));
 		mAnimator->CreateAnimations(L"..\\Resources\\Animations\\Player\\RSmash1"
 			, L"RSmash1");
 		mAnimator->CreateAnimations(L"..\\Resources\\Animations\\Player\\RSmash2"
 			, L"RSmash2");
 		mAnimator->CreateAnimations(L"..\\Resources\\Animations\\Player\\RSmash3"
 			, L"RSmash3");
+		mAnimator->CreateAnimations(L"..\\Resources\\Animations\\Player\\Beyonder\\RBeyonder1"
+			, L"RBeyonder1");
+		mAnimator->CreateAnimations(L"..\\Resources\\Animations\\Player\\Beyonder\\RBeyonder2"
+			, L"RBeyonder2");
+		mAnimator->CreateAnimations(L"..\\Resources\\Animations\\Player\\Beyonder\\RBeyonder3"
+			, L"RBeyonder3");
+		mAnimator->CreateAnimations(L"..\\Resources\\Animations\\Player\\Beyonder\\RBeyonderEffect1"
+			, L"RBeyonderEffect1", Vector2(200.0f, -50.0f));
+		mAnimator->CreateAnimations(L"..\\Resources\\Animations\\Player\\Beyonder\\RBeyonderEffect2"
+			, L"RBeyonderEffect2", Vector2(200.0f, -50.0f));
+		mAnimator->CreateAnimations(L"..\\Resources\\Animations\\Player\\Beyonder\\RBeyonderEffect3"
+			, L"RBeyonderEffect3", Vector2(200.0f, -50.0f));
+
+		//포탈
+		/*mAnimator->CreateAnimations(L"..\\Resources\\Animations\\p"
+			, L"p");*/
 
 		// 한 이미지에 전부 들어있을때
 		/*mAnimator->CreateAnimation(L"Idle", mImage
@@ -129,7 +146,7 @@ namespace ya
 
 		mCoff = 0.1f;
 		mMisiileDir = Vector2::One;
-		//Camera::SetTarget(this);
+		Camera::SetTarget(this);
 		//float x = math::lerp(1.0f, 3.0f, 0.5f);
 	}
 
@@ -149,7 +166,7 @@ namespace ya
 		}
 		if (KEY_DOWN(eKeyCode::S))
 		{
-			mAnimator->Play(L"MoveDown", true);
+			//mAnimator->Play(L"MoveDown", true);
 		}
 		if (KEY_DOWN(eKeyCode::A))
 		{
@@ -191,14 +208,9 @@ namespace ya
 
 			//GetComponent<Rigidbody>()->AddForce(Vector2(0.0f, -200.0f));
 		}
-		if (KEY_PREESE(eKeyCode::S))
-		{
-			//pos.y += 120.0f * Time::DeltaTime();
-			GetComponent<Rigidbody>()->AddForce(Vector2(0.0f, 200.0f));
-		}
 		if (KEY_PREESE(eKeyCode::A))
 		{
-			if (mMove == false)
+			if (mMoveLeft == false)
 				return;
 			
 			pos.x -= 120.0f * Time::DeltaTime();
@@ -214,29 +226,37 @@ namespace ya
 		}
 		if (KEY_PREESE(eKeyCode::D))
 		{
-			if (mMove == false)
+			if (mMoveRight == false)
 				return;
 
 			pos.x += 120.0f * Time::DeltaTime();
 			//GetComponent<Rigidbody>()->AddForce(Vector2(200.0f, 0.0f));
 			
 		}
-		SetPos(pos);
-
 		if (KEY_DOWN(eKeyCode::SPACE))
 		{
 			Rigidbody* rigidbody = GetComponent<Rigidbody>();
 			Vector2 velocity = rigidbody->GetVelocity();
-			velocity.y = -500.0f;
-			rigidbody->SetVelocity(velocity);
-
-			rigidbody->SetGround(false);
-
-			UIManager::Pop(eUIType::OPTION);
+			if (KEY_PREESE(eKeyCode::S))
+			{
+				//velocity.y = -300.0f;
+				rigidbody->SetVelocity(velocity);
+			}
+			else
+			{
+				velocity.y = -500.0f;
+				rigidbody->SetGround(false);
+				rigidbody->SetVelocity(velocity);
+				UIManager::Pop(eUIType::OPTION);
+			}
 		}
+
 		//Inventory
 		if (KEY_DOWN(eKeyCode::I))
 		{
+			//포탈
+			//mAnimator->Play(L"p", true);
+
 			BackPack* backPack = new BackPack();
 			Scene* playScene = SceneManager::GetPlayScene();
 			playScene->AddGameObject(backPack, eColliderLayer::Player_Projecttile);
@@ -244,8 +264,6 @@ namespace ya
 		//Skill Smash 
 		if (KEY_DOWN(eKeyCode::LCTRL))
 		{
-
-
 			if (skillstack == 0)
 			{
 				skillstack++;
@@ -273,7 +291,7 @@ namespace ya
 			}
 		}
 		
-		//Beyonder
+		//Skill Beyonder
 		if (KEY_DOWN(eKeyCode::LSHIFT))
 		{
 
@@ -285,7 +303,7 @@ namespace ya
 				if (RL == 'L')
 					mAnimator->Plays(L"Beyonder1", L"BeyonderEffect1", false, false);
 				else if (RL == 'R')
-					mAnimator->Play(L"RSmash1", false);
+					mAnimator->Plays(L"RBeyonder1", L"RBeyonderEffect1", false, false);
 				
 			}
 			else if (skillstack == 1)
@@ -296,7 +314,7 @@ namespace ya
 				if (RL == 'L')
 					mAnimator->Plays(L"Beyonder2", L"BeyonderEffect2", false, false);
 				else if (RL == 'R')
-					mAnimator->Play(L"RSmash2", false);
+					mAnimator->Plays(L"RBeyonder2", L"RBeyonderEffect2", false, false);
 			}
 			else if (skillstack == 2)
 			{
@@ -305,7 +323,7 @@ namespace ya
 				if (RL == 'L')
 					mAnimator->Plays(L"Beyonder3", L"BeyonderEffect3", false, false);
 				else if (RL == 'R')
-					mAnimator->Play(L"RSmash3", false);
+					mAnimator->Plays(L"RBeyonder3", L"RBeyonderEffect3", false, false);
 			}
 		}
 		if (skillstack > 0)
@@ -318,6 +336,7 @@ namespace ya
 				skillstack = 0;
 			}
 		}
+		SetPos(pos);
 	}
 
 	void Player::Render(HDC hdc)

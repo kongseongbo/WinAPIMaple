@@ -22,8 +22,7 @@ namespace ya
 	{
 		WindowData data = Application::GetInstance().GetWindowData();
 		mResolution = Vector2(data.width, data.height);
-		mLookPosition = (mResolution / 2.0f);
-
+		mLookPosition = (mResolution / 2);
 		//mEffect = eCameraEffect::FadeOut;
 		mCutton = Image::Create(L"CameraCutton", 1600, 900);
 	}
@@ -45,8 +44,6 @@ namespace ya
 			}
 		}
 
-
-		
 		if (KEY_PREESE(eKeyCode::UP))
 		{
 			mLookPosition.y -= 600.0f * Time::DeltaTime();
@@ -67,6 +64,8 @@ namespace ya
 
 		if (mTarget != nullptr)
 			mLookPosition = mTarget->GetPos();
+
+		mLookPosition.y -= 150.0f;
 
 		mDistance = mLookPosition - (mResolution / 2.0f);
 	}

@@ -23,7 +23,8 @@ namespace ya
 		void SetHp(int hp) { mHp = hp; }
 		int GetHp() { return mHp; }
 
-		void SetMove(bool move) { mMove = move; }
+		void SetMoveLeft(bool move) { mMoveLeft = move; }
+		void SetMoveRight(bool move) { mMoveRight = move; }
 	private:
 		float mCoff;
 		float mSpeed;
@@ -36,7 +37,8 @@ namespace ya
 
 		int skillstack;
 		float skillTime;
-		bool mMove;
+		bool mMoveLeft;
+		bool mMoveRight;
 		char RL;
 		
 	};

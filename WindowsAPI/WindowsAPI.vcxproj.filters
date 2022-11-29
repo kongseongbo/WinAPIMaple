@@ -298,9 +298,6 @@
     <ClCompile Include="yaMonster.cpp">
       <Filter>Engine\GameObject\Game</Filter>
     </ClCompile>
-    <ClCompile Include="yaPlayer.cpp">
-      <Filter>Engine\GameObject\Game</Filter>
-    </ClCompile>
     <ClCompile Include="yaRigidbody.cpp">
       <Filter>Engine\Component</Filter>
     </ClCompile>
@@ -327,6 +324,9 @@
     </ClCompile>
     <ClCompile Include="yaSound.cpp">
       <Filter>Engine\Resource</Filter>
+    </ClCompile>
+    <ClCompile Include="yaPlayer.cpp">
+      <Filter>Engine\GameObject\Game</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

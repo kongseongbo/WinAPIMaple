@@ -18,8 +18,8 @@ namespace ya
 		button->SetPos(Vector2(0.0f, 0.0f));
 		//newUI->SetSize(Vector2(500.0f, 100.0f));
 		button->ImageLoad(L"HPBAR", L"..\\Resources\\Image\\HPBAR.bmp");
-		
-		HUD*  hud = new HUD(eUIType::MP);
+
+		HUD* hud = new HUD(eUIType::MP);
 		mUIs.insert(std::make_pair(eUIType::MP, hud));
 		hud->SetPos(Vector2(0.0f, 100.0f));
 		hud->ImageLoad(L"HPBAR", L"..\\Resources\\Image\\HPBAR.bmp");
@@ -28,7 +28,7 @@ namespace ya
 		mUIs.insert(std::make_pair(eUIType::INVENTORY, panel));
 		//newUI->SetIsFullScreen(true);
 		panel->ImageLoad(L"BackPack", L"..\\Resources\\Image\\BackPack.bmp");
-		panel->SetPos(Vector2(100.0f, 100.0f));
+		panel->SetPos(Vector2(200.0f, 100.0f));
 		panel->AddChild(button);
 		panel->AddChild(hud);
 
@@ -73,14 +73,24 @@ namespace ya
 	void UIManager::Render(HDC hdc)
 	{
 		std::stack<UiBase*> uiBases = mUIBases;
+		std::stack<UiBase*> tempStack;
+
+		// 뒤집어서 렌더링을 해준다.
 		while (!uiBases.empty())
 		{
 			UiBase* uiBase = uiBases.top();
+			tempStack.push(uiBase);
+			uiBases.pop();
+		}
+
+		while (!tempStack.empty())
+		{
+			UiBase* uiBase = tempStack.top();
 			if (uiBase != nullptr)
 			{
 				uiBase->Render(hdc);
 			}
-			uiBases.pop();
+			tempStack.pop();
 		}
 	}
 
@@ -142,6 +152,7 @@ namespace ya
 		{
 			uiBase = mUIBases.top();
 			mUIBases.pop();
+
 			// pop하는 ui가 전체화면 일경우에,
 			// 남은 ui중에 전체화면인 가장 상단의 ui 를 활성화 해주어야한다.
 			if (uiBase->GetType() == type)
@@ -161,7 +172,7 @@ namespace ya
 						}
 					}
 				}
-
+				uiBase->InActive();
 				uiBase->UIClear();
 			}
 			else
@@ -178,5 +189,5 @@ namespace ya
 		}
 
 	}
-	
+
 }
