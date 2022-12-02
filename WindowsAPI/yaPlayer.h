@@ -8,6 +8,15 @@ namespace ya
 	class Player : public GameObject
 	{
 	public:
+		enum class State
+		{
+			IDLE,
+			MOVE,
+			SMASH,
+			BEYONDER,
+			MOVESMASH,
+			DEATH,
+		};
 		Player();
 		~Player();
 
@@ -25,6 +34,16 @@ namespace ya
 
 		void SetMoveLeft(bool move) { mMoveLeft = move; }
 		void SetMoveRight(bool move) { mMoveRight = move; }
+
+		void Idle();
+		void Move();
+		void Smash();
+		void MoveSmash();
+		void Beyonder();
+		void Death();
+
+
+
 	private:
 		float mCoff;
 		float mSpeed;
@@ -35,11 +54,13 @@ namespace ya
 		int mHp;
 		Vector2 dest;
 
-		int skillstack;
-		float skillTime;
+		State mState = State::IDLE;
+
+		int mSkillStack;
+		float mSkillTime;
 		bool mMoveLeft;
 		bool mMoveRight;
-		char RL;
+		bool mRightLook;
 		
 	};
 

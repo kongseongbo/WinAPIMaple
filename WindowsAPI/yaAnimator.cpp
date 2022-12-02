@@ -177,6 +177,7 @@ namespace ya
 
 		Animation* prevAnimation = mPlayAnimaion;
 		mPlayAnimaion = FindAnimation(name);
+		
 		mPlayAnimaion->Reset();
 		mbLoop = bLoop;
 

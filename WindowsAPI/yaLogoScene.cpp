@@ -1,6 +1,6 @@
 #include "yaLogoScene.h"
 #include "yaPlayer.h"
-#include "yaMonster.h"
+#include "yaMushMom.h"
 #include "yaInput.h"
 #include "yaSceneManager.h"
 #include "yaBgImageObject.h"
@@ -49,7 +49,7 @@ namespace ya
 		HUD* hud = UIManager::GetUiInstant<HUD>(eUIType::MP);
 		hud->SetTarget(player);
 
-		int a = 0;
+		MushMom* mMushmom = ya::object::Instantiate<MushMom>(eColliderLayer::Monster);
 		//mons[0] = ya::object::Instantiate<Monster>(eColliderLayer::Monster);
 		//mons[1] = ya::object::Instantiate<Monster>(Vector2{ 1600 / 2 + 130, 300 / 2 },eColliderLayer::Monster);
 

@@ -4,12 +4,22 @@
 namespace ya
 {
 	class Image;
-	class Monster : public GameObject
+	class MushMom : public GameObject
 	{
 	public:
-		Monster();
-		Monster(Vector2 position);
-		~Monster();
+		enum class State
+		{
+			IDLE,
+			MOVE,
+			ATTACK,
+			HIT,
+			DEATH,
+		};
+
+	public:
+		MushMom();
+		MushMom(Vector2 position);
+		~MushMom();
 
 		virtual void Tick() override;
 		virtual void Render(HDC hdc) override;
@@ -18,11 +28,22 @@ namespace ya
 		virtual void OnCollisionStay(Collider* other) override;
 		virtual void OnCollisionExit(Collider* other) override;
 
-		//void Dead();
+		void Idle();
+		void Move();
+		void Attack();
+		void Hit();
+		void Death();
+
 
 	private:
+		State mState = State::IDLE;
+		Animator* mAnimator;
 		Image* mImage;
+		bool mMoveLeft;
 		float mTime;
+		float mDir;
+
+		int mHp;
 	};
 
 }

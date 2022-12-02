@@ -48,6 +48,7 @@ namespace ya
 		void Play(const std::wstring& name, bool bLoop = false);
 		void Plays(const std::wstring& name, const std::wstring& name2, bool bLoop = false, bool bLoop2 = false);
 
+		Image* GetSprite() { return mSPriteSheet; }
 		Events* FindEvents(const std::wstring key);
 		std::function<void()>& GetStartEvent(const std::wstring key);
 		std::function<void()>& GetCompleteEvent(const std::wstring key);

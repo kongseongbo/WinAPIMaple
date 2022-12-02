@@ -38,6 +38,8 @@ namespace ya
 		bool isComplete() { return mbComplete; }
 		void SetAnimator(Animator* animator) { mAnimator = animator; }
 
+		UINT GetSpriteSheet() { return mSpriteIndex; }
+		
 	private:
 		Animator* mAnimator;
 		Image* mImage;

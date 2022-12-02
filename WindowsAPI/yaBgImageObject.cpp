@@ -65,7 +65,7 @@ namespace ya
 		// ÆÄ¶û ¹Ù´Ú
 		if (pixel.R == 0 && pixel.G == 0 && pixel.B == 255)
 		{
-			if (KEY_PREESE(eKeyCode::S) && KEY_DOWN(eKeyCode::SPACE))
+			if (KEY_PREESE(eKeyCode::DOWN) && KEY_DOWN(eKeyCode::SPACE))
 			{
 				ox = false;
 				if (ox == false)

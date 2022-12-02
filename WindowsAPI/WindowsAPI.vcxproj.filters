@@ -160,7 +160,7 @@
     <ClInclude Include="yaMissile.h">
       <Filter>Engine\GameObject\Game</Filter>
     </ClInclude>
-    <ClInclude Include="yaMonster.h">
+    <ClInclude Include="yaMushMom.h">
       <Filter>Engine\GameObject\Game</Filter>
     </ClInclude>
     <ClInclude Include="yaPlayer.h">
@@ -295,7 +295,7 @@
     <ClCompile Include="yaMissile.cpp">
       <Filter>Engine\GameObject\Game</Filter>
     </ClCompile>
-    <ClCompile Include="yaMonster.cpp">
+    <ClCompile Include="yaMushMom.cpp">
       <Filter>Engine\GameObject\Game</Filter>
     </ClCompile>
     <ClCompile Include="yaRigidbody.cpp">

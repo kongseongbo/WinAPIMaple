@@ -19,21 +19,20 @@ namespace ya
 	Player::Player()
 		: mSpeed(1.0f)
 		, mHp(100)
-		, skillstack(0)
-		, skillTime(0.0f)
+		, mSkillStack(0)
+		, mSkillTime(0.0f)
 		, mMoveLeft(true)
-		, RL('L')
+		, mRightLook(false)
 	{
 		SetName(L"Player");
-		SetPos({ 500.0f, -650.0f });
+		SetPos({ 500.0f, -750.0f });
 		SetScale({ 1.0f, 1.0f });
 
-		
 
-		if (mImage == nullptr)
+		/*if (mImage == nullptr)
 		{
 			mImage = Resources::Load<Image>(L"Player", L"..\\Resources\\Animations\\Player\\Idle\\stand.bmp");
-		}
+		}*/
 
 
 		mAnimator = new Animator();
@@ -58,7 +57,7 @@ namespace ya
 		mAnimator->CreateAnimations(L"..\\Resources\\Animations\\Player\\Beyonder\\Beyonder3"
 			, L"Beyonder3");
 		mAnimator->CreateAnimations(L"..\\Resources\\Animations\\Player\\Beyonder\\BeyonderEffect1"
-			, L"BeyonderEffect1",Vector2(-200.0f,-50.0f));
+			, L"BeyonderEffect1", Vector2(-200.0f, -50.0f));
 		mAnimator->CreateAnimations(L"..\\Resources\\Animations\\Player\\Beyonder\\BeyonderEffect2"
 			, L"BeyonderEffect2", Vector2(-200.0f, -50.0f));
 		mAnimator->CreateAnimations(L"..\\Resources\\Animations\\Player\\Beyonder\\BeyonderEffect3"
@@ -92,23 +91,23 @@ namespace ya
 		/*mAnimator->CreateAnimations(L"..\\Resources\\Animations\\p"
 			, L"p");*/
 
-		// 한 이미지에 전부 들어있을때
-		/*mAnimator->CreateAnimation(L"Idle", mImage
-			, Vector2(0.0f, 0.0f), Vector2(120.0f, 130.0f)
-			, Vector2(5.0f, -20.0f), 3, 0.1f);
+			// 한 이미지에 전부 들어있을때
+			/*mAnimator->CreateAnimation(L"Idle", mImage
+				, Vector2(0.0f, 0.0f), Vector2(120.0f, 130.0f)
+				, Vector2(5.0f, -20.0f), 3, 0.1f);
 
-		mAnimator->CreateAnimation(L"MoveDown", mImage
-			, Vector2(0.0f, 520.0f), Vector2(120.0f, 130.0f)
-			, Vector2(5.0f, -20.0f), 10, 0.1f);
-		mAnimator->CreateAnimation(L"MoveLeft", mImage
-			, Vector2(0.0f, 650.0f), Vector2(120.0f, 130.0f)
-			, Vector2(5.0f, -20.0f), 10, 0.1f);
-		mAnimator->CreateAnimation(L"MoveUp", mImage
-			, Vector2(0.0f, 780.0f), Vector2(120.0f, 130.0f)
-			, Vector2(5.0f, -20.0f), 10, 0.1f);
-		mAnimator->CreateAnimation(L"MoveRight", mImage
-			, Vector2(0.0f, 910.0f), Vector2(120.0f, 130.0f)
-			, Vector2(5.0f, -20.0f), 10, 0.1f);*/
+			mAnimator->CreateAnimation(L"MoveDown", mImage
+				, Vector2(0.0f, 520.0f), Vector2(120.0f, 130.0f)
+				, Vector2(5.0f, -20.0f), 10, 0.1f);
+			mAnimator->CreateAnimation(L"MoveLeft", mImage
+				, Vector2(0.0f, 650.0f), Vector2(120.0f, 130.0f)
+				, Vector2(5.0f, -20.0f), 10, 0.1f);
+			mAnimator->CreateAnimation(L"MoveUp", mImage
+				, Vector2(0.0f, 780.0f), Vector2(120.0f, 130.0f)
+				, Vector2(5.0f, -20.0f), 10, 0.1f);
+			mAnimator->CreateAnimation(L"MoveRight", mImage
+				, Vector2(0.0f, 910.0f), Vector2(120.0f, 130.0f)
+				, Vector2(5.0f, -20.0f), 10, 0.1f);*/
 
 		mAnimator->Play(L"Idle", true);
 		//mAnimator->FindEvents(L"MoveRight")->mCompleteEvent = std::bind(&Player::WalkComplete, this);
@@ -158,88 +157,62 @@ namespace ya
 	void Player::Tick()
 	{
 		GameObject::Tick();
-		Vector2 pos = GetPos();
+		switch (mState)
+		{
+		case ya::Player::State::IDLE:
+			mSkillStack = 0;
+			Idle();
+			break;
+		case ya::Player::State::MOVE:
+			Move();
+			break;
+		case ya::Player::State::SMASH:
+			Smash();
+			break;
+		case ya::Player::State::BEYONDER:
+			Beyonder();
+			break;
+		case ya::Player::State::MOVESMASH:
+			MoveSmash();
+			break;
+		case ya::Player::State::DEATH:
+			Death();
+			break;
 
-		if (KEY_DOWN(eKeyCode::W))
+		default:
+			break;
+		}
+	}
+
+	void Player::Idle()
+	{
+
+		mAnimator->Play(L"Idle", true);
+		if (mRightLook)
+		{
+			mAnimator->Play(L"RIdle", true);
+		}
+		if (KEY_DOWN(eKeyCode::UP))
 		{
 			mAnimator->Play(L"MoveUp", true);
+			mState = State::MOVE;
 		}
-		if (KEY_DOWN(eKeyCode::S))
-		{
-			//mAnimator->Play(L"MoveDown", true);
-		}
-		if (KEY_DOWN(eKeyCode::A))
+		if (KEY_DOWN(eKeyCode::LEFT))
 		{
 			mAnimator->Play(L"MoveLeft", true);
-			RL = 'L';
+			mState = State::MOVE;
 		}
-		if (KEY_DOWN(eKeyCode::D))
+		if (KEY_DOWN(eKeyCode::RIGHT))
 		{
 			mAnimator->Play(L"MoveRight", true);
-			RL = 'R';
-		}
-
-		if (KEY_UP(eKeyCode::W))
-		{
-			mAnimator->Play(L"Idle", true);
-		}
-		if (KEY_UP(eKeyCode::S))
-		{
-			mAnimator->Play(L"Idle", true);
-		}
-		if (KEY_UP(eKeyCode::A))
-		{
-			if(KEY_PREESE(eKeyCode::D))
-				mAnimator->Play(L"MoveRight", true);
-			else
-				mAnimator->Play(L"Idle", true);
-		}
-		if (KEY_UP(eKeyCode::D))
-		{
-			if (KEY_PREESE(eKeyCode::A))
-				mAnimator->Play(L"MoveLeft", true);
-			else
-				mAnimator->Play(L"RIdle", true);
-		}
-
-		if (KEY_PREESE(eKeyCode::W))
-		{
-			pos.y -= 120.0f * Time::DeltaTime();
-
-			//GetComponent<Rigidbody>()->AddForce(Vector2(0.0f, -200.0f));
-		}
-		if (KEY_PREESE(eKeyCode::A))
-		{
-			if (mMoveLeft == false)
-				return;
-			
-			pos.x -= 120.0f * Time::DeltaTime();
-			//missile->mDir.x = 1.0f;
-			//GetComponent<Rigidbody>()->AddForce(Vector2(-200.0f, 0.0f));
-
-			//Vector2 pos = GetPos();
-			//
-			//pos = math::lerp(pos, dest, 0.003f);
-			//SetPos(pos);
-			//pos = math::lerp(pos, )
-
-		}
-		if (KEY_PREESE(eKeyCode::D))
-		{
-			if (mMoveRight == false)
-				return;
-
-			pos.x += 120.0f * Time::DeltaTime();
-			//GetComponent<Rigidbody>()->AddForce(Vector2(200.0f, 0.0f));
-			
+			mState = State::MOVE;
 		}
 		if (KEY_DOWN(eKeyCode::SPACE))
 		{
 			Rigidbody* rigidbody = GetComponent<Rigidbody>();
 			Vector2 velocity = rigidbody->GetVelocity();
-			if (KEY_PREESE(eKeyCode::S))
+			if (KEY_PREESE(eKeyCode::DOWN))
 			{
-				//velocity.y = -300.0f;
 				rigidbody->SetVelocity(velocity);
 			}
 			else
@@ -247,96 +220,262 @@ namespace ya
 				velocity.y = -500.0f;
 				rigidbody->SetGround(false);
 				rigidbody->SetVelocity(velocity);
-				UIManager::Pop(eUIType::OPTION);
 			}
+			UIManager::Pop(eUIType::OPTION);
 		}
 
-		//Inventory
-		if (KEY_DOWN(eKeyCode::I))
+		if (KEY_DOWN(eKeyCode::LCTRL))
+			mState = State::SMASH;
+		
+		if (KEY_DOWN(eKeyCode::LSHIFT))
+			mState = State::BEYONDER;
+		
+	}
+	void Player::Move()
+	{
+		Vector2 pos = GetPos();
+		if (KEY_PREESE(eKeyCode::UP))
 		{
-			//포탈
-			//mAnimator->Play(L"p", true);
-
-			BackPack* backPack = new BackPack();
-			Scene* playScene = SceneManager::GetPlayScene();
-			playScene->AddGameObject(backPack, eColliderLayer::Player_Projecttile);
+			pos.y -= 120.0f * Time::DeltaTime();
 		}
-		//Skill Smash 
+		if (KEY_PREESE(eKeyCode::LEFT))
+		{
+			if (mMoveLeft == false)
+				return;
+
+			pos.x -= 120.0f * Time::DeltaTime();
+			mRightLook = false;
+		}
+		if (KEY_PREESE(eKeyCode::RIGHT))
+		{
+			if (mMoveRight == false)
+				return;
+
+			pos.x += 120.0f * Time::DeltaTime();
+			mRightLook = true;
+		}
+		if (KEY_DOWN(eKeyCode::SPACE))
+		{
+			Rigidbody* rigidbody = GetComponent<Rigidbody>();
+			Vector2 velocity = rigidbody->GetVelocity();
+			if (KEY_PREESE(eKeyCode::DOWN))
+			{
+				rigidbody->SetVelocity(velocity);
+			}
+			else
+			{
+				velocity.y = -500.0f;
+				rigidbody->SetGround(false);
+				rigidbody->SetVelocity(velocity);
+			}
+			UIManager::Pop(eUIType::OPTION);
+		}
+		if (KEY_UP(eKeyCode::UP) || KEY_UP(eKeyCode::LEFT) || KEY_UP(eKeyCode::RIGHT))
+		{
+			mState = State::IDLE;
+		}
 		if (KEY_DOWN(eKeyCode::LCTRL))
 		{
-			if (skillstack == 0)
-			{
-				skillstack++;
-				if(RL == 'L')
-					mAnimator->Play(L"Smash1", false);
-				else if(RL == 'R')
-					mAnimator->Play(L"RSmash1", false);
-			}
-			else if (skillstack == 1)
-			{
-				skillstack++;
-				skillTime = 0.0f;
-				if (RL == 'L')
-					mAnimator->Play(L"Smash2", false);
-				else if (RL == 'R')
-					mAnimator->Play(L"RSmash2", false);
-			}
-			else if (skillstack == 2)
-			{
-				skillstack = 0;
-				if (RL == 'L')
-					mAnimator->Play(L"Smash3", false);
-				else if (RL == 'R')
-					mAnimator->Play(L"RSmash3", false);
-			}
+			mState = State::SMASH;
 		}
-		
-		//Skill Beyonder
 		if (KEY_DOWN(eKeyCode::LSHIFT))
 		{
+			mState = State::BEYONDER;
+		}
+		if ((KEY_PREESE(eKeyCode::RIGHT) || KEY_PREESE(eKeyCode::LEFT)) &&  KEY_DOWN(eKeyCode::LCTRL))
+		{
+			mState = State::MOVESMASH;
+		}
 
-
-			if (skillstack == 0)
+		SetPos(pos);
+	}
+	void Player::Smash()
+	{
+		mSkillTime += Time::DeltaTime();
+		if (KEY_DOWN(eKeyCode::LCTRL))
+		{
+			if (mSkillTime > 5.0f)
 			{
-				skillstack++;
-
-				if (RL == 'L')
-					mAnimator->Plays(L"Beyonder1", L"BeyonderEffect1", false, false);
-				else if (RL == 'R')
-					mAnimator->Plays(L"RBeyonder1", L"RBeyonderEffect1", false, false);
-				
+				mSkillTime = 0.0f;
+				mSkillStack = 0;
 			}
-			else if (skillstack == 1)
-			{
-				skillstack++;
-				skillTime = 0.0f;
 
-				if (RL == 'L')
-					mAnimator->Plays(L"Beyonder2", L"BeyonderEffect2", false, false);
-				else if (RL == 'R')
+			if (mSkillStack == 0)
+			{
+				mSkillStack++;
+				if (mRightLook)
+					mAnimator->Play(L"RSmash1", false);
+				else
+					mAnimator->Play(L"Smash1", false);
+			}
+			else if (mSkillStack == 1)
+			{
+				mSkillTime = 0.0f;
+				mSkillStack++;
+				if (mRightLook)
+					mAnimator->Play(L"RSmash2", false);
+				else
+					mAnimator->Play(L"Smash2", false);
+			}
+			else if (mSkillStack == 2)
+			{
+				mSkillStack = 0;
+				if (mRightLook)
+					mAnimator->Play(L"RSmash3", false);
+				else
+					mAnimator->Play(L"Smash3", false);
+			}
+		}
+
+		if (KEY_DOWN(eKeyCode::UP))
+		{
+			mAnimator->Play(L"MoveUp", true);
+			mState = State::MOVE;
+		}
+		if (KEY_DOWN(eKeyCode::LEFT))
+		{
+			mAnimator->Play(L"MoveLeft", true);
+			mState = State::MOVE;
+		}
+		if (KEY_DOWN(eKeyCode::RIGHT))
+		{
+			mAnimator->Play(L"MoveRight", true);
+			mState = State::MOVE;
+		}
+	}
+	void Player::MoveSmash()
+	{
+		Vector2 pos = GetPos();
+
+		if (KEY_DOWN(eKeyCode::LCTRL))
+		{
+			if (mSkillTime > 5.0f)
+			{
+				mSkillTime = 0.0f;
+				mSkillStack = 0;
+			}
+
+			if (mSkillStack == 0)
+			{
+				mSkillStack++;
+				if (mRightLook)
+				{
+					pos.x += 1000.0f * Time::DeltaTime();
+					mAnimator->Play(L"RSmash1", false);
+				}
+				else
+				{
+					pos.x -= 1000.0f * Time::DeltaTime();
+					mAnimator->Play(L"Smash1", false);
+				}
+			}
+			else if (mSkillStack == 1)
+			{
+				mSkillStack++;
+				mSkillTime = 0.0f;
+				if (mRightLook)
+				{
+					pos.x += 1000.0f * Time::DeltaTime();
+					mAnimator->Play(L"RSmash2", false);
+				}
+				else
+				{
+					pos.x -= 1000.0f * Time::DeltaTime();
+					mAnimator->Play(L"Smash2", false);
+				}
+			}
+			else if (mSkillStack == 2)
+			{
+				mSkillStack = 0;
+				if (mRightLook)
+				{
+					pos.x += 1000.0f * Time::DeltaTime();
+					mAnimator->Play(L"RSmash3", false);
+				}
+				else
+				{
+					pos.x -= 1000.0f * Time::DeltaTime();
+					mAnimator->Play(L"Smash3", false);
+				}
+			}
+		}
+
+		if (KEY_DOWN(eKeyCode::UP))
+		{
+			mAnimator->Play(L"MoveUp", true);
+			mState = State::MOVE;
+		}
+		if (KEY_DOWN(eKeyCode::LEFT))
+		{
+			mAnimator->Play(L"MoveLeft", true);
+			mState = State::MOVE;
+		}
+		if (KEY_DOWN(eKeyCode::RIGHT))
+		{
+			mAnimator->Play(L"MoveRight", true);
+			mState = State::MOVE;
+		}
+		SetPos(pos);
+	}
+	void Player::Beyonder()
+	{
+		mSkillTime += Time::DeltaTime();
+		if (KEY_DOWN(eKeyCode::LSHIFT))
+		{
+			if (mSkillTime > 5.0f)
+			{
+				mSkillTime = 0.0f;
+				mSkillStack = 0;
+			}
+
+			if (mSkillStack == 0)
+			{
+				mSkillStack++;
+
+				mAnimator->Plays(L"Beyonder1", L"BeyonderEffect1", false, false);
+				if (mRightLook)
+					mAnimator->Plays(L"RBeyonder1", L"RBeyonderEffect1", false, false);
+
+			}
+			else if (mSkillStack == 1)
+			{
+				mSkillStack++;
+				mSkillTime = 0.0f;
+
+				mAnimator->Plays(L"Beyonder2", L"BeyonderEffect2", false, false);
+				if (mRightLook)
 					mAnimator->Plays(L"RBeyonder2", L"RBeyonderEffect2", false, false);
 			}
-			else if (skillstack == 2)
+			else if (mSkillStack == 2)
 			{
-				skillstack = 0;
+				mSkillStack = 0;
 
-				if (RL == 'L')
-					mAnimator->Plays(L"Beyonder3", L"BeyonderEffect3", false, false);
-				else if (RL == 'R')
+				mAnimator->Plays(L"Beyonder3", L"BeyonderEffect3", false, false);
+				if (mRightLook)
 					mAnimator->Plays(L"RBeyonder3", L"RBeyonderEffect3", false, false);
 			}
 		}
-		if (skillstack > 0)
-		{
-			skillTime += Time::DeltaTime();
 
-			if (skillTime > 5.0f)
-			{
-				skillTime = 0.0f;
-				skillstack = 0;
-			}
+		if (KEY_DOWN(eKeyCode::UP))
+		{
+			mAnimator->Play(L"MoveUp", true);
+			mState = State::MOVE;
 		}
-		SetPos(pos);
+		if (KEY_DOWN(eKeyCode::LEFT))
+		{
+			mAnimator->Play(L"MoveLeft", true);
+			mState = State::MOVE;
+		}
+		if (KEY_DOWN(eKeyCode::RIGHT))
+		{
+			mAnimator->Play(L"MoveRight", true);
+			mState = State::MOVE;
+		}
+	}
+
+	void Player::Death()
+	{
+
 	}
 
 	void Player::Render(HDC hdc)
@@ -379,4 +518,6 @@ namespace ya
 
 		missile->SetPos((playerPos + playerScale) - (missileScale / 2.0f));
 	}
+
+
 }
