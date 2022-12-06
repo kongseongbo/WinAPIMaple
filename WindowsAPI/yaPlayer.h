@@ -27,7 +27,7 @@ namespace ya
 		virtual void OnCollisionStay(Collider* other) override;
 		virtual void OnCollisionExit(Collider* other) override;
 
-		void WalkComplete();
+		//void WalkComplete();
 
 		void SetHp(int hp) { mHp = hp; }
 		int GetHp() { return mHp; }

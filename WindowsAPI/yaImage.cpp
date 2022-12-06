@@ -8,10 +8,8 @@ namespace ya
 	{
 		Image* image = Resources::Find<Image>(key);
 		if (image != nullptr)
-		{
-			MessageBox(nullptr, L"중복 키 이미지 생성", L"이미지 생성 실패!", MB_OK);
-			return nullptr;
-		}
+			return image;
+		
 
 		// 이미지를 생성해줘야한다.
 		image = new Image();

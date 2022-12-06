@@ -3,6 +3,7 @@
 
 namespace ya
 {
+	class Player;
 	class Image;
 	class MushMom : public GameObject
 	{
@@ -18,7 +19,6 @@ namespace ya
 
 	public:
 		MushMom();
-		MushMom(Vector2 position);
 		~MushMom();
 
 		virtual void Tick() override;
@@ -34,6 +34,7 @@ namespace ya
 		void Hit();
 		void Death();
 
+		Player* mPlayer;
 
 	private:
 		State mState = State::IDLE;
@@ -42,7 +43,7 @@ namespace ya
 		bool mMoveLeft;
 		float mTime;
 		float mDir;
-
+		float distance;
 		int mHp;
 	};
 

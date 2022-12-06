@@ -94,7 +94,7 @@ namespace ya
 
 		GameObject::Render(hdc);
 
-		GameObject::Render(hdc);
+		//GameObject::Render(hdc);
 	}
 	void Missile::OnCollisionEnter(Collider* other)
 	{

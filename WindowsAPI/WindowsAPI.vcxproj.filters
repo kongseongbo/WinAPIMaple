@@ -59,6 +59,9 @@
     <Filter Include="Engine\GameObject\UI\Base">
       <UniqueIdentifier>{1f5ecf75-6370-46f2-b48c-d8710e5971dd}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\GameObject\PlayerSkill">
+      <UniqueIdentifier>{c7bd0c3c-4d14-46eb-a32e-c6f17b78d132}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -196,6 +199,16 @@
     <ClInclude Include="yaSound.h">
       <Filter>Engine\Resource</Filter>
     </ClInclude>
+    <ClInclude Include="yaQuestBox.h" />
+    <ClInclude Include="yaSkillSmash.h">
+      <Filter>Engine\GameObject\PlayerSkill</Filter>
+    </ClInclude>
+    <ClInclude Include="yaSkillSmash2.h">
+      <Filter>Engine\GameObject\PlayerSkill</Filter>
+    </ClInclude>
+    <ClInclude Include="yaSkillSmash3.h">
+      <Filter>Engine\GameObject\PlayerSkill</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="WindowsAPI.rc">
@@ -327,6 +340,16 @@
     </ClCompile>
     <ClCompile Include="yaPlayer.cpp">
       <Filter>Engine\GameObject\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="yaQuest.cpp" />
+    <ClCompile Include="yaSkillSmash.cpp">
+      <Filter>Engine\GameObject\PlayerSkill</Filter>
+    </ClCompile>
+    <ClCompile Include="yaSkillSmash2.cpp">
+      <Filter>Engine\GameObject\PlayerSkill</Filter>
+    </ClCompile>
+    <ClCompile Include="yaSkillSmash3.cpp">
+      <Filter>Engine\GameObject\PlayerSkill</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -13,6 +13,9 @@
 #include "yaRigidbody.h"
 #include "yaUIManager.h"
 
+#include "yaSkillSmash.h"
+#include "yaSkillSmash2.h"
+#include "yaSkillSmash3.h"
 
 namespace ya
 {
@@ -304,26 +307,68 @@ namespace ya
 			{
 				mSkillStack++;
 				if (mRightLook)
+				{
 					mAnimator->Play(L"RSmash1", false);
+					SkillSmash* smash = new SkillSmash();
+					Scene* playScene = SceneManager::GetPlayScene();
+					playScene->AddGameObject(smash, eColliderLayer::Player_Projecttile);
+					Vector2 playerPos = GetPos();
+					smash->SetPos(Vector2(playerPos.x + 100.0f, playerPos.y + 50.0f));
+				}
 				else
+				{
 					mAnimator->Play(L"Smash1", false);
+					SkillSmash* smash = new SkillSmash();
+					Scene* playScene = SceneManager::GetPlayScene();
+					playScene->AddGameObject(smash, eColliderLayer::Player_Projecttile);
+					Vector2 playerPos = GetPos();
+					smash->SetPos(Vector2(playerPos.x - 100.0f, playerPos.y + 50.0f));
+				}
 			}
 			else if (mSkillStack == 1)
 			{
 				mSkillTime = 0.0f;
 				mSkillStack++;
 				if (mRightLook)
+				{
 					mAnimator->Play(L"RSmash2", false);
+					SkillSmash2* smash = new SkillSmash2();
+					Scene* playScene = SceneManager::GetPlayScene();
+					playScene->AddGameObject(smash, eColliderLayer::Player_Projecttile);
+					Vector2 playerPos = GetPos();
+					smash->SetPos(Vector2(playerPos.x, playerPos.y + 50.0f));
+				}
 				else
+				{
 					mAnimator->Play(L"Smash2", false);
+					SkillSmash2* smash = new SkillSmash2();
+					Scene* playScene = SceneManager::GetPlayScene();
+					playScene->AddGameObject(smash, eColliderLayer::Player_Projecttile);
+					Vector2 playerPos = GetPos();
+					smash->SetPos(Vector2(playerPos.x, playerPos.y + 50.0f));
+				}
 			}
 			else if (mSkillStack == 2)
 			{
 				mSkillStack = 0;
 				if (mRightLook)
+				{
 					mAnimator->Play(L"RSmash3", false);
+					SkillSmash3* smash = new SkillSmash3();
+					Scene* playScene = SceneManager::GetPlayScene();
+					playScene->AddGameObject(smash, eColliderLayer::Player_Projecttile);
+					Vector2 playerPos = GetPos();
+					smash->SetPos(Vector2(playerPos.x + 100.0f, playerPos.y));
+				}
 				else
+				{
 					mAnimator->Play(L"Smash3", false);
+					SkillSmash3* smash = new SkillSmash3();
+					Scene* playScene = SceneManager::GetPlayScene();
+					playScene->AddGameObject(smash, eColliderLayer::Player_Projecttile);
+					Vector2 playerPos = GetPos();
+					smash->SetPos(Vector2(playerPos.x - 100.0f, playerPos.y));
+				}
 			}
 		}
 
@@ -505,19 +550,14 @@ namespace ya
 
 	}
 
-	void Player::WalkComplete()
-	{
-		Missile* missile = new Missile();
-
-		Scene* playScene = SceneManager::GetPlayScene();
-		playScene->AddGameObject(missile, eColliderLayer::Player_Projecttile);
-
-		Vector2 playerPos = GetPos();
-		Vector2 playerScale = GetScale() / 2.0f;
-		Vector2 missileScale = missile->GetScale();
-
-		missile->SetPos((playerPos + playerScale) - (missileScale / 2.0f));
-	}
-
-
+	//void Player::WalkComplete()
+	//{
+	//	Missile* missile = new Missile();
+	//	Scene* playScene = SceneManager::GetPlayScene();
+	//	playScene->AddGameObject(missile, eColliderLayer::Player_Projecttile);
+	//	Vector2 playerPos = GetPos();
+	//	Vector2 playerScale = GetScale() / 2.0f;
+	//	Vector2 missileScale = missile->GetScale();
+	//	missile->SetPos((playerPos + playerScale) - (missileScale / 2.0f));
+	//}
 }

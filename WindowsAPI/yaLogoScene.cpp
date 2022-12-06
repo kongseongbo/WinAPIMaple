@@ -50,6 +50,13 @@ namespace ya
 		hud->SetTarget(player);
 
 		MushMom* mMushmom = ya::object::Instantiate<MushMom>(eColliderLayer::Monster);
+		MushMom* mMushmom1 = ya::object::Instantiate<MushMom>(eColliderLayer::Monster);
+		mMushmom->mPlayer = player;
+		mMushmom1->mPlayer = player;
+		Vector2 pos = mMushmom->GetPos();
+		pos.x += 100.0f;
+		mMushmom->SetPos(pos);
+		
 		//mons[0] = ya::object::Instantiate<Monster>(eColliderLayer::Monster);
 		//mons[1] = ya::object::Instantiate<Monster>(Vector2{ 1600 / 2 + 130, 300 / 2 },eColliderLayer::Monster);
 
@@ -79,7 +86,7 @@ namespace ya
 
 	void LogoScene::Enter()
 	{
-		CollisionManager::SetLayer(eColliderLayer::Monster, eColliderLayer::Player, true);
+		//CollisionManager::SetLayer(eColliderLayer::Monster, eColliderLayer::Player, true);
 		CollisionManager::SetLayer(eColliderLayer::Monster, eColliderLayer::Player_Projecttile, true);
 		CollisionManager::SetLayer(eColliderLayer::Ground, eColliderLayer::Player, true);
 	}

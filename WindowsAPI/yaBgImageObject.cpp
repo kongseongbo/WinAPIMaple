@@ -46,14 +46,12 @@ namespace ya
 		// ¹Ù´Ú
 		if (pixel.R == 255 && pixel.G == 0 && pixel.B == 255)
 		{
-			
 			if (mGroundOX == false)
 			{
 				mPlayer->GetComponent<Rigidbody>()->SetGravity(Vector2(0.0f, 0.01f));
 				mPlayer->GetComponent<Rigidbody>()->SetGround(true);
 				mGroundOX = true;
 			}
-
 		}
 		else if (!(pixel.R == 255 && pixel.G == 0 && pixel.B == 255)&& !(pixel.R == 0 && pixel.G == 0 && pixel.B == 255))
 		{
@@ -72,10 +70,8 @@ namespace ya
 				{
 					mPlayer->GetComponent<Rigidbody>()->SetGround(false);
 					pos.y += 30.0f /** Time::DeltaTime()*/;
-					mPlayer->SetPos({ pos.x,pos.y });
-					
+					mPlayer->SetPos({ pos.x,pos.y });	
 				}
-				
 			}
 			else
 			{
@@ -108,15 +104,13 @@ namespace ya
 		// ¿ÞÂÊ º®
 		if (pixelLeft.R == 255 && pixelLeft.G == 0 && pixelLeft.B == 255)
 		{
-			mPlayer->SetMoveLeft(false);			
+			mPlayer->SetMoveLeft(false);
 			mPlayer->GetComponent<Rigidbody>()->SetGround(true);
 		}
 		else
 		{
 			mPlayer->SetMoveLeft(true);
 		}
-
-
 
 		if (KEY_DOWN(eKeyCode::P))
 		{

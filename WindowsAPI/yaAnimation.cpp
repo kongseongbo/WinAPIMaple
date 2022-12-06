@@ -62,7 +62,6 @@ namespace ya
 			, int(mSpriteSheet[mSpriteIndex].size.x)
 			, int(mSpriteSheet[mSpriteIndex].size.y)
 			, func);
-
 	}
 
 	void Animation::Create(Image* image, Vector2 leftTop, Vector2 size, Vector2 offset
