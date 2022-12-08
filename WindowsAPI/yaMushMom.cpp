@@ -10,6 +10,7 @@
 #include "yaCollider.h"
 #include "yaCamera.h"
 #include "yaPlayer.h"
+#include "yaDamageSkin.h"
 
 namespace ya
 {
@@ -301,12 +302,18 @@ namespace ya
 				}
 			}
 		}
+		
 	}
 	void MushMom::OnCollisionStay(Collider* other)
 	{
 	}
 	void MushMom::OnCollisionExit(Collider* other)
 	{
-
+		Vector2 pos = GetPos();
+		DamageSkin* damage = new DamageSkin();
+		Scene* playScene = SceneManager::GetPlayScene();
+		damage->mushmom = this;
+		damage->SetPos({ pos.x, pos.y - 150.0f });
+		playScene->AddGameObject(damage, eColliderLayer::Damage);
 	}
 }

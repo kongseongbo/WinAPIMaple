@@ -18,7 +18,7 @@ namespace ya
 		virtual void Exit();
 
 	private:
-		Monster* mons[2];
+		
 	};
 
 }

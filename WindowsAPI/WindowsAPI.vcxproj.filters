@@ -218,6 +218,9 @@
     <ClInclude Include="yaBeyonder2.h">
       <Filter>Engine\GameObject\PlayerSkill</Filter>
     </ClInclude>
+    <ClInclude Include="yaDamageSkin.h">
+      <Filter>Engine\GameObject\Game</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="WindowsAPI.rc">
@@ -368,6 +371,9 @@
     </ClCompile>
     <ClCompile Include="yaBeyonder3.cpp">
       <Filter>Engine\GameObject\PlayerSkill</Filter>
+    </ClCompile>
+    <ClCompile Include="yaDamageSkin.cpp">
+      <Filter>Engine\GameObject\Game</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

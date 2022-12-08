@@ -489,7 +489,6 @@ namespace ya
 					playScene->AddGameObject(beyonder, eColliderLayer::Player_Beyonder);
 					Vector2 playerPos = GetPos();
 					beyonder->SetPos(Vector2(playerPos.x + 200.0f, playerPos.y + 50.0f));
-
 				}
 				else
 				{
@@ -513,7 +512,6 @@ namespace ya
 					playScene->AddGameObject(beyonder, eColliderLayer::Player_Beyonder);
 					Vector2 playerPos = GetPos();
 					beyonder->SetPos(Vector2(playerPos.x + 200.0f, playerPos.y + 50.0f));
-
 				}
 				else
 				{
@@ -536,7 +534,6 @@ namespace ya
 					playScene->AddGameObject(beyonder, eColliderLayer::Player_Beyonder);
 					Vector2 playerPos = GetPos();
 					beyonder->SetPos(Vector2(playerPos.x + 200.0f, playerPos.y + 50.0f));
-
 				}
 				else
 				{
@@ -586,7 +583,7 @@ namespace ya
 
 	void Player::OnCollisionEnter(Collider* other)
 	{
-		int a = 0;
+	
 	}
 
 	void Player::OnCollisionStay(Collider* other)

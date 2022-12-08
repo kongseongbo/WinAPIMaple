@@ -147,6 +147,7 @@
     <ClInclude Include="yaCollider.h" />
     <ClInclude Include="yaCollisionManager.h" />
     <ClInclude Include="yaComponent.h" />
+    <ClInclude Include="yaDamageSkin.h" />
     <ClInclude Include="yaEndScene.h" />
     <ClInclude Include="yaGameObject.h" />
     <ClInclude Include="Resource.h" />
@@ -199,6 +200,7 @@
     <ClCompile Include="yaCollider.cpp" />
     <ClCompile Include="yaCollisionManager.cpp" />
     <ClCompile Include="yaComponent.cpp" />
+    <ClCompile Include="yaDamageSkin.cpp" />
     <ClCompile Include="yaEndScene.cpp" />
     <ClCompile Include="yaGameObject.cpp" />
     <ClCompile Include="main.cpp" />
