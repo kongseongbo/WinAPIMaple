@@ -49,10 +49,11 @@ enum class eColliderLayer
 	BackGround,
 	PixelBackGround,
 	Tile,
-	Player,
-	Player_Projecttile,
 	Monster,
 	Monster_Projecttile,
+	Player,
+	Player_Smash,
+	Player_Beyonder,
 	Ground,
 
 	//UI

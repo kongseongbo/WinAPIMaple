@@ -3,13 +3,13 @@
 
 namespace ya
 {
-	
+	class Animator;
 	class Image;
-	class SkillSmash3 : public GameObject
+	class SmashHitEffect : public GameObject
 	{
 	public:
-		SkillSmash3();
-		~SkillSmash3();
+		SmashHitEffect();
+		~SmashHitEffect();
 
 		virtual void Tick() override;
 		virtual void Render(HDC hdc) override;
@@ -21,8 +21,7 @@ namespace ya
 	private:
 		float mAliveTime;
 		Image* mImage;
-		
-
+		Animator* mAnimator;
 	public:
 		Vector2 mDir;
 		Vector2 mDestPos;

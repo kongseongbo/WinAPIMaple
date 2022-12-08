@@ -3,13 +3,12 @@
 
 namespace ya
 {
-	
 	class Image;
-	class SkillSmash3 : public GameObject
+	class SkillBeyonder3 : public GameObject
 	{
 	public:
-		SkillSmash3();
-		~SkillSmash3();
+		SkillBeyonder3();
+		~SkillBeyonder3();
 
 		virtual void Tick() override;
 		virtual void Render(HDC hdc) override;
@@ -21,8 +20,6 @@ namespace ya
 	private:
 		float mAliveTime;
 		Image* mImage;
-		
-
 	public:
 		Vector2 mDir;
 		Vector2 mDestPos;

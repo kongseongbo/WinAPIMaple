@@ -1,5 +1,4 @@
 #include "yaMushMom.h"
-
 #include "yaTime.h"
 #include "yaSceneManager.h"
 #include "yaInput.h"
@@ -21,7 +20,7 @@ namespace ya
 		, mHp(50)
 		, distance(0.0f)
 	{
-		SetName(L"MushMom1");
+		SetName(L"MushMom");
 		SetPos({ 900.0f, 820.0f });
 		SetScale({ 1.0f, 1.0f });
 
@@ -53,6 +52,16 @@ namespace ya
 		mAnimator->CreateAnimations(L"..\\Resources\\Animations\\MushMom\\RMushSkill"
 			, L"RMushAttack", Vector2({ 0.0f, -50.0f }), 0.2f);
 
+
+		mAnimator->CreateAnimations(L"..\\Resources\\Animations\\Player\\SmashHit"
+			, L"SmashHit");
+		mAnimator->CreateAnimations(L"..\\Resources\\Animations\\Player\\BeyonderHit1"
+			, L"BeyonderHit1");
+		mAnimator->CreateAnimations(L"..\\Resources\\Animations\\Player\\BeyonderHit2"
+			, L"BeyonderHit2");
+		mAnimator->CreateAnimations(L"..\\Resources\\Animations\\Player\\BeyonderHit3"
+			, L"BeyonderHit3");
+
 		mAnimator->Play(L"MushIdle", true);
 		//mAnimator->FindEvents(L"MushMoveLeft")->mStartEvent = std::bind(&MushMom::WarkAnimator, this);
 		//mAnimator->GetStartEvent(L"MushMoveLeft") = std::bind(&MushMom::WarkAnimator, this);
@@ -70,9 +79,6 @@ namespace ya
 	void MushMom::Tick()
 	{
 		GameObject::Tick();
-
-		if (mPlayer == nullptr)
-			return;
 
 		switch (mState)
 		{
@@ -151,9 +157,7 @@ namespace ya
 	}
 	void MushMom::Hit()
 	{
-
 		mTime += Time::DeltaTime();
-
 		if (mHp == 0)
 		{
 			mAnimator->Play(L"MushDie", false);
@@ -171,7 +175,6 @@ namespace ya
 				{
 					mAnimator->Play(L"RMushAttack", false);
 				}
-				mAnimator->Play(L"MushAttack", false);
 				mState = State::ATTACK;
 				mTime = 0.0f;
 			}
@@ -181,7 +184,7 @@ namespace ya
 	void MushMom::Death()
 	{
 		mTime += Time::DeltaTime();
-		if (mTime > 4.0f)
+		if (mTime > 3.0f)
 		{
 			GameObject* gameObj = this;
 			gameObj->Death();
@@ -196,29 +199,107 @@ namespace ya
 	}
 	void MushMom::OnCollisionEnter(Collider* other)
 	{
+		GameObject* gameObj = other->GetOwner();
 		Vector2 pos = GetPos();
-		if (mHp > 0)
+		if (gameObj->GetName() == L"Smash")
 		{
-			mHp -= 10;
-			if (!mMoveLeft)
+			if (mHp > 0)
 			{
-				/*pos.x += 20.0f;
-				SetPos(pos);*/
-				mAnimator->Play(L"MushHit", false);
-				mState = State::HIT;
-			}
-			else
-			{
-				/*pos.x -= 20.0f;
-				SetPos(pos);*/
-				mAnimator->Play(L"RMushHit", false);
-				mState = State::HIT;
+				//mHp -= 10;
+				if (!mMoveLeft)
+				{
+					pos.x += 20.0f;
+					SetPos(pos);
+					//mAnimator->Play(L"MushHit", false);
+					mAnimator->Plays(L"MushHit",L"SmashHit",false, false);
+					mState = State::HIT;
+					mTime = 0.0f;
+				}
+				else
+				{
+					pos.x -= 20.0f;
+					SetPos(pos);
+					//mAnimator->Play(L"RMushHit", false);
+					mAnimator->Plays(L"RMushHit", L"SmashHit", false, false);
+					mState = State::HIT;
+					mTime = 0.0f;
+				}
 			}
 		}
-		else if (mHp <= 0)
+		if (gameObj->GetName() == L"Beyonder")
 		{
-			mAnimator->Play(L"MushDie", false);
-			mState = State::DEATH;
+			if (mHp > 0)
+			{
+				//mHp -= 10;
+				if (!mMoveLeft)
+				{
+					pos.x += 20.0f;
+					SetPos(pos);
+					//mAnimator->Play(L"MushHit", false);
+					mAnimator->Plays(L"MushHit", L"BeyonderHit1", false, false);
+					mState = State::HIT;
+					mTime = 0.0f;
+				}
+				else
+				{
+					pos.x -= 20.0f;
+					SetPos(pos);
+					//mAnimator->Play(L"RMushHit", false);
+					mAnimator->Plays(L"RMushHit", L"BeyonderHit1", false, false);
+					mState = State::HIT;
+					mTime = 0.0f;
+				}
+			}
+		}
+		if (gameObj->GetName() == L"Beyonder2")
+		{
+			if (mHp > 0)
+			{
+				//mHp -= 10;
+				if (!mMoveLeft)
+				{
+					pos.x += 20.0f;
+					SetPos(pos);
+					//mAnimator->Play(L"MushHit", false);
+					mAnimator->Plays(L"MushHit", L"BeyonderHit2", false, false);
+					mState = State::HIT;
+					mTime = 0.0f;
+				}
+				else
+				{
+					pos.x -= 20.0f;
+					SetPos(pos);
+					//mAnimator->Play(L"RMushHit", false);
+					mAnimator->Plays(L"RMushHit", L"BeyonderHit2", false, false);
+					mState = State::HIT;
+					mTime = 0.0f;
+				}
+			}
+		}
+		if (gameObj->GetName() == L"Beyonde3")
+		{
+			if (mHp > 0)
+			{
+				//mHp -= 10;
+				if (!mMoveLeft)
+				{
+					pos.x += 20.0f;
+					SetPos(pos);
+					//mAnimator->Play(L"MushHit", false);
+					mAnimator->Plays(L"MushHit", L"BeyonderHit3", false, false);
+					mState = State::HIT;
+					mTime = 0.0f;
+				}
+				else
+				{
+					pos.x -= 20.0f;
+					SetPos(pos);
+					//mAnimator->Play(L"RMushHit", false);
+					mAnimator->Plays(L"RMushHit", L"BeyonderHit3", false, false);
+					mState = State::HIT;
+					mTime = 0.0f;
+				}
+			}
 		}
 	}
 	void MushMom::OnCollisionStay(Collider* other)
@@ -226,5 +307,6 @@ namespace ya
 	}
 	void MushMom::OnCollisionExit(Collider* other)
 	{
+
 	}
 }

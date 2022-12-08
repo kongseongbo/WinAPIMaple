@@ -17,7 +17,7 @@ namespace ya
 		virtual void Render(HDC hdc);
 
 		GameObject* GetOwner() { return mOwner; }
-
+		
 	private:
 		const eComponentType mType;
 		GameObject* mOwner;

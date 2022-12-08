@@ -34,8 +34,11 @@ namespace ya
 		BgImageObject* bg2 = ya::object::Instantiate<BgImageObject>(eColliderLayer::BackGround);
 		bg2->SetImage(L"BGMap",L"Map\\HenesysGolemSawonBG2.bmp");
 		
-		
+		MushMom* mMushmom = ya::object::Instantiate<MushMom>(eColliderLayer::Monster);
+		MushMom* mMushmom1 = ya::object::Instantiate<MushMom>(eColliderLayer::Monster);
 		Player* player = ya::object::Instantiate<Player>(eColliderLayer::Player);
+		mMushmom->mPlayer = player;
+		mMushmom1->mPlayer = player;
 		bg->mPlayer = player;
 
 		//Ground* ground = ya::object::Instantiate<Ground>(eColliderLayer::Ground);
@@ -43,16 +46,14 @@ namespace ya
 
 		//UIManager::Push(eUIType::HP);
 		//UIManager::Push(eUIType::MP);
-		UIManager::Push(eUIType::INVENTORY);
+		//UIManager::Push(eUIType::INVENTORY);
 
 		//HUD* hud = UIManager::GetUiInstant<HUD>(eUIType::HP);
-		HUD* hud = UIManager::GetUiInstant<HUD>(eUIType::MP);
-		hud->SetTarget(player);
+		//HUD* hud = UIManager::GetUiInstant<HUD>(eUIType::MP);
+		//hud->SetTarget(player);
 
-		MushMom* mMushmom = ya::object::Instantiate<MushMom>(eColliderLayer::Monster);
-		MushMom* mMushmom1 = ya::object::Instantiate<MushMom>(eColliderLayer::Monster);
-		mMushmom->mPlayer = player;
-		mMushmom1->mPlayer = player;
+		
+		
 		Vector2 pos = mMushmom->GetPos();
 		pos.x += 100.0f;
 		mMushmom->SetPos(pos);
@@ -87,7 +88,8 @@ namespace ya
 	void LogoScene::Enter()
 	{
 		//CollisionManager::SetLayer(eColliderLayer::Monster, eColliderLayer::Player, true);
-		CollisionManager::SetLayer(eColliderLayer::Monster, eColliderLayer::Player_Projecttile, true);
+		CollisionManager::SetLayer(eColliderLayer::Monster, eColliderLayer::Player_Smash, true);
+		CollisionManager::SetLayer(eColliderLayer::Monster, eColliderLayer::Player_Beyonder, true);
 		CollisionManager::SetLayer(eColliderLayer::Ground, eColliderLayer::Player, true);
 	}
 

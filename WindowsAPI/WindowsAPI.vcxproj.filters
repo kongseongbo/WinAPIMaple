@@ -209,6 +209,15 @@
     <ClInclude Include="yaSkillSmash3.h">
       <Filter>Engine\GameObject\PlayerSkill</Filter>
     </ClInclude>
+    <ClInclude Include="yaBeyonder.h">
+      <Filter>Engine\GameObject\PlayerSkill</Filter>
+    </ClInclude>
+    <ClInclude Include="yaBeyonder3.h">
+      <Filter>Engine\GameObject\PlayerSkill</Filter>
+    </ClInclude>
+    <ClInclude Include="yaBeyonder2.h">
+      <Filter>Engine\GameObject\PlayerSkill</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="WindowsAPI.rc">
@@ -349,6 +358,15 @@
       <Filter>Engine\GameObject\PlayerSkill</Filter>
     </ClCompile>
     <ClCompile Include="yaSkillSmash3.cpp">
+      <Filter>Engine\GameObject\PlayerSkill</Filter>
+    </ClCompile>
+    <ClCompile Include="yaBeyonder.cpp">
+      <Filter>Engine\GameObject\PlayerSkill</Filter>
+    </ClCompile>
+    <ClCompile Include="yaBeyonder2.cpp">
+      <Filter>Engine\GameObject\PlayerSkill</Filter>
+    </ClCompile>
+    <ClCompile Include="yaBeyonder3.cpp">
       <Filter>Engine\GameObject\PlayerSkill</Filter>
     </ClCompile>
   </ItemGroup>

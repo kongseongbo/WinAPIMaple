@@ -28,6 +28,9 @@ namespace ya
 		Vector2 GetPos() { return mPos; }
 		void SetScale(Vector2 scale) { mScale = scale; }
 		Vector2 GetScale () { return mScale; }
+		
+		
+
 		void Death() { mDead = true; }
 		bool IsDeath() { return mDead; }
 		void SetDeathTime(float time);

@@ -204,7 +204,7 @@ namespace ya
 		mPlayAnimaion2->Reset();
 		mbLoop2 = bLoop2;
 
-		if (prevAnimation != mPlayAnimaion2)
+		if (prevAnimation != mPlayAnimaion)
 		{
 			if (events != nullptr)
 				events->mEndEvent();

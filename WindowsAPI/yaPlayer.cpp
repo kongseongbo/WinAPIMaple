@@ -17,6 +17,10 @@
 #include "yaSkillSmash2.h"
 #include "yaSkillSmash3.h"
 
+#include "yaBeyonder.h"
+#include "yaBeyonder2.h"
+#include "yaBeyonder3.h"
+
 namespace ya
 {
 	Player::Player()
@@ -60,7 +64,7 @@ namespace ya
 		mAnimator->CreateAnimations(L"..\\Resources\\Animations\\Player\\Beyonder\\Beyonder3"
 			, L"Beyonder3");
 		mAnimator->CreateAnimations(L"..\\Resources\\Animations\\Player\\Beyonder\\BeyonderEffect1"
-			, L"BeyonderEffect1", Vector2(-200.0f, -50.0f));
+			, L"BeyonderEffect1", Vector2(-150.0f, -50.0f));
 		mAnimator->CreateAnimations(L"..\\Resources\\Animations\\Player\\Beyonder\\BeyonderEffect2"
 			, L"BeyonderEffect2", Vector2(-200.0f, -50.0f));
 		mAnimator->CreateAnimations(L"..\\Resources\\Animations\\Player\\Beyonder\\BeyonderEffect3"
@@ -84,7 +88,7 @@ namespace ya
 		mAnimator->CreateAnimations(L"..\\Resources\\Animations\\Player\\Beyonder\\RBeyonder3"
 			, L"RBeyonder3");
 		mAnimator->CreateAnimations(L"..\\Resources\\Animations\\Player\\Beyonder\\RBeyonderEffect1"
-			, L"RBeyonderEffect1", Vector2(200.0f, -50.0f));
+			, L"RBeyonderEffect1", Vector2(150.0f, -50.0f));
 		mAnimator->CreateAnimations(L"..\\Resources\\Animations\\Player\\Beyonder\\RBeyonderEffect2"
 			, L"RBeyonderEffect2", Vector2(200.0f, -50.0f));
 		mAnimator->CreateAnimations(L"..\\Resources\\Animations\\Player\\Beyonder\\RBeyonderEffect3"
@@ -311,16 +315,17 @@ namespace ya
 					mAnimator->Play(L"RSmash1", false);
 					SkillSmash* smash = new SkillSmash();
 					Scene* playScene = SceneManager::GetPlayScene();
-					playScene->AddGameObject(smash, eColliderLayer::Player_Projecttile);
+					playScene->AddGameObject(smash, eColliderLayer::Player_Smash);
 					Vector2 playerPos = GetPos();
 					smash->SetPos(Vector2(playerPos.x + 100.0f, playerPos.y + 50.0f));
+					
 				}
 				else
 				{
 					mAnimator->Play(L"Smash1", false);
 					SkillSmash* smash = new SkillSmash();
 					Scene* playScene = SceneManager::GetPlayScene();
-					playScene->AddGameObject(smash, eColliderLayer::Player_Projecttile);
+					playScene->AddGameObject(smash, eColliderLayer::Player_Smash);
 					Vector2 playerPos = GetPos();
 					smash->SetPos(Vector2(playerPos.x - 100.0f, playerPos.y + 50.0f));
 				}
@@ -334,7 +339,7 @@ namespace ya
 					mAnimator->Play(L"RSmash2", false);
 					SkillSmash2* smash = new SkillSmash2();
 					Scene* playScene = SceneManager::GetPlayScene();
-					playScene->AddGameObject(smash, eColliderLayer::Player_Projecttile);
+					playScene->AddGameObject(smash, eColliderLayer::Player_Smash);
 					Vector2 playerPos = GetPos();
 					smash->SetPos(Vector2(playerPos.x, playerPos.y + 50.0f));
 				}
@@ -343,7 +348,7 @@ namespace ya
 					mAnimator->Play(L"Smash2", false);
 					SkillSmash2* smash = new SkillSmash2();
 					Scene* playScene = SceneManager::GetPlayScene();
-					playScene->AddGameObject(smash, eColliderLayer::Player_Projecttile);
+					playScene->AddGameObject(smash, eColliderLayer::Player_Smash);
 					Vector2 playerPos = GetPos();
 					smash->SetPos(Vector2(playerPos.x, playerPos.y + 50.0f));
 				}
@@ -356,7 +361,7 @@ namespace ya
 					mAnimator->Play(L"RSmash3", false);
 					SkillSmash3* smash = new SkillSmash3();
 					Scene* playScene = SceneManager::GetPlayScene();
-					playScene->AddGameObject(smash, eColliderLayer::Player_Projecttile);
+					playScene->AddGameObject(smash, eColliderLayer::Player_Smash);
 					Vector2 playerPos = GetPos();
 					smash->SetPos(Vector2(playerPos.x + 100.0f, playerPos.y));
 				}
@@ -365,7 +370,7 @@ namespace ya
 					mAnimator->Play(L"Smash3", false);
 					SkillSmash3* smash = new SkillSmash3();
 					Scene* playScene = SceneManager::GetPlayScene();
-					playScene->AddGameObject(smash, eColliderLayer::Player_Projecttile);
+					playScene->AddGameObject(smash, eColliderLayer::Player_Smash);
 					Vector2 playerPos = GetPos();
 					smash->SetPos(Vector2(playerPos.x - 100.0f, playerPos.y));
 				}
@@ -476,28 +481,72 @@ namespace ya
 			if (mSkillStack == 0)
 			{
 				mSkillStack++;
-
-				mAnimator->Plays(L"Beyonder1", L"BeyonderEffect1", false, false);
 				if (mRightLook)
+				{
 					mAnimator->Plays(L"RBeyonder1", L"RBeyonderEffect1", false, false);
+					SkillBeyonder* beyonder = new SkillBeyonder();
+					Scene* playScene = SceneManager::GetPlayScene();
+					playScene->AddGameObject(beyonder, eColliderLayer::Player_Beyonder);
+					Vector2 playerPos = GetPos();
+					beyonder->SetPos(Vector2(playerPos.x + 200.0f, playerPos.y + 50.0f));
 
+				}
+				else
+				{
+					mAnimator->Plays(L"Beyonder1", L"BeyonderEffect1", false, false);
+					SkillBeyonder* beyonder = new SkillBeyonder();
+					Scene* playScene = SceneManager::GetPlayScene();
+					playScene->AddGameObject(beyonder, eColliderLayer::Player_Beyonder);
+					Vector2 playerPos = GetPos();
+					beyonder->SetPos(Vector2(playerPos.x - 200.0f, playerPos.y + 50.0f));
+				}	
 			}
 			else if (mSkillStack == 1)
 			{
 				mSkillStack++;
 				mSkillTime = 0.0f;
-
-				mAnimator->Plays(L"Beyonder2", L"BeyonderEffect2", false, false);
 				if (mRightLook)
+				{
 					mAnimator->Plays(L"RBeyonder2", L"RBeyonderEffect2", false, false);
+					SkillBeyonder2* beyonder = new SkillBeyonder2();
+					Scene* playScene = SceneManager::GetPlayScene();
+					playScene->AddGameObject(beyonder, eColliderLayer::Player_Beyonder);
+					Vector2 playerPos = GetPos();
+					beyonder->SetPos(Vector2(playerPos.x + 200.0f, playerPos.y + 50.0f));
+
+				}
+				else
+				{
+					mAnimator->Plays(L"Beyonder2", L"BeyonderEffect2", false, false);
+					SkillBeyonder2* beyonder = new SkillBeyonder2();
+					Scene* playScene = SceneManager::GetPlayScene();
+					playScene->AddGameObject(beyonder, eColliderLayer::Player_Beyonder);
+					Vector2 playerPos = GetPos();
+					beyonder->SetPos(Vector2(playerPos.x - 200.0f, playerPos.y + 50.0f));
+				}
 			}
 			else if (mSkillStack == 2)
 			{
 				mSkillStack = 0;
-
-				mAnimator->Plays(L"Beyonder3", L"BeyonderEffect3", false, false);
 				if (mRightLook)
+				{
 					mAnimator->Plays(L"RBeyonder3", L"RBeyonderEffect3", false, false);
+					SkillBeyonder3* beyonder = new SkillBeyonder3();
+					Scene* playScene = SceneManager::GetPlayScene();
+					playScene->AddGameObject(beyonder, eColliderLayer::Player_Beyonder);
+					Vector2 playerPos = GetPos();
+					beyonder->SetPos(Vector2(playerPos.x + 200.0f, playerPos.y + 50.0f));
+
+				}
+				else
+				{
+					mAnimator->Plays(L"Beyonder3", L"BeyonderEffect3", false, false);
+					SkillBeyonder3* beyonder = new SkillBeyonder3();
+					Scene* playScene = SceneManager::GetPlayScene();
+					playScene->AddGameObject(beyonder, eColliderLayer::Player_Beyonder);
+					Vector2 playerPos = GetPos();
+					beyonder->SetPos(Vector2(playerPos.x - 200.0f, playerPos.y + 50.0f));
+				}
 			}
 		}
 

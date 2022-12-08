@@ -3,7 +3,6 @@
 
 namespace ya
 {
-	class Animator;
 	class Image;
 	class SkillSmash : public GameObject
 	{
@@ -19,10 +18,8 @@ namespace ya
 		virtual void OnCollisionExit(Collider* other) override;
 
 	private:
-		float mAliveTime;
+		float mAliveTime; 
 		Image* mImage;
-		Animator* mAnimator;
-		
 	public:
 		Vector2 mDir;
 		Vector2 mDestPos;

@@ -138,6 +138,9 @@
     <ClInclude Include="def.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="yaAnimator.h" />
+    <ClInclude Include="yaBeyonder.h" />
+    <ClInclude Include="yaBeyonder2.h" />
+    <ClInclude Include="yaBeyonder3.h" />
     <ClInclude Include="yaBgImageObject.h" />
     <ClInclude Include="yaButton.h" />
     <ClInclude Include="yaCamera.h" />
@@ -187,6 +190,9 @@
     <ClCompile Include="yaAnimation.cpp" />
     <ClCompile Include="yaAnimator.cpp" />
     <ClCompile Include="yaBackPack.cpp" />
+    <ClCompile Include="yaBeyonder.cpp" />
+    <ClCompile Include="yaBeyonder2.cpp" />
+    <ClCompile Include="yaBeyonder3.cpp" />
     <ClCompile Include="yaBgImageObject.cpp" />
     <ClCompile Include="yaButton.cpp" />
     <ClCompile Include="yaCamera.cpp" />

@@ -106,8 +106,9 @@ namespace ya
 				
 				// 충돌함수를 호출ㅇ해주면된다.
 				// OnCollisionEneter();
-				left->OnCollisionEnter(right);
 				right->OnCollisionEnter(left);
+				left->OnCollisionEnter(right);
+				
 
 				iter->second = true;
 			}
@@ -115,8 +116,9 @@ namespace ya
 			{
 				// 충돌 중일때
 				// OnCollisionStay();
-				left->OnCollisionStay(right);
 				right->OnCollisionStay(left);
+				left->OnCollisionStay(right);
+				
 			}
 		}
 		else
@@ -124,8 +126,9 @@ namespace ya
 			// 충돌 x
 			if (iter->second)
 			{
-				left->OnCollisionExit(right);
 				right->OnCollisionExit(left);
+				left->OnCollisionExit(right);
+				
 
 				iter->second = false;
 			}

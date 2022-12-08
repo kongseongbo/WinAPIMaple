@@ -7,6 +7,7 @@
 #include "yaImage.h"
 #include "yaInput.h"
 
+
 namespace ya
 {
 	SkillSmash2::SkillSmash2()
@@ -14,19 +15,15 @@ namespace ya
 	{
 		//SetPos({ 100.0f, 100.0f });
 		//SetScale({ 20.0f, 20.0f });
-
+		SetName(L"Smash");
 		Collider* col = new Collider();
 		col->SetScale(Vector2(350.0f, 100.0f));
 
 		/*	mAnimator = new Animator();
 
-			mAnimator->CreateAnimations(L"..\\Resources\\Animations\\Player\\Smash1"
-				, L"Smash1");
-			mAnimator->CreateAnimations(L"..\\Resources\\Animations\\Player\\Smash2"
-				, L"Smash2");
-			mAnimator->CreateAnimations(L"..\\Resources\\Animations\\Player\\Smash3"
-				, L"Smash3");
-			AddComponent(mAnimator);*/
+			mAnimator->CreateAnimations(L"..\\Resources\\Animations\\Player\\SmashHit"
+				, L"SmashHit");
+		AddComponent(mAnimator);*/
 		AddComponent(col);
 	}
 
@@ -51,6 +48,7 @@ namespace ya
 	}
 	void SkillSmash2::OnCollisionEnter(Collider* other)
 	{
+		//mAnimator->Play(L"SmashHit", false);
 		//GameObject* gameObj = other->GetOwner();
 		//gameObj->Death();
 		//this->Death();
