@@ -82,7 +82,7 @@ namespace ya
 
 	void LogoScene::Enter()
 	{
-		//CollisionManager::SetLayer(eColliderLayer::Monster, eColliderLayer::Player, true);
+		CollisionManager::SetLayer(eColliderLayer::Monster, eColliderLayer::Player, true);
 		CollisionManager::SetLayer(eColliderLayer::Monster, eColliderLayer::Player_Smash, true);
 		CollisionManager::SetLayer(eColliderLayer::Monster, eColliderLayer::Player_Beyonder, true);
 		CollisionManager::SetLayer(eColliderLayer::Ground, eColliderLayer::Player, true);

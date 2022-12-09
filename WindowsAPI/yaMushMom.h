@@ -34,6 +34,8 @@ namespace ya
 		void Hit();
 		void Death();
 
+		int AttackDamage();
+
 		Player* mPlayer;
 
 	private:
@@ -45,6 +47,8 @@ namespace ya
 		float mDir;
 		float distance;
 		int mHp;
+		int mAttackDamage;
+		int defense;
 	};
 
 }

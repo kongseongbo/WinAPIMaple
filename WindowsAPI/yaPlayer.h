@@ -12,6 +12,7 @@ namespace ya
 		{
 			IDLE,
 			MOVE,
+			HIT,
 			SMASH,
 			BEYONDER,
 			MOVESMASH,
@@ -34,19 +35,22 @@ namespace ya
 
 		void SetMoveLeft(bool move) { mMoveLeft = move; }
 		void SetMoveRight(bool move) { mMoveRight = move; }
+		void SetEx(int ex) { mEx += ex; }
 
 		void Idle();
 		void Move();
+		void Hit();
 		void Smash();
 		void MoveSmash();
 		void Beyonder();
 		void Death();
 
-
+		int GetAttackDamage() { return mAttackDamage; }
 
 	private:
 		float mCoff;
 		float mSpeed;
+		float mTime;
 		Image* mImage;
 		Animator* mAnimator;
 		Vector2 mMisiileDir;
@@ -56,6 +60,8 @@ namespace ya
 
 		State mState = State::IDLE;
 
+		int mAttackDamage;
+		int mEx;
 		int mSkillStack;
 		float mSkillTime;
 		bool mMoveLeft;

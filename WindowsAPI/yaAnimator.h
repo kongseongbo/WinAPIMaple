@@ -54,6 +54,8 @@ namespace ya
 		std::function<void()>& GetCompleteEvent(const std::wstring key);
 		std::function<void()>& GetEndEvent(const std::wstring key);
 
+		void SetAniAlpha(int alpha) { mAlpha = alpha; }
+
 	private:
 		std::map<std::wstring, Animation*> mAnimations;
 		std::map<std::wstring, Events*> mEvents;
@@ -64,5 +66,7 @@ namespace ya
 		bool mbLoop;
 		bool mbLoop2;
 		Image* mSPriteSheet;
+
+		int mAlpha;
 	};
 }

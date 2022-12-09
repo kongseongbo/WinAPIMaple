@@ -38,6 +38,8 @@ namespace ya
 		bool isComplete() { return mbComplete; }
 		void SetAnimator(Animator* animator) { mAnimator = animator; }
 
+		void SetAlpha(int alpha) { mAlpha = alpha; }
+
 		UINT GetSpriteSheet() { return mSpriteIndex; }
 		
 	private:
@@ -46,6 +48,7 @@ namespace ya
 		std::vector<Sprite> mSpriteSheet;
 		UINT mSpriteIndex;
 		float mTime;
+		int mAlpha;
 
 		bool mStart;
 		bool mbComplete;

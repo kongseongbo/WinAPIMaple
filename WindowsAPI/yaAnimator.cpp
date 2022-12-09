@@ -12,8 +12,9 @@ namespace ya
 		, mPlayAnimaion2(nullptr)
 		, mbLoop(false)
 		, mbLoop2(false)
+		, mAlpha(255)
 	{
-		//mImage = Resources::Load<Image>(L"Player", L"..\\Resources\\Image\\Player.bmp");
+
 	}
 
 	Animator::~Animator()
@@ -33,6 +34,7 @@ namespace ya
 
 	void Animator::Tick()
 	{
+		
 		if (mPlayAnimaion != nullptr)
 		{
 			mPlayAnimaion->Tick();
@@ -68,6 +70,7 @@ namespace ya
 		if (mPlayAnimaion != nullptr)
 		{
 			mPlayAnimaion->Render(hdc);
+			mPlayAnimaion->SetAlpha(mAlpha);
 		}
 		if (mPlayAnimaion2 != nullptr)
 		{

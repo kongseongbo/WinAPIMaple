@@ -25,7 +25,10 @@ namespace ya
 {
 	Player::Player()
 		: mSpeed(1.0f)
+		, mTime(0.0f)
 		, mHp(100)
+		, mAttackDamage(0)
+		, mEx(0)
 		, mSkillStack(0)
 		, mSkillTime(0.0f)
 		, mMoveLeft(true)
@@ -45,6 +48,8 @@ namespace ya
 		mAnimator = new Animator();
 		mAnimator->CreateAnimations(L"..\\Resources\\Animations\\Player\\Up"
 			, L"MoveUp");
+		mAnimator->CreateAnimations(L"..\\Resources\\Animations\\Player\\LevelUp"
+			, L"LevelUp");
 
 		//¿ÞÂÊ
 		mAnimator->CreateAnimations(L"..\\Resources\\Animations\\Player\\Idle"
@@ -164,6 +169,8 @@ namespace ya
 	void Player::Tick()
 	{
 		GameObject::Tick();
+		
+
 		switch (mState)
 		{
 		case ya::Player::State::IDLE:
@@ -173,19 +180,21 @@ namespace ya
 		case ya::Player::State::MOVE:
 			Move();
 			break;
+		case ya::Player::State::HIT:
+			Hit();
+			break;
 		case ya::Player::State::SMASH:
 			Smash();
 			break;
 		case ya::Player::State::BEYONDER:
 			Beyonder();
 			break;
-		case ya::Player::State::MOVESMASH:
-			MoveSmash();
-			break;
+		/*case ya::Player::State::MOVESMASH:
+		MoveSmash();
+		break;*/
 		case ya::Player::State::DEATH:
-			Death();
-			break;
-
+		Death();
+		break;
 		default:
 			break;
 		}
@@ -193,7 +202,6 @@ namespace ya
 
 	void Player::Idle()
 	{
-
 		mAnimator->Play(L"Idle", true);
 		if (mRightLook)
 		{
@@ -281,20 +289,30 @@ namespace ya
 		{
 			mState = State::IDLE;
 		}
-		if (KEY_DOWN(eKeyCode::LCTRL))
-		{
-			mState = State::SMASH;
-		}
-		if (KEY_DOWN(eKeyCode::LSHIFT))
-		{
-			mState = State::BEYONDER;
-		}
-		if ((KEY_PREESE(eKeyCode::RIGHT) || KEY_PREESE(eKeyCode::LEFT)) &&  KEY_DOWN(eKeyCode::LCTRL))
-		{
-			mState = State::MOVESMASH;
-		}
+		//if (KEY_DOWN(eKeyCode::LCTRL))
+		//{
+		//	mState = State::SMASH;
+		//}
+		//if (KEY_DOWN(eKeyCode::LSHIFT))
+		//{
+		//	mState = State::BEYONDER;
+		//}
+		//if ((KEY_PREESE(eKeyCode::RIGHT) || KEY_PREESE(eKeyCode::LEFT)) &&  KEY_DOWN(eKeyCode::LCTRL))
+		//{
+		//	mState = State::MOVESMASH;
+		//}
 
 		SetPos(pos);
+	}
+	void Player::Hit()
+	{
+		/*mTime += Time::DeltaTime();
+		mAnimator->SetAniAlpha(150);
+		if (mTime > 1.5f)
+		{
+			mAnimator->SetAniAlpha(255);
+			mTime = 0.0f;
+		}*/
 	}
 	void Player::Smash()
 	{
@@ -310,6 +328,7 @@ namespace ya
 			if (mSkillStack == 0)
 			{
 				mSkillStack++;
+				mAttackDamage = 150;
 				if (mRightLook)
 				{
 					mAnimator->Play(L"RSmash1", false);
@@ -334,6 +353,7 @@ namespace ya
 			{
 				mSkillTime = 0.0f;
 				mSkillStack++;
+				mAttackDamage = 250;
 				if (mRightLook)
 				{
 					mAnimator->Play(L"RSmash2", false);
@@ -356,6 +376,7 @@ namespace ya
 			else if (mSkillStack == 2)
 			{
 				mSkillStack = 0;
+				mAttackDamage = 350;
 				if (mRightLook)
 				{
 					mAnimator->Play(L"RSmash3", false);
@@ -393,80 +414,7 @@ namespace ya
 			mState = State::MOVE;
 		}
 	}
-	void Player::MoveSmash()
-	{
-		Vector2 pos = GetPos();
 
-		if (KEY_DOWN(eKeyCode::LCTRL))
-		{
-			if (mSkillTime > 5.0f)
-			{
-				mSkillTime = 0.0f;
-				mSkillStack = 0;
-			}
-
-			if (mSkillStack == 0)
-			{
-				mSkillStack++;
-				if (mRightLook)
-				{
-					pos.x += 1000.0f * Time::DeltaTime();
-					mAnimator->Play(L"RSmash1", false);
-				}
-				else
-				{
-					pos.x -= 1000.0f * Time::DeltaTime();
-					mAnimator->Play(L"Smash1", false);
-				}
-			}
-			else if (mSkillStack == 1)
-			{
-				mSkillStack++;
-				mSkillTime = 0.0f;
-				if (mRightLook)
-				{
-					pos.x += 1000.0f * Time::DeltaTime();
-					mAnimator->Play(L"RSmash2", false);
-				}
-				else
-				{
-					pos.x -= 1000.0f * Time::DeltaTime();
-					mAnimator->Play(L"Smash2", false);
-				}
-			}
-			else if (mSkillStack == 2)
-			{
-				mSkillStack = 0;
-				if (mRightLook)
-				{
-					pos.x += 1000.0f * Time::DeltaTime();
-					mAnimator->Play(L"RSmash3", false);
-				}
-				else
-				{
-					pos.x -= 1000.0f * Time::DeltaTime();
-					mAnimator->Play(L"Smash3", false);
-				}
-			}
-		}
-
-		if (KEY_DOWN(eKeyCode::UP))
-		{
-			mAnimator->Play(L"MoveUp", true);
-			mState = State::MOVE;
-		}
-		if (KEY_DOWN(eKeyCode::LEFT))
-		{
-			mAnimator->Play(L"MoveLeft", true);
-			mState = State::MOVE;
-		}
-		if (KEY_DOWN(eKeyCode::RIGHT))
-		{
-			mAnimator->Play(L"MoveRight", true);
-			mState = State::MOVE;
-		}
-		SetPos(pos);
-	}
 	void Player::Beyonder()
 	{
 		mSkillTime += Time::DeltaTime();
@@ -481,6 +429,7 @@ namespace ya
 			if (mSkillStack == 0)
 			{
 				mSkillStack++;
+				mAttackDamage = 173;
 				if (mRightLook)
 				{
 					mAnimator->Plays(L"RBeyonder1", L"RBeyonderEffect1", false, false);
@@ -504,6 +453,7 @@ namespace ya
 			{
 				mSkillStack++;
 				mSkillTime = 0.0f;
+				mAttackDamage = 253;
 				if (mRightLook)
 				{
 					mAnimator->Plays(L"RBeyonder2", L"RBeyonderEffect2", false, false);
@@ -526,6 +476,7 @@ namespace ya
 			else if (mSkillStack == 2)
 			{
 				mSkillStack = 0;
+				mAttackDamage = 312;
 				if (mRightLook)
 				{
 					mAnimator->Plays(L"RBeyonder3", L"RBeyonderEffect3", false, false);
@@ -563,7 +514,80 @@ namespace ya
 			mState = State::MOVE;
 		}
 	}
+	/*void Player::MoveSmash()
+{
+	Vector2 pos = GetPos();
 
+	if (KEY_DOWN(eKeyCode::LCTRL))
+	{
+		if (mSkillTime > 5.0f)
+		{
+			mSkillTime = 0.0f;
+			mSkillStack = 0;
+		}
+
+		if (mSkillStack == 0)
+		{
+			mSkillStack++;
+			if (mRightLook)
+			{
+				pos.x += 1000.0f * Time::DeltaTime();
+				mAnimator->Play(L"RSmash1", false);
+			}
+			else
+			{
+				pos.x -= 1000.0f * Time::DeltaTime();
+				mAnimator->Play(L"Smash1", false);
+			}
+		}
+		else if (mSkillStack == 1)
+		{
+			mSkillStack++;
+			mSkillTime = 0.0f;
+			if (mRightLook)
+			{
+				pos.x += 1000.0f * Time::DeltaTime();
+				mAnimator->Play(L"RSmash2", false);
+			}
+			else
+			{
+				pos.x -= 1000.0f * Time::DeltaTime();
+				mAnimator->Play(L"Smash2", false);
+			}
+		}
+		else if (mSkillStack == 2)
+		{
+			mSkillStack = 0;
+			if (mRightLook)
+			{
+				pos.x += 1000.0f * Time::DeltaTime();
+				mAnimator->Play(L"RSmash3", false);
+			}
+			else
+			{
+				pos.x -= 1000.0f * Time::DeltaTime();
+				mAnimator->Play(L"Smash3", false);
+			}
+		}
+	}
+
+	if (KEY_DOWN(eKeyCode::UP))
+	{
+		mAnimator->Play(L"MoveUp", true);
+		mState = State::MOVE;
+	}
+	if (KEY_DOWN(eKeyCode::LEFT))
+	{
+		mAnimator->Play(L"MoveLeft", true);
+		mState = State::MOVE;
+	}
+	if (KEY_DOWN(eKeyCode::RIGHT))
+	{
+		mAnimator->Play(L"MoveRight", true);
+		mState = State::MOVE;
+	}
+	SetPos(pos);
+}*/
 	void Player::Death()
 	{
 
@@ -577,23 +601,26 @@ namespace ya
 		//HPEN redPen = CreatePen(PS_SOLID, 2, RGB(255, 0, 0));
 		//Pen pen(hdc, redPen);
 
+		
 
 		GameObject::Render(hdc);
 	}
 
 	void Player::OnCollisionEnter(Collider* other)
 	{
-	
+		//mState = State::HIT;
+		mAnimator->SetAniAlpha(150);
+		//mHp -= 10;
 	}
 
 	void Player::OnCollisionStay(Collider* other)
 	{
-
+		mAnimator->SetAniAlpha(150);
 	}
 
 	void Player::OnCollisionExit(Collider* other)
 	{
-
+		mAnimator->SetAniAlpha(255);
 	}
 
 	//void Player::WalkComplete()

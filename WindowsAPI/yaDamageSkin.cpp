@@ -4,31 +4,34 @@
 #include "yaResources.h"
 #include "yaImage.h"
 #include "yaMushMom.h"
+#include "yaPlayer.h"
+#include "Common.h"
+
 
 namespace ya
 {
 	DamageSkin::DamageSkin()
 		: mSpeed(1.0f)
-		, alpha(0)
-		, mAliveTime(10.0f)
+		, mAlpha(0)
+		, mAliveTime(5.0f)
+		, mAttackNumber(0)
 		, pos(Vector2::Zero)
 	{
 		if (mImage == nullptr)
 		{
-			mImage = Resources::Load<Image>(L"damage0", L"..\\Resources\\Image\\Damage\\damage0.bmp");
-			//Resources::Load<Image>(L"damage1", L"..\\Resources\\Image\\Damage\\damage1.bmp");
-			//Resources::Load<Image>(L"damage2", L"..\\Resources\\Image\\Damage\\damage2.bmp");
-			//Resources::Load<Image>(L"damage3", L"..\\Resources\\Image\\Damage\\damage3.bmp");
-			//Resources::Load<Image>(L"damage4", L"..\\Resources\\Image\\Damage\\damage4.bmp");
-			//Resources::Load<Image>(L"damage5", L"..\\Resources\\Image\\Damage\\damage5.bmp");
-			//Resources::Load<Image>(L"damage6", L"..\\Resources\\Image\\Damage\\damage6.bmp");
-			//Resources::Load<Image>(L"damage7", L"..\\Resources\\Image\\Damage\\damage7.bmp");
-			//Resources::Load<Image>(L"damage8", L"..\\Resources\\Image\\Damage\\damage8.bmp");
-			//Resources::Load<Image>(L"damage9", L"..\\Resources\\Image\\Damage\\damage9.bmp");
+			mImages[0] = Resources::Load<Image>(L"damage0", L"..\\Resources\\Image\\Damage\\damage0.bmp");
+			mImages[1] = Resources::Load<Image>(L"damage1", L"..\\Resources\\Image\\Damage\\damage1.bmp");
+			mImages[2] = Resources::Load<Image>(L"damage2", L"..\\Resources\\Image\\Damage\\damage2.bmp");
+			mImages[3] = Resources::Load<Image>(L"damage3", L"..\\Resources\\Image\\Damage\\damage3.bmp");
+			mImages[4] = Resources::Load<Image>(L"damage4", L"..\\Resources\\Image\\Damage\\damage4.bmp");
+			mImages[5] = Resources::Load<Image>(L"damage5", L"..\\Resources\\Image\\Damage\\damage5.bmp");
+			mImages[6] = Resources::Load<Image>(L"damage6", L"..\\Resources\\Image\\Damage\\damage6.bmp");
+			mImages[7] = Resources::Load<Image>(L"damage7", L"..\\Resources\\Image\\Damage\\damage7.bmp");
+			mImages[8] = Resources::Load<Image>(L"damage8", L"..\\Resources\\Image\\Damage\\damage8.bmp");
+			mImages[9] = Resources::Load<Image>(L"damage9", L"..\\Resources\\Image\\Damage\\damage9.bmp");
 		}
 		SetName(L"Damage");
 		SetScale({ 1.0f, 1.0f });
-		
 	}
 
 	DamageSkin::~DamageSkin()
@@ -57,31 +60,37 @@ namespace ya
 	{
 		Vector2 pos = GetPos();
 		Vector2 scale = GetScale();
-
-		/*BitBlt(hdc , pos.x, pos.y
-			, mImage->GetWidth(), mImage->GetHeight()
-			, mImage->GetDC(), 0, 0, SRCCOPY);*/
-
 		Vector2 finalPos;
-		finalPos.x = (pos.x - mImage->GetWidth() * (scale.x ));
-		finalPos.y = (pos.y - mImage->GetHeight() * (scale.y));
-
 		Vector2 rect;
-		rect.x = mImage->GetWidth() * scale.x;
-		rect.y = mImage->GetHeight() * scale.y;
-	
-		finalPos = Camera::CalculatePos(finalPos);
 
-		BLENDFUNCTION func = {};
-		func.BlendOp = AC_SRC_OVER;
-		func.BlendFlags = 0;
-		func.AlphaFormat = AC_SRC_ALPHA;
-		func.SourceConstantAlpha = 225; // 0 - 225
+		std::vector<int> changenum = DamageNumChange();
 
-		AlphaBlend(hdc, finalPos.x, finalPos.y, rect.x, rect.y,
-			mImage->GetDC(), 0, 0, mImage->GetWidth(), mImage->GetHeight()
-			, func);
+		for (size_t k = 0; k < mAttackNumber; k++)
+		{
+			for (int i = 0; i < changenum.size(); i++)
+			{
+				finalPos.x = (pos.x - mImages[changenum[i]]->GetWidth() * (scale.x));
+				finalPos.y = (pos.y - mImages[i]->GetHeight() * (scale.y));
 
+				rect.x = mImages[changenum[i]]->GetWidth() * scale.x;
+				rect.y = mImages[changenum[i]]->GetHeight() * scale.y;
+
+				finalPos = Camera::CalculatePos(finalPos);
+
+				BLENDFUNCTION func = {};
+				func.BlendOp = AC_SRC_OVER;
+				func.BlendFlags = 0;
+				func.AlphaFormat = AC_SRC_ALPHA;
+				func.SourceConstantAlpha = 225; // 0 - 225
+
+				AlphaBlend(hdc, finalPos.x, finalPos.y, rect.x, rect.y,
+					mImages[changenum[i]]->GetDC(), 0, 0, mImages[changenum[i]]->GetWidth(), mImages[changenum[i]]->GetHeight()
+					, func);
+				pos.x += 25.0f;
+			}
+			pos.x -= 25 * changenum.size();
+			pos.y -= 30.0f;
+		}
 		GameObject::Render(hdc);
 	}
 
@@ -91,5 +100,23 @@ namespace ya
 		path += fileName;
 
 		mImage = Resources::Load<Image>(key, path);
+	}
+	std::vector<int> DamageSkin::DamageNumChange()
+	{
+		int attackDamage = mushmom->AttackDamage();
+
+		std::string s = std::to_string(attackDamage);
+		std::vector<int> v, v2;
+
+		for (char c : s)
+		{
+			v.push_back(c);
+		}
+		for (int i = 0; i < v.size(); i++)
+		{
+			v2.push_back(s[i] - '0');
+		}
+
+		return v2;
 	}
 }

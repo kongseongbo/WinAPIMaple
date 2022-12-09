@@ -18,8 +18,9 @@ namespace ya
 		: mTime(0.0f)
 		, mDir(1.0f)
 		, mMoveLeft(false)
-		, mHp(50)
+		, mHp(2000)
 		, distance(0.0f)
+		, defense (900)
 	{
 		SetName(L"MushMom");
 		SetPos({ 900.0f, 820.0f });
@@ -159,7 +160,7 @@ namespace ya
 	void MushMom::Hit()
 	{
 		mTime += Time::DeltaTime();
-		if (mHp == 0)
+		if (mHp <= 0)
 		{
 			mAnimator->Play(L"MushDie", false);
 			mState = State::DEATH;
@@ -191,8 +192,8 @@ namespace ya
 			gameObj->Death();
 			mTime = 0.0f;
 		}
+		mPlayer->SetEx(50);
 	}
-
 	void MushMom::Render(HDC hdc)
 	{
 		
@@ -206,7 +207,6 @@ namespace ya
 		{
 			if (mHp > 0)
 			{
-				//mHp -= 10;
 				if (!mMoveLeft)
 				{
 					pos.x += 20.0f;
@@ -256,7 +256,7 @@ namespace ya
 		{
 			if (mHp > 0)
 			{
-				//mHp -= 10;
+				
 				if (!mMoveLeft)
 				{
 					pos.x += 20.0f;
@@ -281,7 +281,7 @@ namespace ya
 		{
 			if (mHp > 0)
 			{
-				//mHp -= 10;
+				
 				if (!mMoveLeft)
 				{
 					pos.x += 20.0f;
@@ -309,11 +309,34 @@ namespace ya
 	}
 	void MushMom::OnCollisionExit(Collider* other)
 	{
-		Vector2 pos = GetPos();
-		DamageSkin* damage = new DamageSkin();
-		Scene* playScene = SceneManager::GetPlayScene();
-		damage->mushmom = this;
-		damage->SetPos({ pos.x, pos.y - 150.0f });
-		playScene->AddGameObject(damage, eColliderLayer::Damage);
+		if (other->GetOwner()->GetName() == L"Smash")
+		{
+			Vector2 pos = GetPos();
+			DamageSkin* damage = new DamageSkin();
+			Scene* playScene = SceneManager::GetPlayScene();
+			damage->mushmom = this;
+			damage->SetPos({ pos.x , pos.y - 150.0f });
+			damage->SetAttackNumber(3);
+			playScene->AddGameObject(damage, eColliderLayer::Damage);
+		}
+		if (other->GetOwner()->GetName() == L"Beyonder" 
+			|| other->GetOwner()->GetName() == L"Beyonder2" 
+			|| other->GetOwner()->GetName() == L"Beyonder3")
+		{
+			Vector2 pos = GetPos();
+			DamageSkin* damage = new DamageSkin();
+			Scene* playScene = SceneManager::GetPlayScene();
+			damage->mushmom = this;
+			damage->SetPos({ pos.x , pos.y - 150.0f });
+			damage->SetAttackNumber(5);
+			playScene->AddGameObject(damage, eColliderLayer::Damage);
+		}
+		
+	}
+	int MushMom::AttackDamage()
+	{
+		int finalDamage = mPlayer->GetAttackDamage();
+		mHp -= finalDamage;
+		return finalDamage;
 	}
 }
