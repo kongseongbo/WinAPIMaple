@@ -36,6 +36,8 @@ namespace ya
 		void SetMoveLeft(bool move) { mMoveLeft = move; }
 		void SetMoveRight(bool move) { mMoveRight = move; }
 		void SetEx(int ex) { mEx += ex; }
+		
+		bool GetLook() { return mRightLook; }
 
 		void Idle();
 		void Move();

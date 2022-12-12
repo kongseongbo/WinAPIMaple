@@ -31,11 +31,12 @@ namespace ya
 		, mEx(0)
 		, mSkillStack(0)
 		, mSkillTime(0.0f)
-		, mMoveLeft(true)
+		, mMoveLeft(false)
+		, mMoveRight(false)
 		, mRightLook(false)
 	{
 		SetName(L"Player");
-		SetPos({ 500.0f, -750.0f });
+		SetPos({ 1500.0f, 800.0f });
 		SetScale({ 1.0f, 1.0f });
 
 

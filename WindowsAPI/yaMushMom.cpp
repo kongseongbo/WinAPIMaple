@@ -18,7 +18,7 @@ namespace ya
 		: mTime(0.0f)
 		, mDir(1.0f)
 		, mMoveLeft(false)
-		, mHp(2000)
+		, mHp(10000)
 		, distance(0.0f)
 		, defense (900)
 	{
@@ -33,7 +33,7 @@ namespace ya
 
 		mAnimator = new Animator();
 		mAnimator->CreateAnimations(L"..\\Resources\\Animations\\MushMom\\MushDie"
-			, L"MushDie", Vector2({ 0.0f, -30.0f }), 0.2f);
+			, L"MushDie", Vector2({ 0.0f, -30.0f }), 0.1f);
 
 		//¿ÞÂÊ
 		mAnimator->CreateAnimations(L"..\\Resources\\Animations\\MushMom\\MushIdle"
@@ -169,7 +169,7 @@ namespace ya
 		{
 			if (mTime > 1.5f)
 			{
-				if (!mMoveLeft)
+				if (mPlayer->GetLook() == true)
 				{
 					mAnimator->Play(L"MushAttack", false);
 				}
@@ -226,13 +226,18 @@ namespace ya
 					mTime = 0.0f;
 				}
 			}
+			else
+			{
+				mAnimator->Play(L"MushDie", false);
+				mState = State::DEATH;
+			}
 		}
 		if (gameObj->GetName() == L"Beyonder")
 		{
 			if (mHp > 0)
 			{
 				//mHp -= 10;
-				if (!mMoveLeft)
+				if (mPlayer->GetLook() == true)
 				{
 					pos.x += 20.0f;
 					SetPos(pos);
@@ -251,13 +256,18 @@ namespace ya
 					mTime = 0.0f;
 				}
 			}
+			else
+			{
+				mAnimator->Play(L"MushDie", false);
+				mState = State::DEATH;
+			}
 		}
 		if (gameObj->GetName() == L"Beyonder2")
 		{
 			if (mHp > 0)
 			{
 				
-				if (!mMoveLeft)
+				if (mPlayer->GetLook() == true)
 				{
 					pos.x += 20.0f;
 					SetPos(pos);
@@ -276,13 +286,18 @@ namespace ya
 					mTime = 0.0f;
 				}
 			}
+			else
+			{
+				mAnimator->Play(L"MushDie", false);
+				mState = State::DEATH;
+			}
 		}
-		if (gameObj->GetName() == L"Beyonde3")
+		if (gameObj->GetName() == L"Beyonder3")
 		{
 			if (mHp > 0)
 			{
 				
-				if (!mMoveLeft)
+				if (mPlayer->GetLook() == true)
 				{
 					pos.x += 20.0f;
 					SetPos(pos);
@@ -301,8 +316,12 @@ namespace ya
 					mTime = 0.0f;
 				}
 			}
+			else
+			{
+				mAnimator->Play(L"MushDie", false);
+				mState = State::DEATH;
+			}
 		}
-		
 	}
 	void MushMom::OnCollisionStay(Collider* other)
 	{

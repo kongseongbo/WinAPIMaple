@@ -148,6 +148,8 @@
     <ClInclude Include="yaCollisionManager.h" />
     <ClInclude Include="yaComponent.h" />
     <ClInclude Include="yaDamageSkin.h" />
+    <ClInclude Include="yaDarkWolf.h" />
+    <ClInclude Include="yaDarkWolfAttack.h" />
     <ClInclude Include="yaEndScene.h" />
     <ClInclude Include="yaGameObject.h" />
     <ClInclude Include="Resource.h" />
@@ -201,6 +203,8 @@
     <ClCompile Include="yaCollisionManager.cpp" />
     <ClCompile Include="yaComponent.cpp" />
     <ClCompile Include="yaDamageSkin.cpp" />
+    <ClCompile Include="yaDarkWolf.cpp" />
+    <ClCompile Include="yaDarkWolfAttack.cpp" />
     <ClCompile Include="yaEndScene.cpp" />
     <ClCompile Include="yaGameObject.cpp" />
     <ClCompile Include="main.cpp" />

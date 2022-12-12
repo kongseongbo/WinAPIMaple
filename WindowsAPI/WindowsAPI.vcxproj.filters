@@ -62,6 +62,9 @@
     <Filter Include="Engine\GameObject\PlayerSkill">
       <UniqueIdentifier>{c7bd0c3c-4d14-46eb-a32e-c6f17b78d132}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\GameObject\Monster">
+      <UniqueIdentifier>{e91e4247-1d82-4ae8-bd1a-59105292d661}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -163,9 +166,6 @@
     <ClInclude Include="yaMissile.h">
       <Filter>Engine\GameObject\Game</Filter>
     </ClInclude>
-    <ClInclude Include="yaMushMom.h">
-      <Filter>Engine\GameObject\Game</Filter>
-    </ClInclude>
     <ClInclude Include="yaPlayer.h">
       <Filter>Engine\GameObject\Game</Filter>
     </ClInclude>
@@ -220,6 +220,15 @@
     </ClInclude>
     <ClInclude Include="yaDamageSkin.h">
       <Filter>Engine\GameObject\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="yaMushMom.h">
+      <Filter>Engine\GameObject\Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="yaDarkWolfAttack.h">
+      <Filter>Engine\GameObject\Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="yaDarkWolf.h">
+      <Filter>Engine\GameObject\Monster</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -320,9 +329,6 @@
     <ClCompile Include="yaMissile.cpp">
       <Filter>Engine\GameObject\Game</Filter>
     </ClCompile>
-    <ClCompile Include="yaMushMom.cpp">
-      <Filter>Engine\GameObject\Game</Filter>
-    </ClCompile>
     <ClCompile Include="yaRigidbody.cpp">
       <Filter>Engine\Component</Filter>
     </ClCompile>
@@ -374,6 +380,15 @@
     </ClCompile>
     <ClCompile Include="yaDamageSkin.cpp">
       <Filter>Engine\GameObject\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="yaMushMom.cpp">
+      <Filter>Engine\GameObject\Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="yaDarkWolf.cpp">
+      <Filter>Engine\GameObject\Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="yaDarkWolfAttack.cpp">
+      <Filter>Engine\GameObject\Monster</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
