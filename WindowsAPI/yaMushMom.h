@@ -36,8 +36,10 @@ namespace ya
 
 		int AttackDamage();
 
-		Player* mPlayer;
+		int GetState() { return (int)mState; }
 
+		Player* mPlayer;
+		
 	private:
 		State mState = State::IDLE;
 		Animator* mAnimator;

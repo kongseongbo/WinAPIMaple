@@ -32,6 +32,7 @@ namespace ya
 		
 
 		void Death() { mDead = true; }
+		void Regen() { mDead = false; }
 		bool IsDeath() { return mDead; }
 		void SetDeathTime(float time);
 

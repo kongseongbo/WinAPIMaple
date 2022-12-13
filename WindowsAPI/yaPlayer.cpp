@@ -290,14 +290,14 @@ namespace ya
 		{
 			mState = State::IDLE;
 		}
-		//if (KEY_DOWN(eKeyCode::LCTRL))
-		//{
-		//	mState = State::SMASH;
-		//}
-		//if (KEY_DOWN(eKeyCode::LSHIFT))
-		//{
-		//	mState = State::BEYONDER;
-		//}
+		if (KEY_DOWN(eKeyCode::LCTRL))
+		{
+			mState = State::SMASH;
+		}
+		if (KEY_DOWN(eKeyCode::LSHIFT))
+		{
+			mState = State::BEYONDER;
+		}
 		//if ((KEY_PREESE(eKeyCode::RIGHT) || KEY_PREESE(eKeyCode::LEFT)) &&  KEY_DOWN(eKeyCode::LCTRL))
 		//{
 		//	mState = State::MOVESMASH;

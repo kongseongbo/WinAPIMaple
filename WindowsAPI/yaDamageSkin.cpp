@@ -6,6 +6,7 @@
 #include "yaMushMom.h"
 #include "yaPlayer.h"
 #include "Common.h"
+#include "yaGolem.h"
 
 
 namespace ya
@@ -15,6 +16,7 @@ namespace ya
 		, mAlpha(0)
 		, mAliveTime(5.0f)
 		, mAttackNumber(0)
+		, attackDamage(0)
 		, pos(Vector2::Zero)
 	{
 		if (mImage == nullptr)
@@ -41,11 +43,27 @@ namespace ya
 	void DamageSkin::Tick()
 	{
 		GameObject::Tick();
-		if (mushmom == nullptr)
-			return;
-		Vector2 mushPos = mushmom->GetPos();
+		Vector2 monsterPos;
+		if (mTarget == L"Mushmom")
+		{
+			if (mushmom == nullptr)
+				return;
+			monsterPos = mushmom->GetPos();
+		}
+			
+		if (mTarget == L"Golem")
+		{
+			if (mGolem == nullptr)
+				return;
+			monsterPos = mGolem->GetPos();
+		}
+			
+
+		
+		
+		
 		pos = GetPos();
-		pos.x = mushPos.x;
+		pos.x = monsterPos.x;
 		//pos.y -= 200.0f * Time::DeltaTime();
 		SetPos({ pos.x,pos.y -= 50.0f * Time::DeltaTime() });
 		mAliveTime -= Time::DeltaTime();
@@ -53,6 +71,7 @@ namespace ya
 		{
 			this->Death();
 		}
+
 		
 	}
 
@@ -103,7 +122,10 @@ namespace ya
 	}
 	std::vector<int> DamageSkin::DamageNumChange()
 	{
-		int attackDamage = mushmom->AttackDamage();
+		if(mTarget == L"Mushmom")
+			attackDamage = mushmom->AttackDamage();
+		if (mTarget == L"Golem")
+			attackDamage = mGolem->AttackDamage();
 
 		std::string s = std::to_string(attackDamage);
 		std::vector<int> v, v2;

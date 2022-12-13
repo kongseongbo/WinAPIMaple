@@ -157,6 +157,7 @@
     <ClInclude Include="WindowsAPI.h" />
     <ClInclude Include="yaApplication.h" />
     <ClInclude Include="yaEntity.h" />
+    <ClInclude Include="yaGolem.h" />
     <ClInclude Include="yaGround.h" />
     <ClInclude Include="yaHUD.h" />
     <ClInclude Include="yaImage.h" />
@@ -210,6 +211,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="yaApplication.cpp" />
     <ClCompile Include="yaEntity.cpp" />
+    <ClCompile Include="yaGolem.cpp" />
     <ClCompile Include="yaGround.cpp" />
     <ClCompile Include="yaHUD.cpp" />
     <ClCompile Include="yaImage.cpp" />

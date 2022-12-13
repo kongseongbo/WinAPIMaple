@@ -190,7 +190,6 @@ namespace ya
 		{
 			GameObject* gameObj = this;
 			gameObj->Death();
-			mTime = 0.0f;
 		}
 		mPlayer->SetEx(50);
 	}
@@ -207,7 +206,7 @@ namespace ya
 		{
 			if (mHp > 0)
 			{
-				if (!mMoveLeft)
+				if (mPlayer->GetLook() == true)
 				{
 					pos.x += 20.0f;
 					SetPos(pos);
@@ -334,6 +333,7 @@ namespace ya
 			DamageSkin* damage = new DamageSkin();
 			Scene* playScene = SceneManager::GetPlayScene();
 			damage->mushmom = this;
+			damage->SetTargetName(L"Mushmom");
 			damage->SetPos({ pos.x , pos.y - 150.0f });
 			damage->SetAttackNumber(3);
 			playScene->AddGameObject(damage, eColliderLayer::Damage);
@@ -346,6 +346,7 @@ namespace ya
 			DamageSkin* damage = new DamageSkin();
 			Scene* playScene = SceneManager::GetPlayScene();
 			damage->mushmom = this;
+			damage->SetTargetName(L"Mushmom");
 			damage->SetPos({ pos.x , pos.y - 150.0f });
 			damage->SetAttackNumber(5);
 			playScene->AddGameObject(damage, eColliderLayer::Damage);
@@ -356,6 +357,7 @@ namespace ya
 	{
 		int finalDamage = mPlayer->GetAttackDamage();
 		mHp -= finalDamage;
+
 		return finalDamage;
 	}
 }

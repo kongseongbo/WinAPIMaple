@@ -230,6 +230,9 @@
     <ClInclude Include="yaDarkWolf.h">
       <Filter>Engine\GameObject\Monster</Filter>
     </ClInclude>
+    <ClInclude Include="yaGolem.h">
+      <Filter>Engine\GameObject\Monster</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="WindowsAPI.rc">
@@ -388,6 +391,9 @@
       <Filter>Engine\GameObject\Monster</Filter>
     </ClCompile>
     <ClCompile Include="yaDarkWolfAttack.cpp">
+      <Filter>Engine\GameObject\Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="yaGolem.cpp">
       <Filter>Engine\GameObject\Monster</Filter>
     </ClCompile>
   </ItemGroup>

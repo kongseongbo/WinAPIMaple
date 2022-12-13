@@ -5,6 +5,7 @@ namespace ya
 {
 	class Player;
 	class MushMom;
+	class Golem;
 	class Image;
 	class DamageSkin : public GameObject
 	{
@@ -17,18 +18,22 @@ namespace ya
 
 		void SetImage(const std::wstring& key, const std::wstring& fileName);
 		void SetAttackNumber(int num) { mAttackNumber = num; }
-
+		void SetAttackDamage(int damage) { attackDamage = damage; }
+		void SetTargetName(std::wstring target) { mTarget = target; }
 		std::vector<int> DamageNumChange();
 
 		MushMom* mushmom;
+		Golem* mGolem;
 		Player* mPlayer;
 	private:
 		Image* mImage;
 		Image* mImages[10];
+		std::wstring mTarget;
 		float mSpeed;
 		float mAliveTime;
 		int mAlpha;
 		int mAttackNumber;
+		int attackDamage;
 		Vector2 pos;
 	};
 }

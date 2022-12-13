@@ -18,7 +18,14 @@ namespace ya
 		virtual void Exit();
 
 	private:
-		
+		BgImageObject* bg2;
+		Player* player;
+		MushMom* mMushmom[5];
+		Golem* mGolem[3];
+		float mTime;
+
+		Vector2 mushPos[5];
+		Vector2 golemPos[5];
 	};
 
 }
