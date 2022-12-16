@@ -6,6 +6,7 @@
 #include "yaToolScene.h"
 #include "yaObject.h"
 #include "yaCollisionManager.h"
+#include "yaCamera.h"
 
 namespace ya
 {
@@ -18,8 +19,8 @@ namespace ya
 		// 모든씬들을 초기화
 		// 다른씬에서 툴씬을 사용하려면 툴씬이 
 		// 제일 우선적으로 생성되어야 한다.
-		mScenes[(UINT)eSceneType::Tool] = new ToolScene();
-		mScenes[(UINT)eSceneType::Tool]->Initialize();
+		/*mScenes[(UINT)eSceneType::Tool] = new ToolScene();
+		mScenes[(UINT)eSceneType::Tool]->Initialize();*/
 	
 		mScenes[(UINT)eSceneType::Logo] = new LogoScene();
 		mScenes[(UINT)eSceneType::Logo]->Initialize();
@@ -33,7 +34,7 @@ namespace ya
 		mScenes[(UINT)eSceneType::End] = new EndScene();
 		mScenes[(UINT)eSceneType::End]->Initialize();
 
-		ChangeScene(eSceneType::Logo);
+		ChangeScene(eSceneType::Title);
 		// 업캐스팅
 		// 다운캐스팅
 
@@ -44,8 +45,6 @@ namespace ya
 	void SceneManager::Tick()
 	{
 		// 현재 내 게임오브젝트들이 화면 바깥에 있는지 없는지 확인
-
-
 
 		//현재 씬들을 update Tick
 		mPlayScene->Tick();
@@ -81,13 +80,9 @@ namespace ya
 			return;
 
 		mType = type;
-
 		CollisionManager::Clear();
 		mPlayScene->Exit();
 		mPlayScene = mScenes[(UINT)type];
-		
 		mPlayScene->Enter();
 	}
-
-
 }

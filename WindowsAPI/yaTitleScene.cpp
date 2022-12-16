@@ -2,30 +2,32 @@
 #include "yaInput.h"
 #include "yaSceneManager.h"
 #include "yaBgImageObject.h"
+#include "yaAnimator.h"
+#include "yaLogo.h"
+#include "yaObject.h"
+#include "yaTime.h"
 
 namespace ya
 {
 	TitleScene::TitleScene()
+		: mTime(0.0f)
 	{
+		
 	}
 	TitleScene::~TitleScene()
 	{
 	}
 	void TitleScene::Initialize()
 	{
-		BgImageObject* bg = new BgImageObject();
-		bg->SetImage(L"TitleBG", L"Map\\TitleScene.bmp");
-		bg->Initialize();
-
-		AddGameObject(bg, eColliderLayer::BackGround);
+		Logo* logo = ya::object::Instantiate<Logo>(eColliderLayer::BackGround);
 	}       
 	void TitleScene::Tick()
 	{
 		Scene::Tick();
-
-		if (KEY_DOWN(eKeyCode::N))
+		mTime += Time::DeltaTime();
+		if (mTime >13.0f)
 		{
-			SceneManager::ChangeScene(eSceneType::Play);
+			SceneManager::ChangeScene(eSceneType::Logo);
 		}
 	}
 	void TitleScene::Render(HDC hdc)

@@ -233,6 +233,12 @@
     <ClInclude Include="yaGolem.h">
       <Filter>Engine\GameObject\Monster</Filter>
     </ClInclude>
+    <ClInclude Include="yaDarkWolfTeleport.h">
+      <Filter>Engine\GameObject\Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="yaLogo.h">
+      <Filter>Engine\GameObject</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="WindowsAPI.rc">
@@ -395,6 +401,12 @@
     </ClCompile>
     <ClCompile Include="yaGolem.cpp">
       <Filter>Engine\GameObject\Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="yaDarkWolfTeleport.cpp">
+      <Filter>Engine\GameObject\Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="yaLogo.cpp">
+      <Filter>Engine\GameObject</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

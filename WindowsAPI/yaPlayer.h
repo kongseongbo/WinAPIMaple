@@ -3,6 +3,8 @@
 
 namespace ya
 {
+	int _PlayerHp = 100;
+
 	class Animator;
 	class Image;
 	class Player : public GameObject
@@ -30,13 +32,13 @@ namespace ya
 
 		//void WalkComplete();
 
-		void SetHp(int hp) { mHp = hp; }
-		int GetHp() { return mHp; }
+		/*void SetHp(int hp) { mHp = hp; }
+		int GetHp() { return mHp; }*/
 
 		void SetMoveLeft(bool move) { mMoveLeft = move; }
 		void SetMoveRight(bool move) { mMoveRight = move; }
 		void SetEx(int ex) { mEx += ex; }
-		
+		void SetHitDamage(int damage) { mHitDamage = damage; }
 		bool GetLook() { return mRightLook; }
 
 		void Idle();
@@ -47,7 +49,9 @@ namespace ya
 		void Beyonder();
 		void Death();
 
-		int GetAttackDamage() { return mAttackDamage; }
+		int GetAttackDamage() { return mPlayerSTR; }
+
+		int GetPlayerHitDamage() { return mHitDamage; }
 
 	private:
 		float mCoff;
@@ -56,20 +60,17 @@ namespace ya
 		Image* mImage;
 		Animator* mAnimator;
 		Vector2 mMisiileDir;
-
-		int mHp;
 		Vector2 dest;
-
 		State mState = State::IDLE;
 
-		int mAttackDamage;
+		int mHitDamage;
+		int mPlayerSTR;
 		int mEx;
 		int mSkillStack;
 		float mSkillTime;
 		bool mMoveLeft;
 		bool mMoveRight;
 		bool mRightLook;
-		
 	};
 
 }

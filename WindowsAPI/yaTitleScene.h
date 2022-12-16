@@ -3,7 +3,7 @@
 
 namespace ya
 {
-	class TitleScene : public Scene
+	class TitleScene : public Scene 
 	{
 	public:
 		TitleScene();
@@ -17,7 +17,7 @@ namespace ya
 		virtual void Exit();
 
 	private:
-
+		float mTime;
 	};
 
 }

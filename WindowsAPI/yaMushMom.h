@@ -49,8 +49,7 @@ namespace ya
 		float mDir;
 		float distance;
 		int mHp;
-		int mAttackDamage;
-		int defense;
+		int mMushSTR;
 	};
 
 }

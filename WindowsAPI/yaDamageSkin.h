@@ -4,6 +4,7 @@
 namespace ya
 {
 	class Player;
+	class DarkWolf;
 	class MushMom;
 	class Golem;
 	class Image;
@@ -22,12 +23,15 @@ namespace ya
 		void SetTargetName(std::wstring target) { mTarget = target; }
 		std::vector<int> DamageNumChange();
 
-		MushMom* mushmom;
+		MushMom* mMushmom;
 		Golem* mGolem;
+		DarkWolf* mDarkWolf;
 		Player* mPlayer;
+
 	private:
 		Image* mImage;
 		Image* mImages[10];
+		Image* mBlueImages[10];
 		std::wstring mTarget;
 		float mSpeed;
 		float mAliveTime;

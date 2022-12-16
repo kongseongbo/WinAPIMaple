@@ -30,8 +30,6 @@ namespace ya
 	
 	void Collider::Render(HDC hdc)
 	{
-
-
 		HBRUSH tr = Application::GetInstance().GetBrush(eBrushColor::Transparent);
 		Brush brush(hdc, tr);
 

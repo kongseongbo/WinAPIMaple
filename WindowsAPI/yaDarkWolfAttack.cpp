@@ -39,6 +39,7 @@ namespace ya
 	void DarkWolfAttack::OnCollisionEnter(Collider* other)
 	{
 		//GameObject* gameObj = other->GetOwner();
+		
 	}
 
 	void DarkWolfAttack::OnCollisionStay(Collider* other)

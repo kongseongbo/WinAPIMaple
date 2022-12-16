@@ -11,6 +11,7 @@
 #include "yaCamera.h"
 #include "yaPlayer.h"
 #include "yaDamageSkin.h"
+#include "yaLogoScene.h"
 
 namespace ya
 {
@@ -20,7 +21,6 @@ namespace ya
 		, mMoveLeft(false)
 		, mHp(10000)
 		, distance(0.0f)
-		, defense (900)
 	{
 		SetName(L"MushMom");
 		SetPos({ 900.0f, 820.0f });
@@ -139,10 +139,11 @@ namespace ya
 	}
 	void MushMom::Attack()
 	{
-		
 		mTime += Time::DeltaTime();
+		mPlayer->SetHitDamage(100);
 		if (mTime > 2.0f)
 		{
+			mPlayer->Hit();
 			if (!mMoveLeft)
 			{
 				mAnimator->Play(L"MushMoveLeft", true);
@@ -332,7 +333,7 @@ namespace ya
 			Vector2 pos = GetPos();
 			DamageSkin* damage = new DamageSkin();
 			Scene* playScene = SceneManager::GetPlayScene();
-			damage->mushmom = this;
+			damage->mMushmom = this;
 			damage->SetTargetName(L"Mushmom");
 			damage->SetPos({ pos.x , pos.y - 150.0f });
 			damage->SetAttackNumber(3);
@@ -345,7 +346,7 @@ namespace ya
 			Vector2 pos = GetPos();
 			DamageSkin* damage = new DamageSkin();
 			Scene* playScene = SceneManager::GetPlayScene();
-			damage->mushmom = this;
+			damage->mMushmom = this;
 			damage->SetTargetName(L"Mushmom");
 			damage->SetPos({ pos.x , pos.y - 150.0f });
 			damage->SetAttackNumber(5);

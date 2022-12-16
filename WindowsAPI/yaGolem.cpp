@@ -20,7 +20,6 @@ namespace ya
 		, mMoveLeft(false)
 		, mHp(20000)
 		, distance(0.0f)
-		, defense(900)
 	{
 		SetName(L"Golem");
 		SetPos({ 900.0f, 820.0f });
@@ -135,10 +134,11 @@ namespace ya
 	}
 	void Golem::Attack()
 	{
-
 		mTime += Time::DeltaTime();
+		mPlayer->SetHitDamage(172);
 		if (mTime > 2.0f)
 		{
+			mPlayer->Hit();
 			if (!mMoveLeft)
 			{
 				mAnimator->Play(L"GolemMoveLeft", true);
@@ -189,6 +189,7 @@ namespace ya
 			mTime = 0.0f;
 		}
 		mPlayer->SetEx(50);
+		
 	}
 	void Golem::Render(HDC hdc)
 	{

@@ -51,6 +51,7 @@ enum class eColliderLayer
 	Tile,
 	Monster,
 	Monster_Projecttile,
+	Teleport,
 	Player,
 	Player_Smash,
 	Player_Beyonder,

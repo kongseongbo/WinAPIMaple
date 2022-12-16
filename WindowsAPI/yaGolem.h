@@ -50,7 +50,6 @@ namespace ya
 		float distance;
 		int mHp;
 		int mAttackDamage;
-		int defense;
 	};
 
 }

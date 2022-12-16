@@ -150,6 +150,7 @@
     <ClInclude Include="yaDamageSkin.h" />
     <ClInclude Include="yaDarkWolf.h" />
     <ClInclude Include="yaDarkWolfAttack.h" />
+    <ClInclude Include="yaDarkWolfTeleport.h" />
     <ClInclude Include="yaEndScene.h" />
     <ClInclude Include="yaGameObject.h" />
     <ClInclude Include="Resource.h" />
@@ -162,6 +163,7 @@
     <ClInclude Include="yaHUD.h" />
     <ClInclude Include="yaImage.h" />
     <ClInclude Include="yaInput.h" />
+    <ClInclude Include="yaLogo.h" />
     <ClInclude Include="yaLogoScene.h" />
     <ClInclude Include="Maths.h" />
     <ClInclude Include="yaMissile.h" />
@@ -206,6 +208,7 @@
     <ClCompile Include="yaDamageSkin.cpp" />
     <ClCompile Include="yaDarkWolf.cpp" />
     <ClCompile Include="yaDarkWolfAttack.cpp" />
+    <ClCompile Include="yaDarkWolfTeleport.cpp" />
     <ClCompile Include="yaEndScene.cpp" />
     <ClCompile Include="yaGameObject.cpp" />
     <ClCompile Include="main.cpp" />
@@ -216,6 +219,7 @@
     <ClCompile Include="yaHUD.cpp" />
     <ClCompile Include="yaImage.cpp" />
     <ClCompile Include="yaInput.cpp" />
+    <ClCompile Include="yaLogo.cpp" />
     <ClCompile Include="yaLogoScene.cpp" />
     <ClCompile Include="yaMissile.cpp" />
     <ClCompile Include="yaMushMom.cpp" />

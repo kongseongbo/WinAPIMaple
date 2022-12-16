@@ -18,6 +18,7 @@ namespace ya
 	{
 		SetPos(Vector2::Zero);
 		SetScale(Vector2::One);
+		SetName(L"Bg");
 		//SetScale({1.3f, 1.3f});
 	}
 

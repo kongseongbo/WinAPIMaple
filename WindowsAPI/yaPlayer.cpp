@@ -21,14 +21,16 @@
 #include "yaBeyonder2.h"
 #include "yaBeyonder3.h"
 
+#include "yaDamageSkin.h"
+
 namespace ya
 {
 	Player::Player()
 		: mSpeed(1.0f)
 		, mTime(0.0f)
-		, mHp(100)
-		, mAttackDamage(0)
+		, mPlayerSTR(0)
 		, mEx(0)
+		, mHitDamage(0)
 		, mSkillStack(0)
 		, mSkillTime(0.0f)
 		, mMoveLeft(false)
@@ -158,7 +160,7 @@ namespace ya
 
 		mCoff = 0.1f;
 		mMisiileDir = Vector2::One;
-		Camera::SetTarget(this);
+		//Camera::SetTarget(this);
 		//float x = math::lerp(1.0f, 3.0f, 0.5f);
 	}
 
@@ -171,7 +173,6 @@ namespace ya
 	{
 		GameObject::Tick();
 		
-
 		switch (mState)
 		{
 		case ya::Player::State::IDLE:
@@ -203,6 +204,7 @@ namespace ya
 
 	void Player::Idle()
 	{
+		mAnimator->SetAniAlpha(255);
 		mAnimator->Play(L"Idle", true);
 		if (mRightLook)
 		{
@@ -307,13 +309,19 @@ namespace ya
 	}
 	void Player::Hit()
 	{
-		/*mTime += Time::DeltaTime();
+		mTime += Time::DeltaTime();
 		mAnimator->SetAniAlpha(150);
-		if (mTime > 1.5f)
-		{
-			mAnimator->SetAniAlpha(255);
-			mTime = 0.0f;
-		}*/
+		Vector2 pos = GetPos();
+		DamageSkin* damage = new DamageSkin();
+		Scene* playScene = SceneManager::GetPlayScene();
+		damage->mPlayer = this;
+		damage->SetTargetName(L"Player");
+		damage->SetPos({ pos.x , pos.y - 50.0f });
+		damage->SetAttackNumber(1);
+		playScene->AddGameObject(damage, eColliderLayer::Damage);
+
+		if (mTime > 1.0f)
+			mState = State::IDLE;
 	}
 	void Player::Smash()
 	{
@@ -329,7 +337,7 @@ namespace ya
 			if (mSkillStack == 0)
 			{
 				mSkillStack++;
-				mAttackDamage = 150;
+				mPlayerSTR = 100;
 				if (mRightLook)
 				{
 					mAnimator->Play(L"RSmash1", false);
@@ -354,7 +362,7 @@ namespace ya
 			{
 				mSkillTime = 0.0f;
 				mSkillStack++;
-				mAttackDamage = 250;
+				mPlayerSTR = 220;
 				if (mRightLook)
 				{
 					mAnimator->Play(L"RSmash2", false);
@@ -377,7 +385,7 @@ namespace ya
 			else if (mSkillStack == 2)
 			{
 				mSkillStack = 0;
-				mAttackDamage = 350;
+				mPlayerSTR = 311;
 				if (mRightLook)
 				{
 					mAnimator->Play(L"RSmash3", false);
@@ -430,7 +438,7 @@ namespace ya
 			if (mSkillStack == 0)
 			{
 				mSkillStack++;
-				mAttackDamage = 173;
+				mPlayerSTR = 163;
 				if (mRightLook)
 				{
 					mAnimator->Plays(L"RBeyonder1", L"RBeyonderEffect1", false, false);
@@ -454,7 +462,7 @@ namespace ya
 			{
 				mSkillStack++;
 				mSkillTime = 0.0f;
-				mAttackDamage = 253;
+				mPlayerSTR = 243;
 				if (mRightLook)
 				{
 					mAnimator->Plays(L"RBeyonder2", L"RBeyonderEffect2", false, false);
@@ -477,7 +485,7 @@ namespace ya
 			else if (mSkillStack == 2)
 			{
 				mSkillStack = 0;
-				mAttackDamage = 312;
+				mPlayerSTR = 302;
 				if (mRightLook)
 				{
 					mAnimator->Plays(L"RBeyonder3", L"RBeyonderEffect3", false, false);
@@ -593,7 +601,6 @@ namespace ya
 	{
 
 	}
-
 	void Player::Render(HDC hdc)
 	{
 		//HBRUSH blueBrush = CreateSolidBrush(RGB(153, 204, 255));
@@ -609,9 +616,8 @@ namespace ya
 
 	void Player::OnCollisionEnter(Collider* other)
 	{
-		//mState = State::HIT;
+		
 		mAnimator->SetAniAlpha(150);
-		//mHp -= 10;
 	}
 
 	void Player::OnCollisionStay(Collider* other)

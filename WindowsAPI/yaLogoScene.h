@@ -3,7 +3,7 @@
 
 namespace ya
 {
-	class Monster;
+
 	class LogoScene : public Scene
 	{
 	public:
@@ -16,6 +16,8 @@ namespace ya
 
 		virtual void Enter();
 		virtual void Exit();
+
+		static int mNextSceneStack;
 
 	private:
 		BgImageObject* bg2;

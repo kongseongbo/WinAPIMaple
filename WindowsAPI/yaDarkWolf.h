@@ -4,6 +4,7 @@
 namespace ya
 {
 	class Player;
+	class DarkWolfTeleport;
 	class Image;
 	class DarkWolf : public GameObject
 	{
@@ -14,6 +15,7 @@ namespace ya
 			IDLE,
 			MOVE,
 			ATTACK,
+			TELEPORT,
 			HIT,
 			DEATH,
 		};
@@ -33,9 +35,11 @@ namespace ya
 		void Idle();
 		void Move();
 		void Attack();
+		void TeleportAttack();
 		void Hit();
 		void Death();
-
+		void SetState(State state) { mState = state; }
+		
 		int AttackDamage();
 
 		Player* mPlayer;
@@ -50,7 +54,8 @@ namespace ya
 		float distance;
 		int mHp;
 		int mAttackDamage;
-		int defense;
+
+		DarkWolfTeleport* wolfTeleport;
 	};
 
 }

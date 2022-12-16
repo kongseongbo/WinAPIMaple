@@ -2,6 +2,12 @@
 #include "yaPlayer.h"
 #include "yaInput.h"
 #include "yaSceneManager.h"
+#include "yaCamera.h"
+#include "yaDarkWolf.h"
+#include "yaDarkWolfAttack.h"
+#include "yaObject.h"
+#include "yaBgImageObject.h"
+#include "yaCollisionManager.h"
 
 namespace ya
 {
@@ -15,7 +21,20 @@ namespace ya
 
 	void PlayScene::Initialize()
 	{
-		//AddGameObject(new Player(), eColliderLayer::Player);
+		bg = ya::object::Instantiate<BgImageObject>(eColliderLayer::PixelBackGround);
+		bg->SetPixelImage(L"BossPIXEL", L"Map\\BossMapPixel2.bmp");
+		bg->SetImage(L"BossMap", L"Map\\BossMap2.bmp");
+
+		BgImageObject* bg2 = ya::object::Instantiate<BgImageObject>(eColliderLayer::BackGround);
+		bg2->SetImage(L"BossMapBG", L"Map\\BossMapBG2.bmp");
+
+		player = ya::object::Instantiate<Player>(eColliderLayer::Player);
+		player->SetPos(Vector2{ 140.0f,660.0f });
+		bg->mPlayer = player;
+		
+		DarkWolf* mDarkWolf = ya::object::Instantiate<DarkWolf>(eColliderLayer::Monster);
+		mDarkWolf->SetPos(Vector2{ 1500.0f,700.0f });
+		mDarkWolf->mPlayer = player;
 	}
 
 	void PlayScene::Tick()
@@ -39,7 +58,17 @@ namespace ya
 
 	void PlayScene::Enter()
 	{
+		Camera::SetTarget(bg);
 
+		CollisionManager::SetLayer(eColliderLayer::Monster, eColliderLayer::Player, true);
+		CollisionManager::SetLayer(eColliderLayer::Teleport, eColliderLayer::Player, true);
+		CollisionManager::SetLayer(eColliderLayer::Monster, eColliderLayer::Player_Smash, true);
+		CollisionManager::SetLayer(eColliderLayer::Monster, eColliderLayer::Player_Beyonder, true);
+		CollisionManager::SetLayer(eColliderLayer::Ground, eColliderLayer::Player, true);
+
+		Camera::SetAlphaTime(0.0f);
+		Camera::SetCameraEffect(eCameraEffect::FadeIn);
+		
 	}
 
 	void PlayScene::Exit()

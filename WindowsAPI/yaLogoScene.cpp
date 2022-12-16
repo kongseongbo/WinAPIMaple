@@ -15,9 +15,12 @@
 #include "yaDarkWolf.h"
 #include "yaTime.h"
 #include "yaGolem.h"
+#include "yaCamera.h"
 
 namespace ya
 {
+	int LogoScene::mNextSceneStack = 0;
+
 	LogoScene::LogoScene()
 		: mTime(0.0f)
 	{
@@ -107,11 +110,11 @@ namespace ya
 			{
 				mTime += Time::DeltaTime();
 				if (mTime > 4.0f)
-
 				{
 					mMushmom[i] = ya::object::Instantiate<MushMom>(eColliderLayer::Monster);
 					mMushmom[i]->mPlayer = player;
 					mMushmom[i]->SetPos(mushPos[i]);
+					mNextSceneStack++;
 					mTime = 0.0f;
 				}
 			}
@@ -123,15 +126,21 @@ namespace ya
 			{
 				mTime += Time::DeltaTime();
 				if (mTime > 4.0f)
-
 				{
 					mGolem[i] = ya::object::Instantiate<Golem>(eColliderLayer::Monster);
 					mGolem[i]->mPlayer = player;
 					mGolem[i]->SetPos(golemPos[i]);
+					mNextSceneStack++;
 					mTime = 0.0f;
 				}
 			}
+		}
+
+		if (mNextSceneStack >= 5)
+		{
+			SceneManager::ChangeScene(eSceneType::Play);
 			
+			mNextSceneStack = 0;
 		}
 		//ya::object::Destroy(mons[0], 3.0f);
 	}
@@ -139,7 +148,6 @@ namespace ya
 	void LogoScene::Render(HDC hdc)
 	{
 		Scene::Render(hdc);
-		//
 		wchar_t szFloat[50] = {};
 		swprintf_s(szFloat, 50, L"Logo Scene.bmp");
 		int strLen = wcsnlen_s(szFloat, 50);
@@ -152,9 +160,12 @@ namespace ya
 		CollisionManager::SetLayer(eColliderLayer::Monster, eColliderLayer::Player_Smash, true);
 		CollisionManager::SetLayer(eColliderLayer::Monster, eColliderLayer::Player_Beyonder, true);
 		CollisionManager::SetLayer(eColliderLayer::Ground, eColliderLayer::Player, true);
+		Camera::SetTarget(player);
 	}
 
 	void LogoScene::Exit()
 	{
+		Camera::SetAlphaTime(0.0f);
+		Camera::SetCameraEffect(eCameraEffect::FadeOut);
 	}
 }

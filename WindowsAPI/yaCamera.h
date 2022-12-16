@@ -15,6 +15,7 @@ namespace ya
 		static Vector2 CalculatePos(Vector2 pos) { return pos - mDistance; }
 		static void SetTarget(GameObject* gameObj) { mTarget = gameObj; }
 		static void SetCameraEffect(eCameraEffect effect) { mEffect = effect; }
+		static void SetAlphaTime(float alphaTime) { mAlphaTime = alphaTime; }
 
 
 	private:

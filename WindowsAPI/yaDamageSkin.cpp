@@ -7,31 +7,41 @@
 #include "yaPlayer.h"
 #include "Common.h"
 #include "yaGolem.h"
-
+#include "yaDarkWolf.h"
 
 namespace ya
 {
 	DamageSkin::DamageSkin()
 		: mSpeed(1.0f)
 		, mAlpha(0)
-		, mAliveTime(5.0f)
+		, mAliveTime(2.0f)
 		, mAttackNumber(0)
 		, attackDamage(0)
 		, pos(Vector2::Zero)
 	{
-		if (mImage == nullptr)
-		{
-			mImages[0] = Resources::Load<Image>(L"damage0", L"..\\Resources\\Image\\Damage\\damage0.bmp");
-			mImages[1] = Resources::Load<Image>(L"damage1", L"..\\Resources\\Image\\Damage\\damage1.bmp");
-			mImages[2] = Resources::Load<Image>(L"damage2", L"..\\Resources\\Image\\Damage\\damage2.bmp");
-			mImages[3] = Resources::Load<Image>(L"damage3", L"..\\Resources\\Image\\Damage\\damage3.bmp");
-			mImages[4] = Resources::Load<Image>(L"damage4", L"..\\Resources\\Image\\Damage\\damage4.bmp");
-			mImages[5] = Resources::Load<Image>(L"damage5", L"..\\Resources\\Image\\Damage\\damage5.bmp");
-			mImages[6] = Resources::Load<Image>(L"damage6", L"..\\Resources\\Image\\Damage\\damage6.bmp");
-			mImages[7] = Resources::Load<Image>(L"damage7", L"..\\Resources\\Image\\Damage\\damage7.bmp");
-			mImages[8] = Resources::Load<Image>(L"damage8", L"..\\Resources\\Image\\Damage\\damage8.bmp");
-			mImages[9] = Resources::Load<Image>(L"damage9", L"..\\Resources\\Image\\Damage\\damage9.bmp");
-		}
+
+		mImages[0] = Resources::Load<Image>(L"damage0", L"..\\Resources\\Image\\Damage\\damage0.bmp");
+		mImages[1] = Resources::Load<Image>(L"damage1", L"..\\Resources\\Image\\Damage\\damage1.bmp");
+		mImages[2] = Resources::Load<Image>(L"damage2", L"..\\Resources\\Image\\Damage\\damage2.bmp");
+		mImages[3] = Resources::Load<Image>(L"damage3", L"..\\Resources\\Image\\Damage\\damage3.bmp");
+		mImages[4] = Resources::Load<Image>(L"damage4", L"..\\Resources\\Image\\Damage\\damage4.bmp");
+		mImages[5] = Resources::Load<Image>(L"damage5", L"..\\Resources\\Image\\Damage\\damage5.bmp");
+		mImages[6] = Resources::Load<Image>(L"damage6", L"..\\Resources\\Image\\Damage\\damage6.bmp");
+		mImages[7] = Resources::Load<Image>(L"damage7", L"..\\Resources\\Image\\Damage\\damage7.bmp");
+		mImages[8] = Resources::Load<Image>(L"damage8", L"..\\Resources\\Image\\Damage\\damage8.bmp");
+		mImages[9] = Resources::Load<Image>(L"damage9", L"..\\Resources\\Image\\Damage\\damage9.bmp");
+
+		mBlueImages[0] = Resources::Load<Image>(L"bluedamage0", L"..\\Resources\\Image\\BlueDamage\\NoViolet0.bmp");
+		mBlueImages[1] = Resources::Load<Image>(L"bluedamage1", L"..\\Resources\\Image\\BlueDamage\\NoViolet1.bmp");
+		mBlueImages[2] = Resources::Load<Image>(L"bluedamage2", L"..\\Resources\\Image\\BlueDamage\\NoViolet2.bmp");
+		mBlueImages[3] = Resources::Load<Image>(L"bluedamage3", L"..\\Resources\\Image\\BlueDamage\\NoViolet3.bmp");
+		mBlueImages[4] = Resources::Load<Image>(L"bluedamage4", L"..\\Resources\\Image\\BlueDamage\\NoViolet4.bmp");
+		mBlueImages[5] = Resources::Load<Image>(L"bluedamage5", L"..\\Resources\\Image\\BlueDamage\\NoViolet5.bmp");
+		mBlueImages[6] = Resources::Load<Image>(L"bluedamage6", L"..\\Resources\\Image\\BlueDamage\\NoViolet6.bmp");
+		mBlueImages[7] = Resources::Load<Image>(L"bluedamage7", L"..\\Resources\\Image\\BlueDamage\\NoViolet7.bmp");
+		mBlueImages[8] = Resources::Load<Image>(L"bluedamage8", L"..\\Resources\\Image\\BlueDamage\\NoViolet8.bmp");
+		mBlueImages[9] = Resources::Load<Image>(L"bluedamage9", L"..\\Resources\\Image\\BlueDamage\\NoViolet9.bmp");
+		
 		SetName(L"Damage");
 		SetScale({ 1.0f, 1.0f });
 	}
@@ -46,9 +56,9 @@ namespace ya
 		Vector2 monsterPos;
 		if (mTarget == L"Mushmom")
 		{
-			if (mushmom == nullptr)
+			if (mMushmom == nullptr)
 				return;
-			monsterPos = mushmom->GetPos();
+			monsterPos = mMushmom->GetPos();
 		}
 			
 		if (mTarget == L"Golem")
@@ -57,22 +67,30 @@ namespace ya
 				return;
 			monsterPos = mGolem->GetPos();
 		}
-			
 
-		
-		
-		
+		if (mTarget == L"DarkWolf")
+		{
+			if (mDarkWolf == nullptr)
+				return;
+			monsterPos = mDarkWolf->GetPos();
+		}
+
+		if (mTarget == L"Player")
+		{
+			if (mPlayer == nullptr)
+				return;
+			monsterPos = mPlayer->GetPos();
+		}
+			
 		pos = GetPos();
 		pos.x = monsterPos.x;
 		//pos.y -= 200.0f * Time::DeltaTime();
-		SetPos({ pos.x,pos.y -= 50.0f * Time::DeltaTime() });
+		SetPos({ pos.x,pos.y -= 30.0f * Time::DeltaTime() });
 		mAliveTime -= Time::DeltaTime();
 		if (mAliveTime <= 0.0f)
 		{
 			this->Death();
 		}
-
-		
 	}
 
 	void DamageSkin::Render(HDC hdc)
@@ -84,32 +102,65 @@ namespace ya
 
 		std::vector<int> changenum = DamageNumChange();
 
-		for (size_t k = 0; k < mAttackNumber; k++)
+		if (mTarget == L"Player")
 		{
-			for (int i = 0; i < changenum.size(); i++)
+			for (size_t k = 0; k < mAttackNumber; k++)
 			{
-				finalPos.x = (pos.x - mImages[changenum[i]]->GetWidth() * (scale.x));
-				finalPos.y = (pos.y - mImages[i]->GetHeight() * (scale.y));
+				for (int i = 0; i < changenum.size(); i++)
+				{
+					finalPos.x = (pos.x - mBlueImages[changenum[i]]->GetWidth() * (scale.x));
+					finalPos.y = (pos.y - mBlueImages[i]->GetHeight() * (scale.y));
 
-				rect.x = mImages[changenum[i]]->GetWidth() * scale.x;
-				rect.y = mImages[changenum[i]]->GetHeight() * scale.y;
+					rect.x = mBlueImages[changenum[i]]->GetWidth() * scale.x;
+					rect.y = mBlueImages[changenum[i]]->GetHeight() * scale.y;
 
-				finalPos = Camera::CalculatePos(finalPos);
+					finalPos = Camera::CalculatePos(finalPos);
 
-				BLENDFUNCTION func = {};
-				func.BlendOp = AC_SRC_OVER;
-				func.BlendFlags = 0;
-				func.AlphaFormat = AC_SRC_ALPHA;
-				func.SourceConstantAlpha = 225; // 0 - 225
+					BLENDFUNCTION func = {};
+					func.BlendOp = AC_SRC_OVER;
+					func.BlendFlags = 0;
+					func.AlphaFormat = AC_SRC_ALPHA;
+					func.SourceConstantAlpha = 225; // 0 - 225
 
-				AlphaBlend(hdc, finalPos.x, finalPos.y, rect.x, rect.y,
-					mImages[changenum[i]]->GetDC(), 0, 0, mImages[changenum[i]]->GetWidth(), mImages[changenum[i]]->GetHeight()
-					, func);
-				pos.x += 25.0f;
+					AlphaBlend(hdc, finalPos.x, finalPos.y, rect.x, rect.y,
+						mBlueImages[changenum[i]]->GetDC(), 0, 0, mBlueImages[changenum[i]]->GetWidth(), mBlueImages[changenum[i]]->GetHeight()
+						, func);
+					pos.x += 25.0f;
+				}
+				pos.x -= 25 * changenum.size();
+				pos.y -= 30.0f;
 			}
-			pos.x -= 25 * changenum.size();
-			pos.y -= 30.0f;
 		}
+		else
+		{
+			for (size_t k = 0; k < mAttackNumber; k++)
+			{
+				for (int i = 0; i < changenum.size(); i++)
+				{
+					finalPos.x = (pos.x - mImages[changenum[i]]->GetWidth() * (scale.x));
+					finalPos.y = (pos.y - mImages[i]->GetHeight() * (scale.y));
+
+					rect.x = mImages[changenum[i]]->GetWidth() * scale.x;
+					rect.y = mImages[changenum[i]]->GetHeight() * scale.y;
+
+					finalPos = Camera::CalculatePos(finalPos);
+
+					BLENDFUNCTION func = {};
+					func.BlendOp = AC_SRC_OVER;
+					func.BlendFlags = 0;
+					func.AlphaFormat = AC_SRC_ALPHA;
+					func.SourceConstantAlpha = 225; // 0 - 225
+
+					AlphaBlend(hdc, finalPos.x, finalPos.y, rect.x, rect.y,
+						mImages[changenum[i]]->GetDC(), 0, 0, mImages[changenum[i]]->GetWidth(), mImages[changenum[i]]->GetHeight()
+						, func);
+					pos.x += 25.0f;
+				}
+				pos.x -= 25 * changenum.size();
+				pos.y -= 30.0f;
+			}
+		}
+		
 		GameObject::Render(hdc);
 	}
 
@@ -123,9 +174,13 @@ namespace ya
 	std::vector<int> DamageSkin::DamageNumChange()
 	{
 		if(mTarget == L"Mushmom")
-			attackDamage = mushmom->AttackDamage();
+			attackDamage = mMushmom->AttackDamage();
 		if (mTarget == L"Golem")
 			attackDamage = mGolem->AttackDamage();
+		if(mTarget == L"DarkWolf")
+			attackDamage = mDarkWolf->AttackDamage();
+		if(mTarget == L"Player")
+			attackDamage = mPlayer->GetPlayerHitDamage();
 
 		std::string s = std::to_string(attackDamage);
 		std::vector<int> v, v2;

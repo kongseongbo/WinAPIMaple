@@ -17,7 +17,8 @@ namespace ya
 		virtual void Exit();
 
 	private:
-
+		BgImageObject* bg;
+		Player* player;
 	};
 
 }

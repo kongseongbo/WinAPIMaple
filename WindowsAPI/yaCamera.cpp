@@ -4,6 +4,7 @@
 #include "yaInput.h"
 #include "yaTime.h"
 #include "yaImage.h"
+#include "yaSceneManager.h"
 
 namespace ya
 {
@@ -43,31 +44,21 @@ namespace ya
 				mCuttonAlpha = ratio;
 			}
 		}
-
-		if (KEY_PREESE(eKeyCode::UP))
-		{
-			mLookPosition.y -= 600.0f * Time::DeltaTime();
-		}
-		if (KEY_PREESE(eKeyCode::DOWN))
-		{
-			mLookPosition.y += 600.0f * Time::DeltaTime();
-		}
-		if (KEY_PREESE(eKeyCode::LEFT))
-		{
-			mLookPosition.x -= 600.0f * Time::DeltaTime();
-		}
-		if (KEY_PREESE(eKeyCode::RIGHT))
-		{
-			mLookPosition.x += 600.0f * Time::DeltaTime();
-		}
-
-
 		if (mTarget != nullptr)
 			mLookPosition = mTarget->GetPos();
 
-		mLookPosition.y -= 150.0f;
+		if (mTarget->GetName() == L"Bg")
+		{
+			mDistance = mLookPosition;
+		}
+		else
+		{
+			mLookPosition.y -= 150.0f;
 
-		mDistance = mLookPosition - (mResolution / 2.0f);
+			mDistance = mLookPosition - (mResolution / 2.0f);
+		}
+
+		
 	}
 
 	void Camera::Render(HDC hdc)
@@ -79,12 +70,13 @@ namespace ya
 		func.BlendOp = AC_SRC_OVER;
 		func.BlendFlags = 0;
 		func.AlphaFormat = 0;
-		func.SourceConstantAlpha = (BYTE)(255.0f * mCuttonAlpha);
+ 		func.SourceConstantAlpha = (255.0f * mCuttonAlpha);
 
 		AlphaBlend(hdc, 0, 0
 			, mCutton->GetWidth(), mCutton->GetHeight()
 			, mCutton->GetDC(), 0, 0
 			, mCutton->GetWidth(), mCutton->GetHeight()
 			, func);
+
 	}
 }
