@@ -313,7 +313,7 @@ namespace ya
 		damage->SetPos({ pos.x , pos.y - 50.0f });
 		damage->SetAttackNumber(1);
 		playScene->AddGameObject(damage, eColliderLayer::Damage);
-
+		_PlayerHp -= GetPlayerHitDamage();
 		if (mTime > 1.0f)
 			mState = State::IDLE;
 	}
@@ -322,6 +322,7 @@ namespace ya
 		mSkillTime += Time::DeltaTime();
 		if (KEY_DOWN(eKeyCode::LCTRL))
 		{
+			_PlayerMp -= 100;
 			if (mSkillTime > 5.0f)
 			{
 				mSkillTime = 0.0f;
@@ -421,8 +422,10 @@ namespace ya
 	void Player::Beyonder()
 	{
 		mSkillTime += Time::DeltaTime();
+		
 		if (KEY_DOWN(eKeyCode::LSHIFT))
 		{
+			_PlayerMp -= 150;
 			if (mSkillTime > 5.0f)
 			{
 				mSkillTime = 0.0f;

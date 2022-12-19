@@ -141,6 +141,7 @@ namespace ya
 	{
 		mTime += Time::DeltaTime();
 		mPlayer->SetHitDamage(100);
+		
 		if (mTime > 2.0f)
 		{
 			mPlayer->Hit();

@@ -75,6 +75,7 @@ enum class eUIType
 {
 	HP,
 	MP,
+	HPMPBAR,
 	SHOP,
 	INVENTORY,
 	OPTION,

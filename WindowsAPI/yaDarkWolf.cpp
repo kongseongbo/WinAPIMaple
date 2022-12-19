@@ -194,7 +194,6 @@ namespace ya
 			}
 			mTime = 0.0f;
 		}
-
 	}
 	void DarkWolf::TeleportAttack()
 	{

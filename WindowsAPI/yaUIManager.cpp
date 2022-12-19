@@ -19,11 +19,23 @@ namespace ya
 		////newUI->SetSize(Vector2(500.0f, 100.0f));
 		//button->ImageLoad(L"HPBAR", L"..\\Resources\\Image\\HpMpBar\\hpmpbar2.bmp");
 
-		HUD* hud = new HUD(eUIType::HP);
-		mUIs.insert(std::make_pair(eUIType::HP, hud));
+		HUD* hud = new HUD(eUIType::HPMPBAR);
+		mUIs.insert(std::make_pair(eUIType::HPMPBAR, hud));
 		hud->SetPos(Vector2(700.0f, 830.0f));
 		//hud->SetSize(Vector2(200.0f, 200.0f));
 		hud->ImageLoad(L"HPBAR", L"..\\Resources\\Image\\HpMpBar\\hpmpbar2.bmp");
+
+		HUD* Hp = new HUD(eUIType::HP);
+		mUIs.insert(std::make_pair(eUIType::HP, Hp));
+		Hp->SetPos(Vector2(725.0f, 858.0f));
+		//hud->SetSize(Vector2(200.0f, 200.0f));
+		Hp->ImageLoad(L"Hp", L"..\\Resources\\Image\\HpMpBar\\Hp.bmp");
+
+		HUD* Mp = new HUD(eUIType::MP);
+		mUIs.insert(std::make_pair(eUIType::MP, Mp));
+		Mp->SetPos(Vector2(725.0f, 874.8f));
+		//hud->SetSize(Vector2(200.0f, 200.0f));
+		Mp->ImageLoad(L"Mp", L"..\\Resources\\Image\\HpMpBar\\Mp.bmp");
 
 		//Panel* panel = new Panel(eUIType::INVENTORY);
 		//mUIs.insert(std::make_pair(eUIType::INVENTORY, panel));

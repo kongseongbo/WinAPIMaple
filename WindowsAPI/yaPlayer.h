@@ -3,7 +3,8 @@
 
 namespace ya
 {
-	int _PlayerHp = 100;
+	int _PlayerHp = 1000;
+	int _PlayerMp = 1000;
 
 	class Animator;
 	class Image;
@@ -32,9 +33,6 @@ namespace ya
 
 		//void WalkComplete();
 
-		/*void SetHp(int hp) { mHp = hp; }
-		int GetHp() { return mHp; }*/
-
 		void SetMoveLeft(bool move) { mMoveLeft = move; }
 		void SetMoveRight(bool move) { mMoveRight = move; }
 		void SetEx(int ex) { mEx += ex; }
@@ -50,7 +48,6 @@ namespace ya
 		void Death();
 
 		int GetAttackDamage() { return mPlayerSTR; }
-
 		int GetPlayerHitDamage() { return mHitDamage; }
 
 	private:

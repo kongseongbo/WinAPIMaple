@@ -87,13 +87,15 @@ namespace ya
 		//ground->SetPos(Vector2(700.0f, 700.0f));
 
 		UIManager::Push(eUIType::HP);
-		//UIManager::Push(eUIType::MP);
+		UIManager::Push(eUIType::MP);
+		UIManager::Push(eUIType::HPMPBAR);
 		//UIManager::Push(eUIType::INVENTORY);
 
-		HUD* hud = UIManager::GetUiInstant<HUD>(eUIType::HP);
-		//HUD* hud = UIManager::GetUiInstant<HUD>(eUIType::MP);
-		hud->SetTarget(player);
-		
+		HUD* Hp = UIManager::GetUiInstant<HUD>(eUIType::HP);
+		HUD* Mp = UIManager::GetUiInstant<HUD>(eUIType::MP);
+		HUD* hud = UIManager::GetUiInstant<HUD>(eUIType::HPMPBAR);
+		Hp->SetTarget(player);
+		Mp->SetTarget(player);
 
 		//ya::Scene* scene = ya::SceneManager::GetScene(eSceneType::Tool);
 		//ya::ToolScene* toolScene = dynamic_cast<ya::ToolScene*>(scene);
