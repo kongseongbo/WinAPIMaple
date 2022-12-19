@@ -20,7 +20,6 @@ namespace ya
 		static int mNextSceneStack;
 
 	private:
-		BgImageObject* bg2;
 		Player* player;
 		MushMom* mMushmom[5];
 		Golem* mGolem[3];

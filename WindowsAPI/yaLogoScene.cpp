@@ -36,7 +36,7 @@ namespace ya
 		bg->SetPixelImage(L"PIXEL", L"Map\\Pixel.bmp");
 		bg->SetImage(L"Map", L"Map\\HenesysGolemSawon3.bmp");
 
-		bg2 = ya::object::Instantiate<BgImageObject>(eColliderLayer::BackGround);
+		BgImageObject* bg2 = ya::object::Instantiate<BgImageObject>(eColliderLayer::BackGround);
 		bg2->SetImage(L"BGMap",L"Map\\HenesysGolemSawonBG3.bmp");
 		bg2->SetPos(Vector2{ -700.0f,-600.0f });
 		
@@ -86,13 +86,14 @@ namespace ya
 		//Ground* ground = ya::object::Instantiate<Ground>(eColliderLayer::Ground);
 		//ground->SetPos(Vector2(700.0f, 700.0f));
 
-		//UIManager::Push(eUIType::HP);
+		UIManager::Push(eUIType::HP);
 		//UIManager::Push(eUIType::MP);
 		//UIManager::Push(eUIType::INVENTORY);
 
-		//HUD* hud = UIManager::GetUiInstant<HUD>(eUIType::HP);
+		HUD* hud = UIManager::GetUiInstant<HUD>(eUIType::HP);
 		//HUD* hud = UIManager::GetUiInstant<HUD>(eUIType::MP);
-		//hud->SetTarget(player);
+		hud->SetTarget(player);
+		
 
 		//ya::Scene* scene = ya::SceneManager::GetScene(eSceneType::Tool);
 		//ya::ToolScene* toolScene = dynamic_cast<ya::ToolScene*>(scene);

@@ -129,22 +129,12 @@ namespace ya
 		Vector2 finalPos = Camera::CalculatePos(pos);
 
 		Vector2 rect;
-		/*rect.x = mimage->getwidth() * scale.x;
-		rect.y = mimage->getheight() * scale.y;
-
-		transparentblt(hdc, finalpos.x, finalpos.y, rect.x, rect.y
-			, mimage->getdc(), 0, 0, mimage->getwidth(), mimage->getheight()
-			, rgb(255, 255, 255));*/
-
-		
-
 		rect.x = mImage->GetWidth() * scale.x;
 		rect.y = mImage->GetHeight() * scale.y;
 
 		TransparentBlt(hdc, finalPos.x, finalPos.y, rect.x, rect.y
 			, mImage->GetDC(), 0, 0, mImage->GetWidth() , mImage->GetHeight()
 			, RGB(255, 0, 255));
-
 
 		if (mbDebug)
 		{

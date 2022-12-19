@@ -13,24 +13,25 @@ namespace ya
 	void UIManager::Initialize()
 	{
 		// 여기에서 ui 메모리에 할당하면 된다.
-		Button* button = new Button(eUIType::HP);
-		mUIs.insert(std::make_pair(eUIType::HP, button));
-		button->SetPos(Vector2(0.0f, 0.0f));
-		//newUI->SetSize(Vector2(500.0f, 100.0f));
-		button->ImageLoad(L"HPBAR", L"..\\Resources\\Image\\HPBAR.bmp");
+		//Button* button = new Button(eUIType::HP);
+		//mUIs.insert(std::make_pair(eUIType::HP, button));
+		//button->SetPos(Vector2(1000.0f, 300.0f));
+		////newUI->SetSize(Vector2(500.0f, 100.0f));
+		//button->ImageLoad(L"HPBAR", L"..\\Resources\\Image\\HpMpBar\\hpmpbar2.bmp");
 
-		HUD* hud = new HUD(eUIType::MP);
-		mUIs.insert(std::make_pair(eUIType::MP, hud));
-		hud->SetPos(Vector2(0.0f, 100.0f));
-		hud->ImageLoad(L"HPBAR", L"..\\Resources\\Image\\HPBAR.bmp");
+		HUD* hud = new HUD(eUIType::HP);
+		mUIs.insert(std::make_pair(eUIType::HP, hud));
+		hud->SetPos(Vector2(700.0f, 830.0f));
+		//hud->SetSize(Vector2(200.0f, 200.0f));
+		hud->ImageLoad(L"HPBAR", L"..\\Resources\\Image\\HpMpBar\\hpmpbar2.bmp");
 
-		Panel* panel = new Panel(eUIType::INVENTORY);
-		mUIs.insert(std::make_pair(eUIType::INVENTORY, panel));
-		//newUI->SetIsFullScreen(true);
-		panel->ImageLoad(L"BackPack", L"..\\Resources\\Image\\BackPack.bmp");
-		panel->SetPos(Vector2(200.0f, 100.0f));
-		panel->AddChild(button);
-		panel->AddChild(hud);
+		//Panel* panel = new Panel(eUIType::INVENTORY);
+		//mUIs.insert(std::make_pair(eUIType::INVENTORY, panel));
+		////newUI->SetIsFullScreen(true);
+		//panel->ImageLoad(L"BackPack", L"..\\Resources\\Image\\BackPack.bmp");
+		//panel->SetPos(Vector2(200.0f, 100.0f));
+		//panel->AddChild(button);
+		//panel->AddChild(hud);
 
 	}
 

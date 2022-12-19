@@ -12,8 +12,12 @@ namespace ya
 	{
 		if (mImage == nullptr)
 		{
-			mImage = Resources::Load<Image>(L"BackPack", L"..\\Resources\\Image\\BackPack.bmp");
+			mImage = Resources::Load<Image>(L"HpMpBar", L"..\\Resources\\Image\\HpMpBar\\HpMpbar.bmp");
 		}
+
+		/*BgImageObject* HpMpBar = ya::object::Instantiate<BgImageObject>(eColliderLayer::UI);
+		HpMpBar->SetImage(L"HpMpBar", L"HpMpBar\\HpMpbar.bmp");
+		HpMpBar->SetPos(Vector2{ -700.0f,-600.0f });*/
 
 		SetPos({ 1600 / 2, 900 / 2 });
 		SetScale({ 3.0f, 3.0f });
@@ -51,7 +55,7 @@ namespace ya
 		func.BlendOp = AC_SRC_OVER;
 		func.BlendFlags = 0;
 		func.AlphaFormat = AC_SRC_ALPHA;
-		func.SourceConstantAlpha = 127; // 0 - 225
+		func.SourceConstantAlpha = 255; // 0 - 225
 
 		AlphaBlend(hdc, finalPos.x, finalPos.y, rect.x, rect.y,
 			mImage->GetDC(), 0, 0, mImage->GetWidth(), mImage->GetHeight()

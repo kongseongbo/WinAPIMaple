@@ -23,6 +23,7 @@
 
 #include "yaDamageSkin.h"
 
+#include "yaHUD.h"
 namespace ya
 {
 	Player::Player()
@@ -38,15 +39,8 @@ namespace ya
 		, mRightLook(false)
 	{
 		SetName(L"Player");
-		SetPos({ 1500.0f, 800.0f });
+		SetPos({ 1500.0f, 750.0f });
 		SetScale({ 1.0f, 1.0f });
-
-
-		/*if (mImage == nullptr)
-		{
-			mImage = Resources::Load<Image>(L"Player", L"..\\Resources\\Animations\\Player\\Idle\\stand.bmp");
-		}*/
-
 
 		mAnimator = new Animator();
 		mAnimator->CreateAnimations(L"..\\Resources\\Animations\\Player\\Up"
@@ -159,7 +153,7 @@ namespace ya
 		AddComponent<Rigidbody>();
 
 		mCoff = 0.1f;
-		mMisiileDir = Vector2::One;
+		//mMisiileDir = Vector2::One;
 		//Camera::SetTarget(this);
 		//float x = math::lerp(1.0f, 3.0f, 0.5f);
 	}
