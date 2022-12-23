@@ -35,8 +35,9 @@ namespace ya
 		void Death();
 
 		int AttackDamage();
-
 		int GetState() { return (int)mState; }
+
+		int GetHp() { return mHp; }
 
 		Player* mPlayer;
 		

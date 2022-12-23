@@ -8,19 +8,12 @@
 namespace ya
 {
 	BackPack::BackPack()
-		: mSpeed(1.0f)
 	{
-		if (mImage == nullptr)
-		{
-			mImage = Resources::Load<Image>(L"HpMpBar", L"..\\Resources\\Image\\HpMpBar\\HpMpbar.bmp");
-		}
 
-		/*BgImageObject* HpMpBar = ya::object::Instantiate<BgImageObject>(eColliderLayer::UI);
-		HpMpBar->SetImage(L"HpMpBar", L"HpMpBar\\HpMpbar.bmp");
-		HpMpBar->SetPos(Vector2{ -700.0f,-600.0f });*/
-
+		mImage = Resources::Load<Image>(L"HpMpBar", L"..\\Resources\\Image\\inventory.bmp");
+		
 		SetPos({ 1600 / 2, 900 / 2 });
-		SetScale({ 3.0f, 3.0f });
+		SetScale({ 1.0f, 1.0f });
 	}
 
 	BackPack::~BackPack()
@@ -37,13 +30,9 @@ namespace ya
 		Vector2 pos = GetPos();
 		Vector2 scale = GetScale();
 
-		/*BitBlt(hdc , pos.x, pos.y
-			, mImage->GetWidth(), mImage->GetHeight()
-			, mImage->GetDC(), 0, 0, SRCCOPY);*/
-
 		Vector2 finalPos;
-		finalPos.x = (pos.x - mImage->GetWidth() * (scale.x / 2.0f));
-		finalPos.y = (pos.y - mImage->GetHeight() * (scale.y / 2.0f));
+		finalPos.x = (pos.x - mImage->GetWidth() * scale.x);
+		finalPos.y = (pos.y - mImage->GetHeight() * scale.y);
 
 		Vector2 rect;
 		rect.x = mImage->GetWidth() * scale.x;

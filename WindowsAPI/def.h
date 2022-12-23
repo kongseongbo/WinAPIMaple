@@ -76,10 +76,12 @@ enum class eUIType
 	HP,
 	MP,
 	HPMPBAR,
+	MONSTERHP,
 	SHOP,
 	INVENTORY,
 	OPTION,
-
+	REDPORTION,
+	BLUEPORTION,
 
 	END,
 };

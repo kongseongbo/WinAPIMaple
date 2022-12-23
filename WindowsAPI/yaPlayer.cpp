@@ -96,10 +96,6 @@ namespace ya
 		mAnimator->CreateAnimations(L"..\\Resources\\Animations\\Player\\Beyonder\\RBeyonderEffect3"
 			, L"RBeyonderEffect3", Vector2(200.0f, -50.0f));
 
-		//포탈
-		/*mAnimator->CreateAnimations(L"..\\Resources\\Animations\\p"
-			, L"p");*/
-
 			// 한 이미지에 전부 들어있을때
 			/*mAnimator->CreateAnimation(L"Idle", mImage
 				, Vector2(0.0f, 0.0f), Vector2(120.0f, 130.0f)
@@ -119,11 +115,6 @@ namespace ya
 				, Vector2(5.0f, -20.0f), 10, 0.1f);*/
 
 		mAnimator->Play(L"Idle", true);
-		//mAnimator->FindEvents(L"MoveRight")->mCompleteEvent = std::bind(&Player::WalkComplete, this);
-		//mAnimator->GetCompleteEvent(L"MoveRight") = std::bind(&Player::WalkComplete, this);
-
-		//mAnimator->Play(L"MoveRight", true);
-		//mAnimator->mCompleteEvent = std::bind(&Player::WalkComplete, this);
 		AddComponent(mAnimator);
 
 		//아래
@@ -193,6 +184,15 @@ namespace ya
 		break;
 		default:
 			break;
+		}
+
+		if (KEY_DOWN(eKeyCode::I))
+		{
+			UIManager::Push(eUIType::INVENTORY);
+		}
+		if (KEY_DOWN(eKeyCode::ESC))
+		{
+			UIManager::Pop(eUIType::INVENTORY);
 		}
 	}
 
@@ -626,15 +626,4 @@ namespace ya
 	{
 		mAnimator->SetAniAlpha(255);
 	}
-
-	//void Player::WalkComplete()
-	//{
-	//	Missile* missile = new Missile();
-	//	Scene* playScene = SceneManager::GetPlayScene();
-	//	playScene->AddGameObject(missile, eColliderLayer::Player_Projecttile);
-	//	Vector2 playerPos = GetPos();
-	//	Vector2 playerScale = GetScale() / 2.0f;
-	//	Vector2 missileScale = missile->GetScale();
-	//	missile->SetPos((playerPos + playerScale) - (missileScale / 2.0f));
-	//}
 }

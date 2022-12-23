@@ -8,6 +8,10 @@
 #include "yaObject.h"
 #include "yaBgImageObject.h"
 #include "yaCollisionManager.h"
+#include "yaMissile.h"
+#include "yaTime.h"
+#include "yaUIManager.h"
+#include "yaHUD.h"
 
 namespace ya
 {
@@ -35,12 +39,21 @@ namespace ya
 		DarkWolf* mDarkWolf = ya::object::Instantiate<DarkWolf>(eColliderLayer::Monster);
 		mDarkWolf->SetPos(Vector2{ 1500.0f,700.0f });
 		mDarkWolf->mPlayer = player;
+
+		UIManager::Push(eUIType::MONSTERHP);
+		UIManager::Push(eUIType::HPMPBAR);
+
+		HUD* hud = UIManager::GetUiInstant<HUD>(eUIType::HPMPBAR);
+		HUD* BossHp = UIManager::GetUiInstant<HUD>(eUIType::MONSTERHP);
+		BossHp->SetTarget(mDarkWolf);
+
+		//Missile* mMissile = ya::object::Instantiate<Missile>(eColliderLayer::Monster_Projecttile);
+		//mMissile->SetPos(Vector2{ 500.0f,700.0f });
 	}
 
 	void PlayScene::Tick()
 	{
 		Scene::Tick();
-
 		if (KEY_DOWN(eKeyCode::N))
 		{
 			SceneManager::ChangeScene(eSceneType::End);

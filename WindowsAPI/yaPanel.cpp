@@ -1,5 +1,7 @@
 #include "yaPanel.h"
 #include "yaImage.h"
+#include "yaInput.h"
+
 
 namespace ya
 {
@@ -25,7 +27,7 @@ namespace ya
     {
 
     }
-
+   
     void Panel::OnTick()
     {
 
@@ -42,6 +44,7 @@ namespace ya
         AlphaBlend(hdc, (int)mScreenPos.x, (int)mScreenPos.y
             , mImage->GetWidth(), mImage->GetHeight()
             , mImage->GetDC(), 0, 0, mImage->GetWidth(), mImage->GetHeight(), func);
+        
     }
 
     void Panel::OnClear()

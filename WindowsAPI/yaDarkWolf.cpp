@@ -20,7 +20,6 @@ namespace ya
 		: mTime(0.0f)
 		, mDir(1.0f)
 		, mMoveLeft(false)
-		, mHp(8000)
 		, distance(0.0f)
 	{
 		SetName(L"DarkWolf");
@@ -198,12 +197,12 @@ namespace ya
 	void DarkWolf::TeleportAttack()
 	{
 		mTime += Time::DeltaTime();
-		if (mHp <= 0)
+		if (_BossHP <= 0)
 		{
 			mAnimator->Play(L"WolfDie", false);
 			mState = State::DEATH;
 		}
-		else if (mHp > 0)
+		else if (_BossHP > 0)
 		{	
 			if (mTime > 1.5f)
 			{	
@@ -223,12 +222,12 @@ namespace ya
 	void DarkWolf::Hit()
 	{
 		mTime += Time::DeltaTime();
-		if (mHp <= 0)
+		if (_BossHP <= 0)
 		{
 			mAnimator->Play(L"WolfDie", false);
 			mState = State::DEATH;
 		}
-		else if (mHp > 0)
+		else if (_BossHP > 0)
 		{
 			if (mTime > 1.5f)
 			{
@@ -272,7 +271,6 @@ namespace ya
 	}
 	void DarkWolf::Render(HDC hdc)
 	{
-
 		GameObject::Render(hdc);
 	}
 	void DarkWolf::OnCollisionEnter(Collider* other)
@@ -281,7 +279,7 @@ namespace ya
 		Vector2 pos = GetPos();
 		if (gameObj->GetName() == L"Smash")
 		{
-			if (mHp > 0)
+			if (_BossHP > 0)
 			{
 				if (mPlayer->GetLook() == true)
 				{
@@ -306,7 +304,7 @@ namespace ya
 		}
 		if (gameObj->GetName() == L"Beyonder")
 		{
-			if (mHp > 0)
+			if (_BossHP > 0)
 			{
 				//mHp -= 10;
 				if (mPlayer->GetLook() == true)
@@ -331,7 +329,7 @@ namespace ya
 		}
 		if (gameObj->GetName() == L"Beyonder2")
 		{
-			if (mHp > 0)
+			if (_BossHP > 0)
 			{
 
 				if (mPlayer->GetLook() == true)
@@ -356,7 +354,7 @@ namespace ya
 		}
 		if (gameObj->GetName() == L"Beyonder3")
 		{
-			if (mHp > 0)
+			if (_BossHP > 0)
 			{
 
 				if (mPlayer->GetLook() == true)
@@ -415,7 +413,7 @@ namespace ya
 	int DarkWolf::AttackDamage()
 	{
 		int finalDamage = mPlayer->GetAttackDamage();
-		mHp -= finalDamage;
+		_BossHP -= finalDamage;
 		return finalDamage;
 	}
 }

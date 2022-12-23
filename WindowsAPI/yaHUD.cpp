@@ -2,6 +2,9 @@
 #include "yaImage.h"
 #include "yaHUD.h"
 #include "yaPlayer.h"
+#include "yaMushMom.h"
+#include "yaDarkWolf.h"
+#include "yaSceneManager.h"
 
 namespace ya
 {
@@ -31,12 +34,18 @@ namespace ya
 		if (mImage == nullptr)
 			return;
 		
+		SceneManager* scene;
+
 		Player* playerObj = dynamic_cast<Player*>(mTarget);
 		int hp = _PlayerHp;
 		int mp = _PlayerMp;
 		float xRatioHp = (hp / 1000.0f);
 		float xRatioMp = (mp / 1000.0f);
 
+		DarkWolf* darkwolf = dynamic_cast<DarkWolf*>(mTarget);
+		int bosshp = _BossHP;
+		float BossxRatioHp = (bosshp / 80000.0f);
+		
 		BLENDFUNCTION func = {};
 		func.BlendOp = AC_SRC_OVER;
 		func.BlendFlags = 0;
@@ -45,27 +54,42 @@ namespace ya
 
 		if (mTarget == nullptr)
 		{
-			AlphaBlend(hdc, (int)mScreenPos.x, (int)mScreenPos.y
-				, mImage->GetWidth(), mImage->GetHeight()
-				, mImage->GetDC(), 0, 0, mImage->GetWidth(), mImage->GetHeight(), func);
+			
 		}
 		else
 		{
-			if (mImage->GetKey() == L"Mp")
+			if (scene->GetPlaySceneType() == eSceneType::Logo 
+				|| scene->GetPlaySceneType() == eSceneType::Play)
 			{
-				AlphaBlend(hdc, (int)mScreenPos.x, (int)mScreenPos.y
-					, mImage->GetWidth() * xRatioMp, mImage->GetHeight()
-					, mImage->GetDC(), 0, 0, mImage->GetWidth(), mImage->GetHeight(), func);
+				if (mImage->GetKey() == L"HPBAR")
+				{
+					AlphaBlend(hdc, (int)mScreenPos.x, (int)mScreenPos.y
+						, mImage->GetWidth(), mImage->GetHeight()
+						, mImage->GetDC(), 0, 0, mImage->GetWidth(), mImage->GetHeight(), func);
+				}
+				if (mImage->GetKey() == L"Mp")
+				{
+					AlphaBlend(hdc, (int)mScreenPos.x, (int)mScreenPos.y
+						, mImage->GetWidth() * xRatioMp, mImage->GetHeight()
+						, mImage->GetDC(), 0, 0, mImage->GetWidth(), mImage->GetHeight(), func);
+				}
+				if (mImage->GetKey() == L"Hp")
+				{
+					AlphaBlend(hdc, (int)mScreenPos.x, (int)mScreenPos.y
+						, mImage->GetWidth() * xRatioHp, mImage->GetHeight()
+						, mImage->GetDC(), 0, 0, mImage->GetWidth(), mImage->GetHeight(), func);
+				}
 			}
-			else if(mImage->GetKey()==L"Hp")
+			if (scene->GetPlaySceneType() == eSceneType::Play)
 			{
-				AlphaBlend(hdc, (int)mScreenPos.x, (int)mScreenPos.y
-					, mImage->GetWidth() * xRatioHp, mImage->GetHeight()
-					, mImage->GetDC(), 0, 0, mImage->GetWidth(), mImage->GetHeight(), func);
+				if (mImage->GetKey() == L"BossHp")
+				{
+					AlphaBlend(hdc, (int)mScreenPos.x, (int)mScreenPos.y
+						, mImage->GetWidth() * BossxRatioHp, mImage->GetHeight()
+						, mImage->GetDC(), 0, 0, mImage->GetWidth(), mImage->GetHeight(), func);
+				}	
 			}
-		
 		}
-
 	}
 
 	void HUD::OnClear()

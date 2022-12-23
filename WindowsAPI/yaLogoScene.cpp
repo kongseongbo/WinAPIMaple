@@ -12,6 +12,7 @@
 #include "yaUIManager.h"
 #include "yaHUD.h"
 #include "yaButton.h"
+#include "yaPanel.h"
 #include "yaDarkWolf.h"
 #include "yaTime.h"
 #include "yaGolem.h"
@@ -96,6 +97,11 @@ namespace ya
 		HUD* hud = UIManager::GetUiInstant<HUD>(eUIType::HPMPBAR);
 		Hp->SetTarget(player);
 		Mp->SetTarget(player);
+		hud->SetTarget(player);
+
+		//Panel* Inventory = UIManager::GetUiInstant<Panel>(eUIType::INVENTORY);
+		
+		
 
 		//ya::Scene* scene = ya::SceneManager::GetScene(eSceneType::Tool);
 		//ya::ToolScene* toolScene = dynamic_cast<ya::ToolScene*>(scene);

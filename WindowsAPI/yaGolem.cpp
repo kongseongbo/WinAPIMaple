@@ -25,9 +25,9 @@ namespace ya
 		SetPos({ 900.0f, 820.0f });
 		SetScale({ 1.0f, 1.0f });
 
-		mAnimator = new Animator();
-		
+		mImage = Resources::Load<Image>(L"MushHp", L"..\\Resources\\Image\\HpMpBar\\MonsterHp.bmp");
 
+		mAnimator = new Animator();
 		//¿ÞÂÊ
 		mAnimator->CreateAnimations(L"..\\Resources\\Animations\\Golem\\GolemIdle"
 			, L"GolemIdle", Vector2({ 0.0f, -40.0f }), 0.4f);
@@ -193,6 +193,30 @@ namespace ya
 	}
 	void Golem::Render(HDC hdc)
 	{
+		Vector2 pos = GetPos();
+		Vector2 scale = GetScale();
+
+		Vector2 finalPos;
+		finalPos.x = (pos.x - mImage->GetWidth() * (scale.x / 2.0f));
+		finalPos.y = pos.y + 55.0f;
+
+		Vector2 rect;
+		rect.x = mImage->GetWidth();
+		rect.y = mImage->GetHeight();
+
+		float xRatioHp = (mHp / 20000.0f);
+
+		finalPos = Camera::CalculatePos(finalPos);
+
+		BLENDFUNCTION func = {};
+		func.BlendOp = AC_SRC_OVER;
+		func.BlendFlags = 0;
+		func.AlphaFormat = AC_SRC_ALPHA;
+		func.SourceConstantAlpha = 255;
+
+		AlphaBlend(hdc, finalPos.x, finalPos.y
+			, rect.x * xRatioHp, rect.y
+			, mImage->GetDC(), 0, 0, mImage->GetWidth(), mImage->GetHeight(), func);
 
 		GameObject::Render(hdc);
 	}

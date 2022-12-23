@@ -3,6 +3,8 @@
 
 namespace ya
 {
+	int _BossHP = 80000;
+
 	class Player;
 	class DarkWolfTeleport;
 	class Image;
@@ -52,7 +54,6 @@ namespace ya
 		float mTime;
 		float mDir;
 		float distance;
-		int mHp;
 		int mAttackDamage;
 
 		DarkWolfTeleport* wolfTeleport;

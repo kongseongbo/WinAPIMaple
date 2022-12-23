@@ -18,9 +18,10 @@ namespace ya
 		virtual void OnClear() override;
 
 		void SetTarget(GameObject* target) { mTarget = target; }
-
+		
 	private:
 		GameObject* mTarget;
+
 	};
 
 }

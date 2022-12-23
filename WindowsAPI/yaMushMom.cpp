@@ -26,11 +26,9 @@ namespace ya
 		SetPos({ 900.0f, 820.0f });
 		SetScale({ 1.0f, 1.0f });
 
-		/*if (mImage == nullptr)
-		{
-			mImage = Resources::Load<Image>(L"MushMom", L"..\\Resources\\Animations\\Mushmom\\MushIdle\\stand.bmp");
-		}*/
+		mImage = Resources::Load<Image>(L"MushHp", L"..\\Resources\\Image\\HpMpBar\\MonsterHp.bmp");
 
+		
 		mAnimator = new Animator();
 		mAnimator->CreateAnimations(L"..\\Resources\\Animations\\MushMom\\MushDie"
 			, L"MushDie", Vector2({ 0.0f, -30.0f }), 0.1f);
@@ -197,6 +195,31 @@ namespace ya
 	}
 	void MushMom::Render(HDC hdc)
 	{
+		
+		Vector2 pos = GetPos();
+		Vector2 scale = GetScale();
+
+		Vector2 finalPos;
+		finalPos.x = (pos.x - mImage->GetWidth() * (scale.x / 2.0f));
+		finalPos.y = pos.y + 55.0f;
+
+		Vector2 rect;
+		rect.x = mImage->GetWidth();
+		rect.y = mImage->GetHeight();
+
+		float xRatioHp = (mHp / 10000.0f);
+		
+		finalPos = Camera::CalculatePos(finalPos);
+
+		BLENDFUNCTION func = {};
+		func.BlendOp = AC_SRC_OVER;
+		func.BlendFlags = 0;
+		func.AlphaFormat = AC_SRC_ALPHA;
+		func.SourceConstantAlpha = 255;
+
+		AlphaBlend(hdc, finalPos.x, finalPos.y
+			, rect.x * xRatioHp, rect.y
+			, mImage->GetDC(), 0, 0, mImage->GetWidth(), mImage->GetHeight(), func);
 		
 		GameObject::Render(hdc);
 	}

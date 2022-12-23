@@ -6,36 +6,22 @@
 #include "yaResources.h"
 #include "yaImage.h"
 #include "yaInput.h"
+#include "yaRigidbody.h"
 
 namespace ya
 {
 	Missile::Missile()
 		: mSpeed(1.0f)
-		, mAliveTime(30.0f)
+		, mAliveTime(10.0f)
 	{
-		SetPos({ 100.0f, 100.0f });
-		SetScale({ 20.0f, 20.0f });
+		SetScale({ 0.5f, 0.5f });
 
-		Collider* col = new Collider();
-		col->SetScale(Vector2(20.0f, 20.0f));
+		mImage = Resources::Load<Image>(L"msiile", L"..\\Resources\\Animations\\Darkwolf\\Missile\\missile.bmp");
 		
+		Collider* col = new Collider();
+		col->SetScale(Vector2(50.0f, 50.0f));
 		AddComponent(col);
-		if (mImage == nullptr)
-		{
-			mImage = Resources::Load<Image>(L"msiile", L"..\\Resources\\Image\\msiile.bmp");
-		}
-
-		//Animator* ani = new Animator();
-		//ani->CreateAnimation(L"Idle", mImage
-		//	, Vector2(0.0f, 0.0f), Vector2(120.0f, 130.0f)
-		//	, Vector2(5.0f, -20.0f), 3, 0.1f);
-
-		//ani->Play(L"Idle", true);
-
-		//AddComponent(ani);
-		//Camera::SetTarget(this);
-
-		mDir += Vector2(0.0f, -1.0f);
+		//AddComponent<Rigidbody>();
 	}
 
 	Missile::~Missile()
@@ -47,29 +33,13 @@ namespace ya
 	{
 		GameObject::Tick();
 		mAliveTime -= Time::DeltaTime();
-		if (mAliveTime <= 0.0f)
+		/*if (mAliveTime <= 0.0f)
 		{
 			this->Death();
-		}
-
-		float radian = math::DegreeToRadian(90.0f);
-		float degree = math::RadianToDegree(2 * PI);
+		}*/
 		float speed = 200.0f;
 		
 		Vector2 pos = GetPos();
-		
-		// 삼각함수를 이용한 회전
-		//mDir = PI / 2.0f;
-		//pos.x += speed * cosf(mDir) * Time::DeltaTime();
-		//pos.y -= speed * sinf(mDir) * Time::DeltaTime();
-		//Vector2 mousPos = Input::GetMousePos();
-		//
-		//mDir.Normailize();
-
-		// 벡터를 이용한 회전
-		pos.y += mDir.y * speed * Time::DeltaTime();
-		pos.x += mDir.x * speed * Time::DeltaTime();
-
 		SetPos(pos);
 	}
 
@@ -78,13 +48,13 @@ namespace ya
 		Vector2 pos = GetPos();
 		Vector2 scale = GetScale();
 
-		//Vector2 finalPos;
-		//finalPos.x = (pos.x - mImage->GetWidth() * (scale.x / 0.0f));
-		//finalPos.y = (pos.y - mImage->GetHeight() * (scale.y / 2.0f));
+		Vector2 finalPos;
+		finalPos.x = pos.x - mImage->GetWidth();
+		finalPos.y = pos.y - mImage->GetHeight();
 
 		Vector2 rect;
-		rect.x = mImage->GetWidth(); //*scale.x;
-		rect.y = mImage->GetHeight(); //*scale.y;
+		rect.x = mImage->GetWidth() * scale.x;
+		rect.y = mImage->GetHeight() * scale.y;
 
 		pos = Camera::CalculatePos(pos);
 
@@ -93,8 +63,6 @@ namespace ya
 			, RGB(255, 0, 255));
 
 		GameObject::Render(hdc);
-
-		//GameObject::Render(hdc);
 	}
 	void Missile::OnCollisionEnter(Collider* other)
 	{
