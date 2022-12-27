@@ -17,8 +17,6 @@ namespace ya
 		SetScale({ 1.0f, 1.0f });
 		SetName(L"Logo");
 
-		Animator* mAnimator = new Animator();
-
 		mAnimator = new Animator();
 		mAnimator->CreateAnimations(L"..\\Resources\\Animations\\Logo"
 			, L"Logo", Vector2::Zero, 0.2f);
@@ -31,7 +29,7 @@ namespace ya
 
 	Logo::~Logo()
 	{
-
+		
 	}
 
 	void Logo::Tick()

@@ -3,11 +3,12 @@
 
 namespace ya
 {
-	class Panel : public UiBase
+	class Panel;
+	class Potion : public UiBase
 	{
 	public:
-		Panel(eUIType type);
-		~Panel();
+		Potion(eUIType type);
+		~Potion();
 
 		virtual void OnInit() override;
 		virtual void OnActive() override;
@@ -16,12 +17,18 @@ namespace ya
 		virtual void OnRender(HDC hdc) override;
 		virtual void OnClear() override;
 
-		UINT GetInvenWhidth() { return invenWidth; }
-		UINT GetInvenHeight() { return invenHeight; }
+		virtual void Click();
 
+		Panel* mInventory;
 	private:
-		UINT invenWidth;
-		UINT invenHeight;
-
+		Event mOnClick;
+		Vector2 bluePrevPos;
+		Vector2 redPrevPos;
+		Vector2 bluePos;
+		Vector2 redPos;
+		bool mbMouseOn;
+		bool mBlue ;
+		bool mRed;
 	};
+
 }

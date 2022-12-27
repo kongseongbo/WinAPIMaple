@@ -182,14 +182,13 @@ namespace ya
 	void Golem::Death()
 	{
 		mTime += Time::DeltaTime();
+		mPlayer->SetEx(50);
 		if (mTime > 3.0f)
 		{
 			GameObject* gameObj = this;
 			gameObj->Death();
 			mTime = 0.0f;
 		}
-		mPlayer->SetEx(50);
-		
 	}
 	void Golem::Render(HDC hdc)
 	{

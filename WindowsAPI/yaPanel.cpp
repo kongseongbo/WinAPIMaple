@@ -16,6 +16,11 @@ namespace ya
 
     void Panel::OnInit()
     {
+        if (this->GetType() == eUIType::INVENTORY)
+        {
+            invenWidth = mImage->GetWidth();
+            invenHeight = mImage->GetHeight();
+        }
     }
 
     void Panel::OnActive()
@@ -30,7 +35,7 @@ namespace ya
    
     void Panel::OnTick()
     {
-
+        
     }
 
     void Panel::OnRender(HDC hdc)

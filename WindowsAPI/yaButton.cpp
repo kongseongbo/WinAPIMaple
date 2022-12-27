@@ -1,7 +1,6 @@
 #include "yaButton.h"
 #include "yaImage.h"
 #include "yaInput.h"
-#include "yaPlayer.h"
 
 namespace ya
 {
@@ -22,7 +21,7 @@ namespace ya
 
 	void Button::OnActive()
 	{
-		
+
 	}
 
 	void Button::OnInActive()
@@ -58,6 +57,7 @@ namespace ya
 		func.AlphaFormat = AC_SRC_ALPHA;
 		func.SourceConstantAlpha = 255;
 
+
 		AlphaBlend(hdc, (int)mScreenPos.x, (int)mScreenPos.y
 			, mImage->GetWidth(), mImage->GetHeight()
 			, mImage->GetDC(), 0, 0, mImage->GetWidth(), mImage->GetHeight(), func);
@@ -70,18 +70,6 @@ namespace ya
 
 	void Button::Click()
 	{
-		if (this->GetType() == eUIType::BLUEPORTION)
-		{
-			_PlayerMp += 100;
-			if (_PlayerMp >= 1000)
-				_PlayerMp = 1000;
-		}
 
-		if (this->GetType() == eUIType::REDPORTION)
-		{
-			_PlayerHp += 100;
-			if (_PlayerHp >= 1000)
-				_PlayerHp = 1000;
-		}
 	}
 }

@@ -157,9 +157,6 @@
     <ClInclude Include="yaObject.h">
       <Filter>Engine\Common</Filter>
     </ClInclude>
-    <ClInclude Include="yaBackPack.h">
-      <Filter>Engine\GameObject\Game</Filter>
-    </ClInclude>
     <ClInclude Include="yaBgImageObject.h">
       <Filter>Engine\GameObject\Game</Filter>
     </ClInclude>
@@ -184,7 +181,7 @@
     <ClInclude Include="yaUiBase.h">
       <Filter>Engine\GameObject\UI\Base</Filter>
     </ClInclude>
-    <ClInclude Include="yaButton.h">
+    <ClInclude Include="yaPotion.h">
       <Filter>Engine\GameObject\UI</Filter>
     </ClInclude>
     <ClInclude Include="yaHUD.h">
@@ -199,7 +196,6 @@
     <ClInclude Include="yaSound.h">
       <Filter>Engine\Resource</Filter>
     </ClInclude>
-    <ClInclude Include="yaQuestBox.h" />
     <ClInclude Include="yaSkillSmash.h">
       <Filter>Engine\GameObject\PlayerSkill</Filter>
     </ClInclude>
@@ -238,6 +234,12 @@
     </ClInclude>
     <ClInclude Include="yaLogo.h">
       <Filter>Engine\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="yaButton.h">
+      <Filter>Engine\GameObject\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="yaLevelUp.h">
+      <Filter>Engine\GameObject\Game</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -329,9 +331,6 @@
     <ClCompile Include="yaTilePalette.cpp">
       <Filter>Engine\GameObject\Tile</Filter>
     </ClCompile>
-    <ClCompile Include="yaBackPack.cpp">
-      <Filter>Engine\GameObject\Game</Filter>
-    </ClCompile>
     <ClCompile Include="yaBgImageObject.cpp">
       <Filter>Engine\GameObject\Game</Filter>
     </ClCompile>
@@ -350,7 +349,7 @@
     <ClCompile Include="yaUiBase.cpp">
       <Filter>Engine\GameObject\UI\Base</Filter>
     </ClCompile>
-    <ClCompile Include="yaButton.cpp">
+    <ClCompile Include="yaPotion.cpp">
       <Filter>Engine\GameObject\UI</Filter>
     </ClCompile>
     <ClCompile Include="yaHUD.cpp">
@@ -368,7 +367,6 @@
     <ClCompile Include="yaPlayer.cpp">
       <Filter>Engine\GameObject\Game</Filter>
     </ClCompile>
-    <ClCompile Include="yaQuest.cpp" />
     <ClCompile Include="yaSkillSmash.cpp">
       <Filter>Engine\GameObject\PlayerSkill</Filter>
     </ClCompile>
@@ -407,6 +405,12 @@
     </ClCompile>
     <ClCompile Include="yaLogo.cpp">
       <Filter>Engine\GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="yaButton.cpp">
+      <Filter>Engine\GameObject\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="yaLevelUp.cpp">
+      <Filter>Engine\GameObject\Game</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

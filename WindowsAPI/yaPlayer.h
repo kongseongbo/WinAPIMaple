@@ -18,7 +18,6 @@ namespace ya
 			HIT,
 			SMASH,
 			BEYONDER,
-			MOVESMASH,
 			DEATH,
 		};
 		Player();
@@ -31,8 +30,6 @@ namespace ya
 		virtual void OnCollisionStay(Collider* other) override;
 		virtual void OnCollisionExit(Collider* other) override;
 
-		//void WalkComplete();
-
 		void SetMoveLeft(bool move) { mMoveLeft = move; }
 		void SetMoveRight(bool move) { mMoveRight = move; }
 		void SetEx(int ex) { mEx += ex; }
@@ -43,12 +40,13 @@ namespace ya
 		void Move();
 		void Hit();
 		void Smash();
-		void MoveSmash();
 		void Beyonder();
 		void Death();
 
 		int GetAttackDamage() { return mPlayerSTR; }
 		int GetPlayerHitDamage() { return mHitDamage; }
+
+		void CreateDamage();
 
 	private:
 		float mCoff;
@@ -63,6 +61,7 @@ namespace ya
 		int mHitDamage;
 		int mPlayerSTR;
 		int mEx;
+		int mLv;
 		int mSkillStack;
 		float mSkillTime;
 		bool mMoveLeft;

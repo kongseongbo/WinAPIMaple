@@ -59,7 +59,7 @@ namespace ya
 
 		OnTick();
 		if (mParent)
-			mScreenPos = mParent->GetPos() + mPos;
+			mScreenPos =mParent->GetPos() + mPos;
 		else
 			mScreenPos = mPos;
 

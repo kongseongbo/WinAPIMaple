@@ -11,7 +11,7 @@
 #include "yaGround.h"
 #include "yaUIManager.h"
 #include "yaHUD.h"
-#include "yaButton.h"
+#include "yaPotion.h"
 #include "yaPanel.h"
 #include "yaDarkWolf.h"
 #include "yaTime.h"

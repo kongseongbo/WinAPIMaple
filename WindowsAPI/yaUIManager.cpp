@@ -1,6 +1,6 @@
 #include "yaUIManager.h"
 #include "yaHUD.h"
-#include "yaButton.h"
+#include "yaPotion.h"
 #include "yaPanel.h"
 #include "yaInput.h"
 namespace ya
@@ -39,15 +39,17 @@ namespace ya
 		Inventory->SetPos(Vector2(200.0f, 100.0f));
 		Inventory->ImageLoad(L"Inventory", L"..\\Resources\\Image\\inventory.bmp");
 
-		Button* RedPortion = new Button(eUIType::REDPORTION);
+		Potion* RedPortion = new Potion(eUIType::REDPORTION);
 		mUIs.insert(std::make_pair(eUIType::REDPORTION, RedPortion));
 		RedPortion->SetPos(Vector2(15.0f, 96.0f));
 		RedPortion->ImageLoad(L"RedPortion", L"..\\Resources\\Image\\Portion\\RedPortion.bmp");
+		RedPortion->mInventory = Inventory;
 
-		Button* BluePortion = new Button(eUIType::BLUEPORTION);
+		Potion* BluePortion = new Potion(eUIType::BLUEPORTION);
 		mUIs.insert(std::make_pair(eUIType::BLUEPORTION, BluePortion));
 		BluePortion->SetPos(Vector2(57.0f, 96.0f));
 		BluePortion->ImageLoad(L"BluePortion", L"..\\Resources\\Image\\Portion\\BluePortion.bmp");
+		BluePortion->mInventory = Inventory;
 
 		Inventory->AddChild(RedPortion);
 		Inventory->AddChild(BluePortion);

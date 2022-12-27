@@ -9,7 +9,6 @@
 #include "yaAnimator.h"
 #include "yaCollider.h"
 #include "yaCamera.h"
-#include "yaBackPack.h"
 #include "yaRigidbody.h"
 #include "yaUIManager.h"
 
@@ -22,6 +21,7 @@
 #include "yaBeyonder3.h"
 
 #include "yaDamageSkin.h"
+#include "yaLevelUp.h"
 
 #include "yaHUD.h"
 namespace ya
@@ -31,6 +31,7 @@ namespace ya
 		, mTime(0.0f)
 		, mPlayerSTR(0)
 		, mEx(0)
+		, mLv(0)
 		, mHitDamage(0)
 		, mSkillStack(0)
 		, mSkillTime(0.0f)
@@ -45,8 +46,8 @@ namespace ya
 		mAnimator = new Animator();
 		mAnimator->CreateAnimations(L"..\\Resources\\Animations\\Player\\Up"
 			, L"MoveUp");
-		mAnimator->CreateAnimations(L"..\\Resources\\Animations\\Player\\LevelUp"
-			, L"LevelUp");
+		/*mAnimator->CreateAnimations(L"..\\Resources\\Animations\\Player\\LevelUp"
+			, L"LevelUp", Vector2(0.0f,-150.0f),0.2f);*/
 
 		//¿ÞÂÊ
 		mAnimator->CreateAnimations(L"..\\Resources\\Animations\\Player\\Idle"
@@ -176,12 +177,9 @@ namespace ya
 		case ya::Player::State::BEYONDER:
 			Beyonder();
 			break;
-		/*case ya::Player::State::MOVESMASH:
-		MoveSmash();
-		break;*/
 		case ya::Player::State::DEATH:
-		Death();
-		break;
+			Death();
+			break;
 		default:
 			break;
 		}
@@ -200,6 +198,21 @@ namespace ya
 	{
 		mAnimator->SetAniAlpha(255);
 		mAnimator->Play(L"Idle", true);
+
+		if (mEx >= 100)
+		{
+			if (mLv == 0)
+			{
+				LevelUp* levelup = new LevelUp();
+				Scene* playScene = SceneManager::GetPlayScene();
+				playScene->AddGameObject(levelup, eColliderLayer::UI);
+				levelup->SetPos(GetPos());
+				levelup->PlayAni();
+				mLv = 1;
+				mEx = 0;
+			}
+		}
+
 		if (mRightLook)
 		{
 			mAnimator->Play(L"RIdle", true);
@@ -294,26 +307,12 @@ namespace ya
 		{
 			mState = State::BEYONDER;
 		}
-		//if ((KEY_PREESE(eKeyCode::RIGHT) || KEY_PREESE(eKeyCode::LEFT)) &&  KEY_DOWN(eKeyCode::LCTRL))
-		//{
-		//	mState = State::MOVESMASH;
-		//}
-
 		SetPos(pos);
 	}
 	void Player::Hit()
 	{
 		mTime += Time::DeltaTime();
-		mAnimator->SetAniAlpha(150);
-		Vector2 pos = GetPos();
-		DamageSkin* damage = new DamageSkin();
-		Scene* playScene = SceneManager::GetPlayScene();
-		damage->mPlayer = this;
-		damage->SetTargetName(L"Player");
-		damage->SetPos({ pos.x , pos.y - 50.0f });
-		damage->SetAttackNumber(1);
-		playScene->AddGameObject(damage, eColliderLayer::Damage);
-		_PlayerHp -= GetPlayerHitDamage();
+		CreateDamage();
 		if (mTime > 1.0f)
 			mState = State::IDLE;
 	}
@@ -520,80 +519,6 @@ namespace ya
 			mState = State::MOVE;
 		}
 	}
-	/*void Player::MoveSmash()
-{
-	Vector2 pos = GetPos();
-
-	if (KEY_DOWN(eKeyCode::LCTRL))
-	{
-		if (mSkillTime > 5.0f)
-		{
-			mSkillTime = 0.0f;
-			mSkillStack = 0;
-		}
-
-		if (mSkillStack == 0)
-		{
-			mSkillStack++;
-			if (mRightLook)
-			{
-				pos.x += 1000.0f * Time::DeltaTime();
-				mAnimator->Play(L"RSmash1", false);
-			}
-			else
-			{
-				pos.x -= 1000.0f * Time::DeltaTime();
-				mAnimator->Play(L"Smash1", false);
-			}
-		}
-		else if (mSkillStack == 1)
-		{
-			mSkillStack++;
-			mSkillTime = 0.0f;
-			if (mRightLook)
-			{
-				pos.x += 1000.0f * Time::DeltaTime();
-				mAnimator->Play(L"RSmash2", false);
-			}
-			else
-			{
-				pos.x -= 1000.0f * Time::DeltaTime();
-				mAnimator->Play(L"Smash2", false);
-			}
-		}
-		else if (mSkillStack == 2)
-		{
-			mSkillStack = 0;
-			if (mRightLook)
-			{
-				pos.x += 1000.0f * Time::DeltaTime();
-				mAnimator->Play(L"RSmash3", false);
-			}
-			else
-			{
-				pos.x -= 1000.0f * Time::DeltaTime();
-				mAnimator->Play(L"Smash3", false);
-			}
-		}
-	}
-
-	if (KEY_DOWN(eKeyCode::UP))
-	{
-		mAnimator->Play(L"MoveUp", true);
-		mState = State::MOVE;
-	}
-	if (KEY_DOWN(eKeyCode::LEFT))
-	{
-		mAnimator->Play(L"MoveLeft", true);
-		mState = State::MOVE;
-	}
-	if (KEY_DOWN(eKeyCode::RIGHT))
-	{
-		mAnimator->Play(L"MoveRight", true);
-		mState = State::MOVE;
-	}
-	SetPos(pos);
-}*/
 	void Player::Death()
 	{
 
@@ -606,15 +531,40 @@ namespace ya
 		//HPEN redPen = CreatePen(PS_SOLID, 2, RGB(255, 0, 0));
 		//Pen pen(hdc, redPen);
 
-		
-
 		GameObject::Render(hdc);
+	}
+
+	void Player::CreateDamage()
+	{
+		mAnimator->SetAniAlpha(150);
+		Vector2 pos = GetPos();
+		DamageSkin* damage = new DamageSkin();
+		Scene* playScene = SceneManager::GetPlayScene();
+		damage->mPlayer = this;
+		damage->SetTargetName(L"Player");
+		damage->SetPos({ pos.x , pos.y - 50.0f });
+		damage->SetAttackNumber(1);
+		playScene->AddGameObject(damage, eColliderLayer::Damage);
+		_PlayerHp -= GetPlayerHitDamage();
 	}
 
 	void Player::OnCollisionEnter(Collider* other)
 	{
-		
-		mAnimator->SetAniAlpha(150);
+			if (other->GetOwner()->GetName() == L"MushMom")
+			{
+				CreateDamage();
+				SetHitDamage(5);
+			}
+			else if (other->GetOwner()->GetName() == L"Golem")
+			{
+				CreateDamage();
+				SetHitDamage(10);
+			}
+			else if (other->GetOwner()->GetName() == L"DarkWolf")
+			{
+				CreateDamage();
+				SetHitDamage(17);
+			}
 	}
 
 	void Player::OnCollisionStay(Collider* other)

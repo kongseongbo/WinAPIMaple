@@ -73,7 +73,7 @@ namespace ya
 
 	MushMom::~MushMom()
 	{
-
+		
 	}
 
 	void MushMom::Tick()
@@ -186,12 +186,12 @@ namespace ya
 	void MushMom::Death()
 	{
 		mTime += Time::DeltaTime();
+		mPlayer->SetEx(50);
 		if (mTime > 3.0f)
 		{
 			GameObject* gameObj = this;
 			gameObj->Death();
 		}
-		mPlayer->SetEx(50);
 	}
 	void MushMom::Render(HDC hdc)
 	{

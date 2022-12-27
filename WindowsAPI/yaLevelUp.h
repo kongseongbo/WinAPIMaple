@@ -3,20 +3,21 @@
 
 namespace ya
 {
-	class Image;
-	class Logo : public GameObject
+	class Animator;
+	class LevelUp : public GameObject
 	{
 	public:
-		Logo();
-		~Logo();
+		LevelUp();
+		~LevelUp();
 
 		virtual void Tick() override;
 		virtual void Render(HDC hdc) override;
 
+		void PlayAni();
+
+
 	private:
-		float mSpeed;
 		float mAliveTime;
-		Image* mImage;
 		Animator* mAnimator;
 
 	public:
