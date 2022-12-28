@@ -3,7 +3,7 @@
 #include "yaInput.h"
 #include "yaPlayer.h"
 #include "yaPanel.h"
-
+#include "yaItemSlot.h"
 namespace ya
 {
 	Potion::Potion(eUIType type)
@@ -49,8 +49,11 @@ namespace ya
 		Vector2 size = GetSize();
 		
 
-		UINT invenHeight = mInventory->GetInvenHeight();
-		UINT invenWhidth = mInventory->GetInvenWhidth();
+		/*UINT invenHeight = mInventory->GetInvenHeight();
+		UINT invenWhidth = mInventory->GetInvenWhidth();*/
+
+		UINT invenHeight = mItemSlot->GetSlotHeight();
+		UINT invenWhidth = mItemSlot->GetSlotWhidth();
 
 		if (mScreenPos.x <= mousePos.x && mousePos.x < mScreenPos.x + size.x
 			&& mScreenPos.y <= mousePos.y && mousePos.y < mScreenPos.y + size.y)

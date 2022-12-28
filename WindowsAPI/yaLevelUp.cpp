@@ -11,7 +11,7 @@ namespace ya
 		SetName(L"LevelUp");
 		mAnimator = new Animator();
 		mAnimator->CreateAnimations(L"..\\Resources\\Animations\\Player\\LevelUp"
-			, L"LevelUp", Vector2(0.0f, -150.0f), 0.2f);
+			, L"LevelUp", Vector2(0.0f, -250.0f), 0.2f);
 		AddComponent(mAnimator);
 	}
 

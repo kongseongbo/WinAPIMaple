@@ -16,7 +16,7 @@ namespace ya
 
     void Panel::OnInit()
     {
-        if (this->GetType() == eUIType::INVENTORY)
+        if (GetType() == eUIType::INVENTORY)
         {
             invenWidth = mImage->GetWidth();
             invenHeight = mImage->GetHeight();

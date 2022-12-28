@@ -65,6 +65,9 @@
     <Filter Include="Engine\GameObject\Monster">
       <UniqueIdentifier>{e91e4247-1d82-4ae8-bd1a-59105292d661}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\GameObject\Player">
+      <UniqueIdentifier>{27db696c-034a-480d-923e-69601148a523}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -163,9 +166,6 @@
     <ClInclude Include="yaMissile.h">
       <Filter>Engine\GameObject\Game</Filter>
     </ClInclude>
-    <ClInclude Include="yaPlayer.h">
-      <Filter>Engine\GameObject\Game</Filter>
-    </ClInclude>
     <ClInclude Include="yaRigidbody.h">
       <Filter>Engine\Component</Filter>
     </ClInclude>
@@ -238,8 +238,17 @@
     <ClInclude Include="yaButton.h">
       <Filter>Engine\GameObject\UI</Filter>
     </ClInclude>
+    <ClInclude Include="yaPlayer.h">
+      <Filter>Engine\GameObject\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="yaDoubleJump.h">
+      <Filter>Engine\GameObject\Player</Filter>
+    </ClInclude>
     <ClInclude Include="yaLevelUp.h">
-      <Filter>Engine\GameObject\Game</Filter>
+      <Filter>Engine\GameObject\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="yaItemSlot.h">
+      <Filter>Engine\GameObject\UI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -364,9 +373,6 @@
     <ClCompile Include="yaSound.cpp">
       <Filter>Engine\Resource</Filter>
     </ClCompile>
-    <ClCompile Include="yaPlayer.cpp">
-      <Filter>Engine\GameObject\Game</Filter>
-    </ClCompile>
     <ClCompile Include="yaSkillSmash.cpp">
       <Filter>Engine\GameObject\PlayerSkill</Filter>
     </ClCompile>
@@ -409,8 +415,17 @@
     <ClCompile Include="yaButton.cpp">
       <Filter>Engine\GameObject\UI</Filter>
     </ClCompile>
+    <ClCompile Include="yaPlayer.cpp">
+      <Filter>Engine\GameObject\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="yaDoubleJump.cpp">
+      <Filter>Engine\GameObject\Player</Filter>
+    </ClCompile>
     <ClCompile Include="yaLevelUp.cpp">
-      <Filter>Engine\GameObject\Game</Filter>
+      <Filter>Engine\GameObject\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="yaItemSlot.cpp">
+      <Filter>Engine\GameObject\UI</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -2,6 +2,7 @@
 #include "yaHUD.h"
 #include "yaPotion.h"
 #include "yaPanel.h"
+#include "yaItemSlot.h"
 #include "yaInput.h"
 namespace ya
 {
@@ -39,22 +40,29 @@ namespace ya
 		Inventory->SetPos(Vector2(200.0f, 100.0f));
 		Inventory->ImageLoad(L"Inventory", L"..\\Resources\\Image\\inventory.bmp");
 
+		ItemSlot* itemslot = new ItemSlot(eUIType::ITEMSLOT);
+		mUIs.insert(std::make_pair(eUIType::ITEMSLOT, itemslot));
+		itemslot->SetPos(Vector2(920.0f, 825.0f));
+		itemslot->ImageLoad(L"Itemslot", L"..\\Resources\\Image\\Itemslot\\Itemslot.bmp");
+
 		Potion* RedPortion = new Potion(eUIType::REDPORTION);
 		mUIs.insert(std::make_pair(eUIType::REDPORTION, RedPortion));
-		RedPortion->SetPos(Vector2(15.0f, 96.0f));
+		//RedPortion->SetPos(Vector2(15.0f, 96.0f));
 		RedPortion->ImageLoad(L"RedPortion", L"..\\Resources\\Image\\Portion\\RedPortion.bmp");
 		RedPortion->mInventory = Inventory;
+		RedPortion->mItemSlot = itemslot;
 
 		Potion* BluePortion = new Potion(eUIType::BLUEPORTION);
 		mUIs.insert(std::make_pair(eUIType::BLUEPORTION, BluePortion));
-		BluePortion->SetPos(Vector2(57.0f, 96.0f));
+		//BluePortion->SetPos(Vector2(57.0f, 96.0f));
 		BluePortion->ImageLoad(L"BluePortion", L"..\\Resources\\Image\\Portion\\BluePortion.bmp");
 		BluePortion->mInventory = Inventory;
+		BluePortion->mItemSlot = itemslot;
+		//Inventory->AddChild(RedPortion);
+		//Inventory->AddChild(BluePortion);
 
-		Inventory->AddChild(RedPortion);
-		Inventory->AddChild(BluePortion);
-		
-
+		itemslot->AddChild(RedPortion);
+		itemslot->AddChild(BluePortion);
 	}
 
 	void UIManager::OnLoad(eUIType type)

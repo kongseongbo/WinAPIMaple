@@ -67,6 +67,7 @@ namespace ya
 		bool mMoveLeft;
 		bool mMoveRight;
 		bool mRightLook;
+		int mJumpStack;
 	};
 
 }

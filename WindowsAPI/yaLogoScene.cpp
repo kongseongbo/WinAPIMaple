@@ -17,6 +17,7 @@
 #include "yaTime.h"
 #include "yaGolem.h"
 #include "yaCamera.h"
+#include "yaItemSlot.h"
 
 namespace ya
 {
@@ -90,15 +91,17 @@ namespace ya
 		UIManager::Push(eUIType::HP);
 		UIManager::Push(eUIType::MP);
 		UIManager::Push(eUIType::HPMPBAR);
+		UIManager::Push(eUIType::ITEMSLOT);
 		//UIManager::Push(eUIType::INVENTORY);
 
 		HUD* Hp = UIManager::GetUiInstant<HUD>(eUIType::HP);
 		HUD* Mp = UIManager::GetUiInstant<HUD>(eUIType::MP);
 		HUD* hud = UIManager::GetUiInstant<HUD>(eUIType::HPMPBAR);
+		ItemSlot* itemslot = UIManager::GetUiInstant<ItemSlot>(eUIType::ITEMSLOT);
 		Hp->SetTarget(player);
 		Mp->SetTarget(player);
 		hud->SetTarget(player);
-
+		itemslot->SetTarget(player);
 		//Panel* Inventory = UIManager::GetUiInstant<Panel>(eUIType::INVENTORY);
 		
 		

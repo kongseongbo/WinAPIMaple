@@ -22,6 +22,7 @@
 
 #include "yaDamageSkin.h"
 #include "yaLevelUp.h"
+#include "yaDoubleJump.h"
 
 #include "yaHUD.h"
 namespace ya
@@ -38,6 +39,7 @@ namespace ya
 		, mMoveLeft(false)
 		, mMoveRight(false)
 		, mRightLook(false)
+		, mJumpStack(0)
 	{
 		SetName(L"Player");
 		SetPos({ 1500.0f, 750.0f });
@@ -46,8 +48,6 @@ namespace ya
 		mAnimator = new Animator();
 		mAnimator->CreateAnimations(L"..\\Resources\\Animations\\Player\\Up"
 			, L"MoveUp");
-		/*mAnimator->CreateAnimations(L"..\\Resources\\Animations\\Player\\LevelUp"
-			, L"LevelUp", Vector2(0.0f,-150.0f),0.2f);*/
 
 		//¿ÞÂÊ
 		mAnimator->CreateAnimations(L"..\\Resources\\Animations\\Player\\Idle"
@@ -199,7 +199,7 @@ namespace ya
 		mAnimator->SetAniAlpha(255);
 		mAnimator->Play(L"Idle", true);
 
-		if (mEx >= 100)
+		if (mEx >= 200)
 		{
 			if (mLv == 0)
 			{
@@ -246,7 +246,7 @@ namespace ya
 				rigidbody->SetGround(false);
 				rigidbody->SetVelocity(velocity);
 			}
-			UIManager::Pop(eUIType::OPTION);
+			//UIManager::Pop(eUIType::OPTION);
 		}
 
 		if (KEY_DOWN(eKeyCode::LCTRL))
@@ -292,8 +292,32 @@ namespace ya
 				velocity.y = -500.0f;
 				rigidbody->SetGround(false);
 				rigidbody->SetVelocity(velocity);
+				mJumpStack++;
+				if (mJumpStack >= 2)
+				{
+					DoubleJump* doublejump = new DoubleJump();
+					Scene* playScene = SceneManager::GetPlayScene();
+					playScene->AddGameObject(doublejump, eColliderLayer::Player);
+					doublejump->SetPos(GetPos());
+					doublejump->PlayAni(mRightLook);
+					if (mRightLook)
+					{
+						velocity.y = -200.0f;
+						velocity.x = 150.0f;
+						rigidbody->SetGround(false);
+						rigidbody->SetVelocity(velocity);
+					}
+					else
+					{
+						velocity.y = -200.0f;
+						velocity.x = -150.0f;
+						rigidbody->SetGround(false);
+						rigidbody->SetVelocity(velocity);
+					}
+					mJumpStack = 0;
+				}
 			}
-			UIManager::Pop(eUIType::OPTION);
+			//UIManager::Pop(eUIType::OPTION);
 		}
 		if (KEY_UP(eKeyCode::UP) || KEY_UP(eKeyCode::LEFT) || KEY_UP(eKeyCode::RIGHT))
 		{

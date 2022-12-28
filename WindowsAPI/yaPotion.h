@@ -4,6 +4,7 @@
 namespace ya
 {
 	class Panel;
+	class ItemSlot;
 	class Potion : public UiBase
 	{
 	public:
@@ -20,6 +21,7 @@ namespace ya
 		virtual void Click();
 
 		Panel* mInventory;
+		ItemSlot* mItemSlot;
 	private:
 		Event mOnClick;
 		Vector2 bluePrevPos;
