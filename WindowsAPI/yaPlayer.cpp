@@ -97,54 +97,16 @@ namespace ya
 		mAnimator->CreateAnimations(L"..\\Resources\\Animations\\Player\\Beyonder\\RBeyonderEffect3"
 			, L"RBeyonderEffect3", Vector2(200.0f, -50.0f));
 
-			// 한 이미지에 전부 들어있을때
-			/*mAnimator->CreateAnimation(L"Idle", mImage
-				, Vector2(0.0f, 0.0f), Vector2(120.0f, 130.0f)
-				, Vector2(5.0f, -20.0f), 3, 0.1f);
-
-			mAnimator->CreateAnimation(L"MoveDown", mImage
-				, Vector2(0.0f, 520.0f), Vector2(120.0f, 130.0f)
-				, Vector2(5.0f, -20.0f), 10, 0.1f);
-			mAnimator->CreateAnimation(L"MoveLeft", mImage
-				, Vector2(0.0f, 650.0f), Vector2(120.0f, 130.0f)
-				, Vector2(5.0f, -20.0f), 10, 0.1f);
-			mAnimator->CreateAnimation(L"MoveUp", mImage
-				, Vector2(0.0f, 780.0f), Vector2(120.0f, 130.0f)
-				, Vector2(5.0f, -20.0f), 10, 0.1f);
-			mAnimator->CreateAnimation(L"MoveRight", mImage
-				, Vector2(0.0f, 910.0f), Vector2(120.0f, 130.0f)
-				, Vector2(5.0f, -20.0f), 10, 0.1f);*/
-
 		mAnimator->Play(L"Idle", true);
-		AddComponent(mAnimator);
-
-		//아래
+		
 		Collider* coliider = new Collider();
+		coliider->SetOffset(Vector2(-5.0f, 68.0f));
+		coliider->SetScale(Vector2(15.0f, 70.0f));
 		AddComponent(coliider);
-		coliider->SetOffset(Vector2(0.0f, 103.0f));
-		coliider->SetScale(Vector2(10.0f, 10.0f));
-
-		//위
-		Collider* coliider2 = new Collider();
-		AddComponent(coliider2);
-		coliider2->SetOffset(Vector2(0.0f, 30.0f));
-		coliider2->SetScale(Vector2(10.0f, 10.0f));
-
-		//오른쪽
-		Collider* coliider3 = new Collider();
-		AddComponent(coliider3);
-		coliider3->SetOffset(Vector2(20.0f, 50.0f));
-		coliider3->SetScale(Vector2(10.0f, 10.0f));
-
-		//왼쪽
-		Collider* coliider4 = new Collider();
-		AddComponent(coliider4);
-		coliider4->SetOffset(Vector2(-30.0f, 50.0f));
-		coliider4->SetScale(Vector2(10.0f, 10.0f));
-
+	
+		AddComponent(mAnimator);
 		AddComponent<Rigidbody>();
 
-		mCoff = 0.1f;
 		//mMisiileDir = Vector2::One;
 		//Camera::SetTarget(this);
 		//float x = math::lerp(1.0f, 3.0f, 0.5f);
@@ -304,14 +266,14 @@ namespace ya
 					{
 						velocity.y = -200.0f;
 						velocity.x = 150.0f;
-						rigidbody->SetGround(false);
+						rigidbody->SetGround(true);
 						rigidbody->SetVelocity(velocity);
 					}
 					else
 					{
 						velocity.y = -200.0f;
 						velocity.x = -150.0f;
-						rigidbody->SetGround(false);
+						rigidbody->SetGround(true);
 						rigidbody->SetVelocity(velocity);
 					}
 					mJumpStack = 0;
@@ -574,23 +536,27 @@ namespace ya
 
 	void Player::OnCollisionEnter(Collider* other)
 	{
-			if (other->GetOwner()->GetName() == L"MushMom")
-			{
-				CreateDamage();
-				SetHitDamage(5);
-			}
-			else if (other->GetOwner()->GetName() == L"Golem")
-			{
-				CreateDamage();
-				SetHitDamage(10);
-			}
-			else if (other->GetOwner()->GetName() == L"DarkWolf")
-			{
-				CreateDamage();
-				SetHitDamage(17);
-			}
+		if (other->GetOwner()->GetName() == L"MushMom")
+		{
+			CreateDamage();
+			SetHitDamage(5);
+		}
+		else if (other->GetOwner()->GetName() == L"Golem")
+		{
+			CreateDamage();
+			SetHitDamage(10);
+		}
+		else if (other->GetOwner()->GetName() == L"IceDrake")
+		{
+			CreateDamage();
+			SetHitDamage(14);
+		}
+		else if (other->GetOwner()->GetName() == L"DarkWolf")
+		{
+			CreateDamage();
+			SetHitDamage(17);
+		}
 	}
-
 	void Player::OnCollisionStay(Collider* other)
 	{
 		mAnimator->SetAniAlpha(150);

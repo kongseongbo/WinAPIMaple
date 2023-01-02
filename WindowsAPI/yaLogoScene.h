@@ -23,11 +23,13 @@ namespace ya
 		Player* player;
 		MushMom* mMushmom[5];
 		Golem* mGolem[3];
+		IceDrake* mIceDrake[3];
 		HUD* MonsterHp[5];
 		float mTime;
 
 		Vector2 mushPos[5];
 		Vector2 golemPos[5];
+		Vector2 drakePos[3];
 	};
 
 }

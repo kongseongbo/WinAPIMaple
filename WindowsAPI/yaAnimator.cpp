@@ -162,7 +162,7 @@ namespace ya
 		int index = 0;
 		for (Image* image : images)
 		{
-			BitBlt(mSPriteSheet->GetDC() , width * index, 0, image->GetWidth(), image->GetHeight()
+ 			BitBlt(mSPriteSheet->GetDC() , width * index, 0, image->GetWidth(), image->GetHeight()
 				, image->GetDC(), 0, 0, SRCCOPY);
 			index++;
 		}

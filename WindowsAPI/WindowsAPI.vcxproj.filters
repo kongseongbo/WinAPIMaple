@@ -250,6 +250,12 @@
     <ClInclude Include="yaItemSlot.h">
       <Filter>Engine\GameObject\UI</Filter>
     </ClInclude>
+    <ClInclude Include="yaIceDrake.h">
+      <Filter>Engine\GameObject\Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="yaIceDrakeBall.h">
+      <Filter>Engine\GameObject\Monster</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="WindowsAPI.rc">
@@ -426,6 +432,12 @@
     </ClCompile>
     <ClCompile Include="yaItemSlot.cpp">
       <Filter>Engine\GameObject\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="yaIceDrake.cpp">
+      <Filter>Engine\GameObject\Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="yaIceDrakeBall.cpp">
+      <Filter>Engine\GameObject\Monster</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

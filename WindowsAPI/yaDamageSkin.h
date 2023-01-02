@@ -7,6 +7,7 @@ namespace ya
 	class DarkWolf;
 	class MushMom;
 	class Golem;
+	class IceDrake;
 	class Image;
 	class DamageSkin : public GameObject
 	{
@@ -26,6 +27,7 @@ namespace ya
 		MushMom* mMushmom;
 		Golem* mGolem;
 		DarkWolf* mDarkWolf;
+		IceDrake* mIceDrake;
 		Player* mPlayer;
 
 	private:

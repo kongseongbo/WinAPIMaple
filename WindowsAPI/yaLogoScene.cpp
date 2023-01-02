@@ -18,6 +18,7 @@
 #include "yaGolem.h"
 #include "yaCamera.h"
 #include "yaItemSlot.h"
+#include "yaIceDrake.h"
 
 namespace ya
 {
@@ -84,6 +85,25 @@ namespace ya
 		
 		mushPos[4].x += 1300.0f;
 		mMushmom[4]->SetPos(mushPos[4]);
+
+
+		//IceDrake
+		for (size_t i = 0; i < 3; i++)
+		{
+			mIceDrake[i] = ya::object::Instantiate<IceDrake>(eColliderLayer::Monster);
+			mIceDrake[i]->mPlayer = player;
+			drakePos[i] = { mIceDrake[i]->GetPos() };
+		}
+
+		drakePos[0].x += 500.0f;
+		mIceDrake[0]->SetPos(drakePos[0]);
+
+		drakePos[1].x += 2600.0f;
+		drakePos[1].y -= 290.0f;
+		mIceDrake[1]->SetPos(drakePos[1]);
+
+		drakePos[2].x += 2650.0f;
+		mIceDrake[2]->SetPos(drakePos[2]);
 		
 		//Ground* ground = ya::object::Instantiate<Ground>(eColliderLayer::Ground);
 		//ground->SetPos(Vector2(700.0f, 700.0f));
@@ -104,8 +124,6 @@ namespace ya
 		itemslot->SetTarget(player);
 		//Panel* Inventory = UIManager::GetUiInstant<Panel>(eUIType::INVENTORY);
 		
-		
-
 		//ya::Scene* scene = ya::SceneManager::GetScene(eSceneType::Tool);
 		//ya::ToolScene* toolScene = dynamic_cast<ya::ToolScene*>(scene);
 		//toolScene->LoadTilePalette(L"..\\Resources\\TileSaveFiles\\Test");
@@ -142,6 +160,23 @@ namespace ya
 					mGolem[i] = ya::object::Instantiate<Golem>(eColliderLayer::Monster);
 					mGolem[i]->mPlayer = player;
 					mGolem[i]->SetPos(golemPos[i]);
+					mNextSceneStack++;
+					mTime = 0.0f;
+				}
+			}
+		}
+
+		//IceDrake
+		for (size_t i = 0; i < 3; i++)
+		{
+			if (mIceDrake[i]->GetState() == 4)
+			{
+				mTime += Time::DeltaTime();
+				if (mTime > 4.0f)
+				{
+					mIceDrake[i] = ya::object::Instantiate<IceDrake>(eColliderLayer::Monster);
+					mIceDrake[i]->mPlayer = player;
+					mIceDrake[i]->SetPos(drakePos[i]);
 					mNextSceneStack++;
 					mTime = 0.0f;
 				}

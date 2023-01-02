@@ -49,11 +49,11 @@ namespace ya
 		Vector2 size = GetSize();
 		
 
-		/*UINT invenHeight = mInventory->GetInvenHeight();
-		UINT invenWhidth = mInventory->GetInvenWhidth();*/
+		UINT invenHeight = mInventory->GetInvenHeight();
+		UINT invenWhidth = mInventory->GetInvenWhidth();
 
-		UINT invenHeight = mItemSlot->GetSlotHeight();
-		UINT invenWhidth = mItemSlot->GetSlotWhidth();
+		/*UINT invenHeight = mItemSlot->GetSlotHeight();
+		UINT invenWhidth = mItemSlot->GetSlotWhidth();*/
 
 		if (mScreenPos.x <= mousePos.x && mousePos.x < mScreenPos.x + size.x
 			&& mScreenPos.y <= mousePos.y && mousePos.y < mScreenPos.y + size.y)

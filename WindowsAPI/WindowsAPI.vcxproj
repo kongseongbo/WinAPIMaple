@@ -143,6 +143,8 @@
     <ClInclude Include="yaBeyonder3.h" />
     <ClInclude Include="yaBgImageObject.h" />
     <ClInclude Include="yaDoubleJump.h" />
+    <ClInclude Include="yaIceDrake.h" />
+    <ClInclude Include="yaIceDrakeBall.h" />
     <ClInclude Include="yaItemSlot.h" />
     <ClInclude Include="yaLevelUp.h" />
     <ClInclude Include="yaPotion.h" />
@@ -203,6 +205,8 @@
     <ClCompile Include="yaBeyonder3.cpp" />
     <ClCompile Include="yaBgImageObject.cpp" />
     <ClCompile Include="yaDoubleJump.cpp" />
+    <ClCompile Include="yaIceDrake.cpp" />
+    <ClCompile Include="yaIceDrakeBall.cpp" />
     <ClCompile Include="yaItemSlot.cpp" />
     <ClCompile Include="yaLevelUp.cpp" />
     <ClCompile Include="yaPotion.cpp" />

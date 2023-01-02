@@ -49,7 +49,6 @@ namespace ya
 		void CreateDamage();
 
 	private:
-		float mCoff;
 		float mSpeed;
 		float mTime;
 		Image* mImage;

@@ -8,6 +8,7 @@
 #include "Common.h"
 #include "yaGolem.h"
 #include "yaDarkWolf.h"
+#include "yaIceDrake.h"
 
 namespace ya
 {
@@ -66,6 +67,13 @@ namespace ya
 			if (mGolem == nullptr)
 				return;
 			monsterPos = mGolem->GetPos();
+		}
+
+		if (mTarget == L"IceDrake")
+		{
+			if (mIceDrake == nullptr)
+				return;
+			monsterPos = mIceDrake->GetPos();
 		}
 
 		if (mTarget == L"DarkWolf")
@@ -177,6 +185,8 @@ namespace ya
 			attackDamage = mMushmom->AttackDamage();
 		if (mTarget == L"Golem")
 			attackDamage = mGolem->AttackDamage();
+		if (mTarget == L"IceDrake")
+			attackDamage = mIceDrake->AttackDamage();
 		if(mTarget == L"DarkWolf")
 			attackDamage = mDarkWolf->AttackDamage();
 		if(mTarget == L"Player")

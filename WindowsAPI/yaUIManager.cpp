@@ -47,22 +47,23 @@ namespace ya
 
 		Potion* RedPortion = new Potion(eUIType::REDPORTION);
 		mUIs.insert(std::make_pair(eUIType::REDPORTION, RedPortion));
-		//RedPortion->SetPos(Vector2(15.0f, 96.0f));
+		RedPortion->SetPos(Vector2(15.0f, 96.0f));
 		RedPortion->ImageLoad(L"RedPortion", L"..\\Resources\\Image\\Portion\\RedPortion.bmp");
 		RedPortion->mInventory = Inventory;
-		RedPortion->mItemSlot = itemslot;
+		//RedPortion->mItemSlot = itemslot;
 
 		Potion* BluePortion = new Potion(eUIType::BLUEPORTION);
 		mUIs.insert(std::make_pair(eUIType::BLUEPORTION, BluePortion));
-		//BluePortion->SetPos(Vector2(57.0f, 96.0f));
+		BluePortion->SetPos(Vector2(57.0f, 96.0f));
 		BluePortion->ImageLoad(L"BluePortion", L"..\\Resources\\Image\\Portion\\BluePortion.bmp");
 		BluePortion->mInventory = Inventory;
-		BluePortion->mItemSlot = itemslot;
-		//Inventory->AddChild(RedPortion);
-		//Inventory->AddChild(BluePortion);
+		//BluePortion->mItemSlot = itemslot;
 
-		itemslot->AddChild(RedPortion);
-		itemslot->AddChild(BluePortion);
+		Inventory->AddChild(RedPortion);
+		Inventory->AddChild(BluePortion);
+		
+		/*itemslot->AddChild(RedPortion);
+		itemslot->AddChild(BluePortion);*/
 	}
 
 	void UIManager::OnLoad(eUIType type)
