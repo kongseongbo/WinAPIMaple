@@ -132,6 +132,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="IceDrakeBallEffect.h" />
     <ClInclude Include="yaAnimation.h" />
     <ClInclude Include="yaButton.h" />
     <ClInclude Include="Common.h" />
@@ -196,6 +197,7 @@
     <ClInclude Include="yaUIManager.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="IceDrakeBallEffect.cpp" />
     <ClCompile Include="Maths.cpp" />
     <ClCompile Include="yaAnimation.cpp" />
     <ClCompile Include="yaAnimator.cpp" />

@@ -21,6 +21,7 @@ namespace ya
 		, mMoveLeft(false)
 		, mHp(10000)
 		, distance(0.0f)
+		, t(0.0f)
 	{
 		SetName(L"MushMom");
 		SetPos({ 900.0f, 820.0f });
@@ -104,7 +105,7 @@ namespace ya
 	}
 	void MushMom::Idle()
 	{
-		mTime += Time::DeltaTime();
+		mTime += t * Time::DeltaTime();
 		if (mTime > 5.0f)
 		{
 			mState = State::MOVE;

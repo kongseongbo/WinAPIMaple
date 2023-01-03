@@ -256,6 +256,9 @@
     <ClInclude Include="yaIceDrakeBall.h">
       <Filter>Engine\GameObject\Monster</Filter>
     </ClInclude>
+    <ClInclude Include="IceDrakeBallEffect.h">
+      <Filter>Engine\GameObject\Monster</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="WindowsAPI.rc">
@@ -437,6 +440,9 @@
       <Filter>Engine\GameObject\Monster</Filter>
     </ClCompile>
     <ClCompile Include="yaIceDrakeBall.cpp">
+      <Filter>Engine\GameObject\Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="IceDrakeBallEffect.cpp">
       <Filter>Engine\GameObject\Monster</Filter>
     </ClCompile>
   </ItemGroup>

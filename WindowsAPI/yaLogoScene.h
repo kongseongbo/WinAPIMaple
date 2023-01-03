@@ -22,14 +22,14 @@ namespace ya
 	private:
 		Player* player;
 		MushMom* mMushmom[5];
-		Golem* mGolem[3];
-		IceDrake* mIceDrake[3];
+		Golem* mGolem[5];
+		IceDrake* mIceDrake[5];
 		HUD* MonsterHp[5];
 		float mTime;
 
 		Vector2 mushPos[5];
 		Vector2 golemPos[5];
-		Vector2 drakePos[3];
+		Vector2 drakePos[5];
 	};
 
 }

@@ -21,8 +21,6 @@ namespace ya
 		mAnimator->CreateAnimations(L"..\\Resources\\Animations\\IceDrake\\AttackBall"
 			, L"AttackBall");
 
-		
-		
 		Collider* col = new Collider();
 		col->SetScale(Vector2(110.0f, 20.0f));
 		AddComponent(col);
@@ -56,6 +54,7 @@ namespace ya
 	{
 		mPlayer->Hit();
 		mPlayer->SetHitDamage(176);
+		
 	}
 
 	void IceDrakeBall::OnCollisionStay(Collider* other)
@@ -63,5 +62,6 @@ namespace ya
 	}
 	void IceDrakeBall::OnCollisionExit(Collider* other)
 	{
+		this->Death();
 	}
 }

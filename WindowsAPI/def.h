@@ -55,6 +55,7 @@ enum class eColliderLayer
 	Player,
 	Player_Smash,
 	Player_Beyonder,
+	IceBallEffect,
 	Damage,
 	Ground,
 

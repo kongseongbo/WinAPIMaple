@@ -38,6 +38,8 @@ namespace ya
 		int GetState() { return (int)mState; }
 
 		int GetHp() { return mHp; }
+		
+		void SetTime(float time) { t = time; }
 
 		Player* mPlayer;
 		
@@ -51,6 +53,7 @@ namespace ya
 		float distance;
 		int mHp;
 		int mMushSTR;
+		float t;
 	};
 
 }

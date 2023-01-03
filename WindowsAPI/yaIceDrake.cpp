@@ -20,6 +20,7 @@ namespace ya
 		, mMoveLeft(false)
 		, mHp(30000)
 		, distance(0.0f)
+		, t(0.0f)
 	{
 		SetName(L"IceDrake");
 		SetPos({ 1100.0f, 820.0f });
@@ -101,7 +102,7 @@ namespace ya
 	}
 	void IceDrake::Idle()
 	{
-		mTime += Time::DeltaTime();
+		mTime += t * Time::DeltaTime();
 		if (mTime > 5.0f)
 		{
 			mState = State::MOVE;

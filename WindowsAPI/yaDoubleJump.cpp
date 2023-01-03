@@ -8,7 +8,7 @@ namespace ya
 	DoubleJump::DoubleJump()
 		: mAliveTime(1.0f)
 	{
-		SetName(L"LevelUp");
+		SetName(L"DoubleJump");
 		mAnimator = new Animator();
 		mAnimator->CreateAnimations(L"..\\Resources\\Animations\\Player\\RJump"
 			, L"RJump",Vector2(-30.0f,50.0f));

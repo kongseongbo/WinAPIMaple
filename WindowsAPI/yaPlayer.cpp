@@ -24,6 +24,8 @@
 #include "yaLevelUp.h"
 #include "yaDoubleJump.h"
 
+#include "IceDrakeBallEffect.h"
+
 #include "yaHUD.h"
 namespace ya
 {
@@ -221,6 +223,12 @@ namespace ya
 	void Player::Move()
 	{
 		Vector2 pos = GetPos();
+		mTime += Time::DeltaTime();
+		if ((mJumpStack == 1 && mTime > 1.0f) || mJumpStack >= 2)
+		{
+			mJumpStack = 0;
+			mTime = 0.0f;
+		}
 		if (KEY_PREESE(eKeyCode::UP))
 		{
 			pos.y -= 120.0f * Time::DeltaTime();
@@ -255,8 +263,10 @@ namespace ya
 				rigidbody->SetGround(false);
 				rigidbody->SetVelocity(velocity);
 				mJumpStack++;
+				mTime = 0.0f;
 				if (mJumpStack >= 2)
 				{
+					
 					DoubleJump* doublejump = new DoubleJump();
 					Scene* playScene = SceneManager::GetPlayScene();
 					playScene->AddGameObject(doublejump, eColliderLayer::Player);
@@ -276,7 +286,8 @@ namespace ya
 						rigidbody->SetGround(true);
 						rigidbody->SetVelocity(velocity);
 					}
-					mJumpStack = 0;
+					
+					
 				}
 			}
 			//UIManager::Pop(eUIType::OPTION);
@@ -544,17 +555,25 @@ namespace ya
 		else if (other->GetOwner()->GetName() == L"Golem")
 		{
 			CreateDamage();
-			SetHitDamage(10);
+			SetHitDamage(8);
 		}
 		else if (other->GetOwner()->GetName() == L"IceDrake")
 		{
 			CreateDamage();
-			SetHitDamage(14);
+			SetHitDamage(11);
 		}
 		else if (other->GetOwner()->GetName() == L"DarkWolf")
 		{
 			CreateDamage();
 			SetHitDamage(17);
+		}
+		else if (other->GetOwner()->GetName() == L"IceDrakeBall")
+		{
+			IceDrakeBallEffect* BallEffect = new IceDrakeBallEffect();
+			Scene* playScene = SceneManager::GetPlayScene();
+			playScene->AddGameObject(BallEffect, eColliderLayer::IceBallEffect);
+			BallEffect->SetPos(GetPos());
+			BallEffect->PlayAni();
 		}
 	}
 	void Player::OnCollisionStay(Collider* other)

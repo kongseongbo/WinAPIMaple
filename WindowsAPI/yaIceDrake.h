@@ -35,10 +35,9 @@ namespace ya
 		void Death();
 
 		void AddBall();
-
 		int AttackDamage();
-
 		int GetState() { return (int)mState; }
+		void SetTime(float time) { t = time; }
 
 		Player* mPlayer;
 
@@ -52,6 +51,7 @@ namespace ya
 		float distance;
 		int mHp;
 		int mAttackDamage;
+		float t;
 	};
 
 }

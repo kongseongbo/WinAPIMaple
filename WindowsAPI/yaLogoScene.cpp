@@ -47,10 +47,11 @@ namespace ya
 		bg->mPlayer = player;
 
 		//Golem
-		for (size_t i = 0; i < 3; i++)
+		for (size_t i = 0; i < 5; i++)
 		{
 			mGolem[i] = ya::object::Instantiate<Golem>(eColliderLayer::Monster);
 			mGolem[i]->mPlayer = player;
+			mGolem[i]->SetTime(i + 1);
 			golemPos[i] = { mGolem[i]->GetPos() };
 		}
 	
@@ -64,11 +65,19 @@ namespace ya
 		golemPos[2].x += 2650.0f;
 		mGolem[2]->SetPos(golemPos[2]);
 
+		golemPos[3].x += 3450.0f;
+		mGolem[3]->SetPos(golemPos[3]);
+
+		golemPos[4].x += 3550.0f;
+		golemPos[4].y -= 290.0f;
+		mGolem[4]->SetPos(golemPos[4]);
+
 		//MushMom
 		for (size_t i = 0; i < 5; i++)
 		{
 			mMushmom[i] = ya::object::Instantiate<MushMom>(eColliderLayer::Monster);
 			mMushmom[i]->mPlayer = player;
+			mMushmom[i]->SetTime(i + 1);
 			mushPos[i] = { mMushmom[i]->GetPos()};
 		}
 
@@ -88,22 +97,29 @@ namespace ya
 
 
 		//IceDrake
-		for (size_t i = 0; i < 3; i++)
+		for (size_t i = 0; i < 5; i++)
 		{
 			mIceDrake[i] = ya::object::Instantiate<IceDrake>(eColliderLayer::Monster);
 			mIceDrake[i]->mPlayer = player;
+			mIceDrake[i]->SetTime(i + 1);
 			drakePos[i] = { mIceDrake[i]->GetPos() };
 		}
 
 		drakePos[0].x += 500.0f;
 		mIceDrake[0]->SetPos(drakePos[0]);
 
-		drakePos[1].x += 2600.0f;
+		drakePos[1].x += 4550.0f;
 		drakePos[1].y -= 290.0f;
 		mIceDrake[1]->SetPos(drakePos[1]);
 
-		drakePos[2].x += 2650.0f;
+		drakePos[2].x += 3630.0f;
 		mIceDrake[2]->SetPos(drakePos[2]);
+
+		drakePos[3].x += 4430.0f;
+		mIceDrake[3]->SetPos(drakePos[3]);
+
+		drakePos[4].x += 4700.0f;
+		mIceDrake[4]->SetPos(drakePos[4]);
 		
 		//Ground* ground = ya::object::Instantiate<Ground>(eColliderLayer::Ground);
 		//ground->SetPos(Vector2(700.0f, 700.0f));
@@ -183,7 +199,7 @@ namespace ya
 			}
 		}
 
-		if (mNextSceneStack >= 5)
+		if (mNextSceneStack >= 13)
 		{
 			SceneManager::ChangeScene(eSceneType::Play);
 			
