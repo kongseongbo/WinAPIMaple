@@ -74,9 +74,11 @@ enum class eCameraEffect
 
 enum class eUIType
 {
+	EX,
+	EXBAR,
+	HPMPBAR,
 	HP,
 	MP,
-	HPMPBAR,
 	MONSTERHP,
 	SHOP,
 	ITEMSLOT,

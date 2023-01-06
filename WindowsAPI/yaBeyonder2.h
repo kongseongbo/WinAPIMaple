@@ -3,6 +3,7 @@
 
 namespace ya
 {
+	class Sound;
 	class Image;
 	class SkillBeyonder2 : public GameObject
 	{
@@ -20,6 +21,7 @@ namespace ya
 	private:
 		float mAliveTime;
 		Image* mImage;
+		Sound* mSound;
 	public:
 		Vector2 mDir;
 		Vector2 mDestPos;

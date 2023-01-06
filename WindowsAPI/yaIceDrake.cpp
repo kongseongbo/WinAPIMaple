@@ -113,6 +113,7 @@ namespace ya
 	void IceDrake::Move()
 	{
 		mTime += Time::DeltaTime();
+
 		if (mTime > 3.0f && mMoveLeft)
 		{
 			mDir *= -1.0f;
@@ -136,6 +137,8 @@ namespace ya
 	void IceDrake::Attack()
 	{
 		mTime += Time::DeltaTime();
+		if (mHp <= 0)
+			mState = State::DEATH;
 		if (mTime > 3.3f)
 		{
 			if (!mMoveLeft)
@@ -186,7 +189,7 @@ namespace ya
 			GameObject* gameObj = this;
 			gameObj->Death();
 			mTime = 0.0f;
-			mPlayer->SetEx(50);
+			_Ex += 50;
 		}
 	}
 	void IceDrake::AddBall()
@@ -233,6 +236,13 @@ namespace ya
 	{
 		GameObject* gameObj = other->GetOwner();
 		Vector2 pos = GetPos();
+		
+		if (mHp <= 0)
+			mState = State::DEATH;
+
+		if (this->mState == State::HIT || this->mState == State::ATTACK)
+			return;
+
 		if (gameObj->GetName() == L"Smash")
 		{
 			if (mHp > 0)
@@ -256,8 +266,11 @@ namespace ya
 				mState = State::DEATH;
 			}
 		}
+		
 		if (gameObj->GetName() == L"Beyonder")
 		{
+			
+
 			if (mHp > 0)
 			{
 				//mHp -= 10;
@@ -358,7 +371,6 @@ namespace ya
 			damage->SetAttackNumber(5);
 			playScene->AddGameObject(damage, eColliderLayer::Damage);
 		}
-
 	}
 	int IceDrake::AttackDamage()
 	{

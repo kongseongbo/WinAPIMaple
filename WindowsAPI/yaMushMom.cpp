@@ -105,7 +105,7 @@ namespace ya
 	}
 	void MushMom::Idle()
 	{
-		mTime += t * Time::DeltaTime();
+		mTime += (t + 1)* Time::DeltaTime();
 		if (mTime > 5.0f)
 		{
 			mState = State::MOVE;
@@ -116,6 +116,7 @@ namespace ya
 	void MushMom::Move()
 	{
 		mTime += Time::DeltaTime();
+
 		if (mTime > 3.0f && mMoveLeft)
 		{
 			mDir *= -1.0f;
@@ -140,7 +141,8 @@ namespace ya
 	{
 		mTime += Time::DeltaTime();
 		mPlayer->SetHitDamage(100);
-		
+		if (mHp <= 0)
+			mState = State::DEATH;
 		if (mTime > 2.0f)
 		{
 			mPlayer->Hit();
@@ -192,7 +194,7 @@ namespace ya
 		{
 			GameObject* gameObj = this;
 			gameObj->Death();
-			mPlayer->SetEx(50);
+			_Ex += 50;
 		}
 	}
 	void MushMom::Render(HDC hdc)
@@ -229,6 +231,13 @@ namespace ya
 	{
 		GameObject* gameObj = other->GetOwner();
 		Vector2 pos = GetPos();
+
+		if (mHp <= 0)
+			mState = State::DEATH;
+
+		if (this->mState == State::HIT || this->mState == State::ATTACK)
+			return;
+
 		if (gameObj->GetName() == L"Smash")
 		{
 			if (mHp > 0)

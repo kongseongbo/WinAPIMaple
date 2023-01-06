@@ -12,6 +12,7 @@
 #include "yaTime.h"
 #include "yaUIManager.h"
 #include "yaHUD.h"
+#include "yaSound.h"
 
 namespace ya
 {
@@ -36,7 +37,7 @@ namespace ya
 		player->SetPos(Vector2{ 140.0f,660.0f });
 		bg->mPlayer = player;
 		
-		DarkWolf* mDarkWolf = ya::object::Instantiate<DarkWolf>(eColliderLayer::Monster);
+		mDarkWolf = ya::object::Instantiate<DarkWolf>(eColliderLayer::Monster);
 		mDarkWolf->SetPos(Vector2{ 1500.0f,700.0f });
 		mDarkWolf->mPlayer = player;
 
@@ -47,6 +48,9 @@ namespace ya
 		HUD* BossHp = UIManager::GetUiInstant<HUD>(eUIType::MONSTERHP);
 		BossHp->SetTarget(mDarkWolf);
 
+	
+		
+
 		//Missile* mMissile = ya::object::Instantiate<Missile>(eColliderLayer::Monster_Projecttile);
 		//mMissile->SetPos(Vector2{ 500.0f,700.0f });
 	}
@@ -54,6 +58,7 @@ namespace ya
 	void PlayScene::Tick()
 	{
 		Scene::Tick();
+
 		if (KEY_DOWN(eKeyCode::N))
 		{
 			SceneManager::ChangeScene(eSceneType::End);
@@ -72,7 +77,6 @@ namespace ya
 	void PlayScene::Enter()
 	{
 		Camera::SetTarget(bg);
-
 		CollisionManager::SetLayer(eColliderLayer::Monster, eColliderLayer::Player, true);
 		CollisionManager::SetLayer(eColliderLayer::Teleport, eColliderLayer::Player, true);
 		CollisionManager::SetLayer(eColliderLayer::Monster, eColliderLayer::Player_Smash, true);
@@ -81,11 +85,14 @@ namespace ya
 
 		Camera::SetAlphaTime(0.0f);
 		Camera::SetCameraEffect(eCameraEffect::FadeIn);
-		
+		mSound = new Sound();
+		mSound->LoadWavFile(L"..\\Sound\\TheAurora.wav");
+		mSound->Play(true);
 	}
 
 	void PlayScene::Exit()
 	{
-
+		mSound->Stop(true);
+		delete mSound;
 	}
 }

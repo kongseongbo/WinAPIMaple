@@ -7,7 +7,7 @@
 #include "yaObject.h"
 #include "yaCollisionManager.h"
 #include "yaCamera.h"
-
+#include "yaSound.h"
 namespace ya
 {
 	Scene* SceneManager::mScenes[(UINT)eSceneType::Max] = {};
@@ -34,18 +34,14 @@ namespace ya
 		mScenes[(UINT)eSceneType::End] = new EndScene();
 		mScenes[(UINT)eSceneType::End]->Initialize();
 
-		ChangeScene(eSceneType::Play);
+		ChangeScene(eSceneType::Title);
 		// 업캐스팅
 		// 다운캐스팅
-
-		//Scene* t = new LogoScene();
-		//t->Initialize();
 	}
 
 	void SceneManager::Tick()
 	{
 		// 현재 내 게임오브젝트들이 화면 바깥에 있는지 없는지 확인
-
 		//현재 씬들을 update Tick
 		mPlayScene->Tick();
 	}

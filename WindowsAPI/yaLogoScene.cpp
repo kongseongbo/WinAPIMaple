@@ -19,6 +19,7 @@
 #include "yaCamera.h"
 #include "yaItemSlot.h"
 #include "yaIceDrake.h"
+#include "yaSound.h"
 
 namespace ya
 {
@@ -31,6 +32,7 @@ namespace ya
 
 	LogoScene::~LogoScene()
 	{
+		
 	}
 
 	void LogoScene::Initialize()
@@ -120,6 +122,8 @@ namespace ya
 
 		drakePos[4].x += 4700.0f;
 		mIceDrake[4]->SetPos(drakePos[4]);
+
+		
 		
 		//Ground* ground = ya::object::Instantiate<Ground>(eColliderLayer::Ground);
 		//ground->SetPos(Vector2(700.0f, 700.0f));
@@ -127,23 +131,27 @@ namespace ya
 		UIManager::Push(eUIType::HP);
 		UIManager::Push(eUIType::MP);
 		UIManager::Push(eUIType::HPMPBAR);
+		UIManager::Push(eUIType::EXBAR);
+		UIManager::Push(eUIType::EX); 
 		UIManager::Push(eUIType::ITEMSLOT);
-		//UIManager::Push(eUIType::INVENTORY);
 
 		HUD* Hp = UIManager::GetUiInstant<HUD>(eUIType::HP);
 		HUD* Mp = UIManager::GetUiInstant<HUD>(eUIType::MP);
+		HUD* Ex = UIManager::GetUiInstant<HUD>(eUIType::EX);
+		HUD* ExBar = UIManager::GetUiInstant<HUD>(eUIType::EXBAR);
 		HUD* hud = UIManager::GetUiInstant<HUD>(eUIType::HPMPBAR);
 		ItemSlot* itemslot = UIManager::GetUiInstant<ItemSlot>(eUIType::ITEMSLOT);
 		Hp->SetTarget(player);
 		Mp->SetTarget(player);
+		Ex->SetTarget(player);
+		ExBar->SetTarget(player);
 		hud->SetTarget(player);
 		itemslot->SetTarget(player);
-		//Panel* Inventory = UIManager::GetUiInstant<Panel>(eUIType::INVENTORY);
 		
 		//ya::Scene* scene = ya::SceneManager::GetScene(eSceneType::Tool);
 		//ya::ToolScene* toolScene = dynamic_cast<ya::ToolScene*>(scene);
 		//toolScene->LoadTilePalette(L"..\\Resources\\TileSaveFiles\\Test");
-
+		
 	}
 
 	void LogoScene::Tick()
@@ -199,12 +207,12 @@ namespace ya
 			}
 		}
 
-		if (mNextSceneStack >= 13)
+		if (mNextSceneStack >= 12)
 		{
 			SceneManager::ChangeScene(eSceneType::Play);
-			
 			mNextSceneStack = 0;
 		}
+	
 		//ya::object::Destroy(mons[0], 3.0f);
 	}
 
@@ -215,6 +223,7 @@ namespace ya
 		swprintf_s(szFloat, 50, L"Logo Scene.bmp");
 		int strLen = wcsnlen_s(szFloat, 50);
 		TextOut(hdc, 10, 30, szFloat, strLen);
+		
 	}
 
 	void LogoScene::Enter()
@@ -224,11 +233,16 @@ namespace ya
 		CollisionManager::SetLayer(eColliderLayer::Monster, eColliderLayer::Player_Beyonder, true);
 		CollisionManager::SetLayer(eColliderLayer::Ground, eColliderLayer::Player, true);
 		Camera::SetTarget(player);
+		mSound = new Sound();
+		mSound->LoadWavFile(L"..\\Sound\\BlueSky.wav");
+		mSound->Play(true);
 	}
 
 	void LogoScene::Exit()
 	{
 		Camera::SetAlphaTime(0.0f);
 		Camera::SetCameraEffect(eCameraEffect::FadeOut);
+		mSound->Stop(true);
+		delete mSound;
 	}
 }

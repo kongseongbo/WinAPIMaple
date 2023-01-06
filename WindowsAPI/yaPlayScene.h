@@ -3,6 +3,7 @@
 
 namespace ya
 {
+	class Sound;
 	class PlayScene : public Scene
 	{
 	public:
@@ -19,6 +20,8 @@ namespace ya
 	private:
 		BgImageObject* bg;
 		Player* player;
+		DarkWolf* mDarkWolf;
+		Sound* mSound;
 	};
 
 }

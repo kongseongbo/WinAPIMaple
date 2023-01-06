@@ -13,6 +13,7 @@
 #include "yaDamageSkin.h"
 #include "yaDarkWolfAttack.h"
 #include "yaDarkWolfTeleport.h"
+#include "yaSound.h"
 
 namespace ya
 {
@@ -176,6 +177,9 @@ namespace ya
 	}
 	void DarkWolf::Attack()
 	{
+		Sound* mSound = new Sound();
+		mSound->LoadWavFile(L"..\\Sound\\DWAttackSound.wav");
+
 		mTime += Time::DeltaTime();
 		mPlayer->SetHitDamage(257);
 		if (mTime > 2.0f)
@@ -185,14 +189,17 @@ namespace ya
 			{
 				mAnimator->Play(L"WolfMoveLeft", true);
 				mState = State::MOVE;
+				mSound->Play(false);
 			}
 			else
 			{
 				mAnimator->Play(L"WolfMoveRight", true);
 				mState = State::MOVE;
+				mSound->Play(false);
 			}
 			mTime = 0.0f;
 		}
+		delete mSound;
 	}
 	void DarkWolf::TeleportAttack()
 	{
@@ -260,7 +267,7 @@ namespace ya
 	{
 		mTime += Time::DeltaTime();
 		wolfTeleport->Death();
-		if (mTime > 3.0f)
+		if (mTime > 4.0f)
 		{
 			GameObject* gameObj = this;
 			gameObj->Death();
@@ -277,6 +284,9 @@ namespace ya
 	{
 		GameObject* gameObj = other->GetOwner();
 		Vector2 pos = GetPos();
+		if (this->mState == State::HIT || this->mState == State::ATTACK)
+			return;
+
 		if (gameObj->GetName() == L"Smash")
 		{
 			if (_BossHP > 0)

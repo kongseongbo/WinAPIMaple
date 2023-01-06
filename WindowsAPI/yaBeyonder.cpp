@@ -5,21 +5,25 @@
 #include "yaResources.h"
 #include "yaImage.h"
 #include "yaInput.h"
-
+#include "yaSound.h"
 namespace ya
 {
 	SkillBeyonder::SkillBeyonder()
 		: mAliveTime(0.5f)
 	{
 		SetName(L"Beyonder");
-
 		Collider* col = new Collider();
 		col->SetScale(Vector2(350.0f, 200.0f));
 		AddComponent(col);
+
+		mSound = new Sound();
+		mSound->LoadWavFile(L"..\\Sound\\Beyonder1.wav");
+		mSound->Play(false);
 	}
 
 	SkillBeyonder::~SkillBeyonder()
 	{
+		delete mSound;
 	}
 
 	void SkillBeyonder::Tick()

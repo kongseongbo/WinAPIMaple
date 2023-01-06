@@ -3,7 +3,7 @@
 
 namespace ya
 {
-
+	class Sound;
 	class LogoScene : public Scene
 	{
 	public:
@@ -30,6 +30,8 @@ namespace ya
 		Vector2 mushPos[5];
 		Vector2 golemPos[5];
 		Vector2 drakePos[5];
+
+		Sound* mSound;
 	};
 
 }

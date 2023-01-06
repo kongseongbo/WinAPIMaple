@@ -3,6 +3,8 @@
 #include "yaResources.h"
 #include "yaInput.h"
 #include "yaAnimator.h"
+#include "yaSound.h"
+
 namespace ya
 {
 	DoubleJump::DoubleJump()
@@ -16,10 +18,15 @@ namespace ya
 		mAnimator->CreateAnimations(L"..\\Resources\\Animations\\Player\\Jump"
 			, L"Jump",Vector2(30.0f, 50.0f));
 		AddComponent(mAnimator);
+
+		mSound = new Sound();
+		mSound->LoadWavFile(L"..\\Sound\\DoubleJump.wav");
+		mSound->Play(false);
 	}
 
 	DoubleJump::~DoubleJump()
 	{
+		delete mSound;
 	}
 
 	void DoubleJump::Tick()

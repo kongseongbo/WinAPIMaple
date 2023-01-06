@@ -3,6 +3,8 @@
 #include "yaResources.h"
 #include "yaInput.h"
 #include "yaAnimator.h"
+#include "yaSound.h"
+
 namespace ya
 {
 	LevelUp::LevelUp()
@@ -36,6 +38,10 @@ namespace ya
 	}
 	void LevelUp::PlayAni()
 	{
+		Sound* mSound = new Sound();
+		mSound->LoadWavFile(L"..\\Sound\\LevelUp.wav");
 		mAnimator->Play(L"LevelUp", false);
+		mSound->Play(false);
+		delete mSound;
 	}
 }

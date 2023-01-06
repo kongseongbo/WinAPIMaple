@@ -4,6 +4,7 @@
 #include "yaPlayer.h"
 #include "yaPanel.h"
 #include "yaItemSlot.h"
+#include "yaSound.h"
 namespace ya
 {
 	Potion::Potion(eUIType type)
@@ -127,12 +128,15 @@ namespace ya
 
 	void Potion::Click()
 	{
+		Sound* mSound = new Sound();
+		mSound->LoadWavFile(L"..\\Sound\\Potion.wav");
+
 		if (this->GetType() == eUIType::BLUEPORTION)
 		{
-			
 			_PlayerMp += 100;
 			if (_PlayerMp >= 1000)
 				_PlayerMp = 1000;
+			mSound->Play(false);
 		}
 
 		if (this->GetType() == eUIType::REDPORTION)
@@ -140,6 +144,8 @@ namespace ya
 			_PlayerHp += 100;
 			if (_PlayerHp >= 1000)
 				_PlayerHp = 1000;
+			mSound->Play(false);
 		}
+		delete mSound;
 	}
 }

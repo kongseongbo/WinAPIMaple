@@ -3,6 +3,7 @@
 
 namespace ya
 {
+	class Sound;
 	class EndScene : public Scene
 	{
 	public:
@@ -17,7 +18,7 @@ namespace ya
 		virtual void Exit();
 
 	private:
-
+		Sound* mSound;
 	};
 
 }

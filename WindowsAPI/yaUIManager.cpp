@@ -4,6 +4,7 @@
 #include "yaPanel.h"
 #include "yaItemSlot.h"
 #include "yaInput.h"
+#include "yaExBar.h"
 namespace ya
 {
 	std::unordered_map<eUIType, UiBase*> UIManager::mUIs;
@@ -14,19 +15,30 @@ namespace ya
 	void UIManager::Initialize()
 	{
 		// 여기에서 ui 메모리에 할당하면 된다.
+
+		HUD* exbar = new HUD(eUIType::EXBAR);
+		mUIs.insert(std::make_pair(eUIType::EXBAR, exbar));
+		exbar->SetPos(Vector2(0.0f, 890.0f));
+		exbar->ImageLoad(L"exbar", L"..\\Resources\\Image\\Ex\\ExBar.bmp");
+
+		HUD* ex = new HUD(eUIType::EX);
+		mUIs.insert(std::make_pair(eUIType::EX, ex));
+		ex->SetPos(Vector2(0.0f, 890.0f));
+		ex->ImageLoad(L"ex", L"..\\Resources\\Image\\Ex\\Ex.bmp");
+
 		HUD* hud = new HUD(eUIType::HPMPBAR);
 		mUIs.insert(std::make_pair(eUIType::HPMPBAR, hud));
-		hud->SetPos(Vector2(700.0f, 830.0f));
+		hud->SetPos(Vector2(700.0f, 820.0f));
 		hud->ImageLoad(L"HPBAR", L"..\\Resources\\Image\\HpMpBar\\hpmpbar2.bmp");
 
 		HUD* Hp = new HUD(eUIType::HP);
 		mUIs.insert(std::make_pair(eUIType::HP, Hp));
-		Hp->SetPos(Vector2(725.0f, 858.0f));
+		Hp->SetPos(Vector2(725.0f, 848.0f));
 		Hp->ImageLoad(L"Hp", L"..\\Resources\\Image\\HpMpBar\\Hp.bmp");
 
 		HUD* Mp = new HUD(eUIType::MP);
 		mUIs.insert(std::make_pair(eUIType::MP, Mp));
-		Mp->SetPos(Vector2(725.0f, 874.8f));
+		Mp->SetPos(Vector2(725.0f, 864.8f));
 		//hud->SetSize(Vector2(200.0f, 200.0f));
 		Mp->ImageLoad(L"Mp", L"..\\Resources\\Image\\HpMpBar\\Mp.bmp");
 
@@ -42,7 +54,7 @@ namespace ya
 
 		ItemSlot* itemslot = new ItemSlot(eUIType::ITEMSLOT);
 		mUIs.insert(std::make_pair(eUIType::ITEMSLOT, itemslot));
-		itemslot->SetPos(Vector2(920.0f, 825.0f));
+		itemslot->SetPos(Vector2(920.0f, 815.0f));
 		itemslot->ImageLoad(L"Itemslot", L"..\\Resources\\Image\\Itemslot\\Itemslot.bmp");
 
 		Potion* RedPortion = new Potion(eUIType::REDPORTION);

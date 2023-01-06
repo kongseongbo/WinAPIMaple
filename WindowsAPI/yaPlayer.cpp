@@ -26,14 +26,15 @@
 
 #include "IceDrakeBallEffect.h"
 
-#include "yaHUD.h"
+#include "yaSound.h"
+
+
 namespace ya
 {
 	Player::Player()
 		: mSpeed(1.0f)
 		, mTime(0.0f)
 		, mPlayerSTR(0)
-		, mEx(0)
 		, mLv(0)
 		, mHitDamage(0)
 		, mSkillStack(0)
@@ -44,7 +45,7 @@ namespace ya
 		, mJumpStack(0)
 	{
 		SetName(L"Player");
-		SetPos({ 1500.0f, 750.0f });
+		SetPos({ 1370.0f, 250.0f });
 		SetScale({ 1.0f, 1.0f });
 
 		mAnimator = new Animator();
@@ -69,11 +70,11 @@ namespace ya
 		mAnimator->CreateAnimations(L"..\\Resources\\Animations\\Player\\Beyonder\\Beyonder3"
 			, L"Beyonder3");
 		mAnimator->CreateAnimations(L"..\\Resources\\Animations\\Player\\Beyonder\\BeyonderEffect1"
-			, L"BeyonderEffect1", Vector2(-150.0f, -50.0f));
+			, L"BeyonderEffect1", Vector2(-150.0f, -50.0f),0.15f);
 		mAnimator->CreateAnimations(L"..\\Resources\\Animations\\Player\\Beyonder\\BeyonderEffect2"
-			, L"BeyonderEffect2", Vector2(-200.0f, -50.0f));
+			, L"BeyonderEffect2", Vector2(-200.0f, -50.0f), 0.15f);
 		mAnimator->CreateAnimations(L"..\\Resources\\Animations\\Player\\Beyonder\\BeyonderEffect3"
-			, L"BeyonderEffect3", Vector2(-200.0f, -50.0f));
+			, L"BeyonderEffect3", Vector2(-200.0f, -50.0f), 0.15f);
 
 		//¿À¸¥ÂÊ
 		mAnimator->CreateAnimations(L"..\\Resources\\Animations\\Player\\RIdle"
@@ -93,11 +94,11 @@ namespace ya
 		mAnimator->CreateAnimations(L"..\\Resources\\Animations\\Player\\Beyonder\\RBeyonder3"
 			, L"RBeyonder3");
 		mAnimator->CreateAnimations(L"..\\Resources\\Animations\\Player\\Beyonder\\RBeyonderEffect1"
-			, L"RBeyonderEffect1", Vector2(150.0f, -50.0f));
+			, L"RBeyonderEffect1", Vector2(150.0f, -50.0f), 0.15f);
 		mAnimator->CreateAnimations(L"..\\Resources\\Animations\\Player\\Beyonder\\RBeyonderEffect2"
-			, L"RBeyonderEffect2", Vector2(200.0f, -50.0f));
+			, L"RBeyonderEffect2", Vector2(200.0f, -50.0f), 0.15f);
 		mAnimator->CreateAnimations(L"..\\Resources\\Animations\\Player\\Beyonder\\RBeyonderEffect3"
-			, L"RBeyonderEffect3", Vector2(200.0f, -50.0f));
+			, L"RBeyonderEffect3", Vector2(200.0f, -50.0f), 0.15f);
 
 		mAnimator->Play(L"Idle", true);
 		
@@ -123,6 +124,20 @@ namespace ya
 	{
 		GameObject::Tick();
 		
+		if (_Ex >= 500)
+		{
+			if (mLv == 0)
+			{
+				LevelUp* levelup = new LevelUp();
+				Scene* playScene = SceneManager::GetPlayScene();
+				playScene->AddGameObject(levelup, eColliderLayer::UI);
+				levelup->SetPos(GetPos());
+				levelup->PlayAni();
+				mLv = 1;
+				_Ex = 0;
+			}
+		}
+
 		switch (mState)
 		{
 		case ya::Player::State::IDLE:
@@ -156,26 +171,18 @@ namespace ya
 		{
 			UIManager::Pop(eUIType::INVENTORY);
 		}
+
+		if (_PlayerMp < 0)
+			_PlayerMp = 0;
+
+		if (_PlayerHp < 0)
+			_PlayerHp = 0;
 	}
 
 	void Player::Idle()
 	{
 		mAnimator->SetAniAlpha(255);
 		mAnimator->Play(L"Idle", true);
-
-		if (mEx >= 200)
-		{
-			if (mLv == 0)
-			{
-				LevelUp* levelup = new LevelUp();
-				Scene* playScene = SceneManager::GetPlayScene();
-				playScene->AddGameObject(levelup, eColliderLayer::UI);
-				levelup->SetPos(GetPos());
-				levelup->PlayAni();
-				mLv = 1;
-				mEx = 0;
-			}
-		}
 
 		if (mRightLook)
 		{
@@ -224,6 +231,7 @@ namespace ya
 	{
 		Vector2 pos = GetPos();
 		mTime += Time::DeltaTime();
+		
 		if ((mJumpStack == 1 && mTime > 1.0f) || mJumpStack >= 2)
 		{
 			mJumpStack = 0;
@@ -266,7 +274,6 @@ namespace ya
 				mTime = 0.0f;
 				if (mJumpStack >= 2)
 				{
-					
 					DoubleJump* doublejump = new DoubleJump();
 					Scene* playScene = SceneManager::GetPlayScene();
 					playScene->AddGameObject(doublejump, eColliderLayer::Player);
@@ -318,7 +325,7 @@ namespace ya
 		mSkillTime += Time::DeltaTime();
 		if (KEY_DOWN(eKeyCode::LCTRL))
 		{
-			_PlayerMp -= 100;
+			_PlayerMp -= 20;
 			if (mSkillTime > 5.0f)
 			{
 				mSkillTime = 0.0f;
@@ -421,7 +428,7 @@ namespace ya
 		
 		if (KEY_DOWN(eKeyCode::LSHIFT))
 		{
-			_PlayerMp -= 150;
+			_PlayerMp -= 30;
 			if (mSkillTime > 5.0f)
 			{
 				mSkillTime = 0.0f;

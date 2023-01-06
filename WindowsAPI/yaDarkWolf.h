@@ -41,7 +41,6 @@ namespace ya
 		void Hit();
 		void Death();
 		void SetState(State state) { mState = state; }
-		
 		int AttackDamage();
 
 		Player* mPlayer;

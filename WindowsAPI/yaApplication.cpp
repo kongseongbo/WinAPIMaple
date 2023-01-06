@@ -19,12 +19,12 @@ namespace ya
 	{
 		initializeWindow(data);
 
+		SoundManager::Initialize();
 		Time::Initialize();
 		Input::Initialize();
 		UIManager::Initialize();
 		SceneManager::Initialize();
 		Camera::Initialize();
-		SoundManager::Initialize();
 
 		Time::SetTimeScale(2.0f);
 	}
@@ -98,7 +98,7 @@ namespace ya
 		SceneManager::Release();
 		Resources::Release();
 		UIManager::Release();
-
+		
 		ReleaseDC(mWindowData.hWnd, mWindowData.hdc);
 		ReleaseDC(mWindowData.hWnd, mWindowData.backBuffer);
 

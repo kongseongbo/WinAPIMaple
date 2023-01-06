@@ -3,6 +3,7 @@
 
 namespace ya
 {
+	class Sound;
 	class Animator;
 	class DoubleJump : public GameObject
 	{
@@ -17,6 +18,8 @@ namespace ya
 
 
 	private:
+
+		Sound* mSound;
 		float mAliveTime;
 		Animator* mAnimator;
 

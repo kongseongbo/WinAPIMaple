@@ -137,6 +137,8 @@ namespace ya
 	{
 		mTime += Time::DeltaTime();
 		mPlayer->SetHitDamage(172);
+		if (mHp <= 0)
+			mState = State::DEATH;
 		if (mTime > 2.0f)
 		{
 			mPlayer->Hit();
@@ -188,7 +190,7 @@ namespace ya
 			GameObject* gameObj = this;
 			gameObj->Death();
 			mTime = 0.0f;
-			mPlayer->SetEx(50);
+			_Ex += 50;
 		}
 	}
 	void Golem::Render(HDC hdc)
@@ -224,6 +226,13 @@ namespace ya
 	{
 		GameObject* gameObj = other->GetOwner();
 		Vector2 pos = GetPos();
+
+		if (mHp <= 0)
+			mState = State::DEATH;
+
+		if (this->mState == State::HIT || this->mState == State::ATTACK)
+			return;
+
 		if (gameObj->GetName() == L"Smash")
 		{
 			if (mHp > 0)

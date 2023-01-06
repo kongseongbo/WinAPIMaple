@@ -5,7 +5,7 @@ namespace ya
 {
 	int _PlayerHp = 1000;
 	int _PlayerMp = 1000;
-
+	int _Ex = 0;
 	class Animator;
 	class Image;
 	class Player : public GameObject
@@ -32,7 +32,6 @@ namespace ya
 
 		void SetMoveLeft(bool move) { mMoveLeft = move; }
 		void SetMoveRight(bool move) { mMoveRight = move; }
-		void SetEx(int ex) { mEx += ex; }
 		void SetHitDamage(int damage) { mHitDamage = damage; }
 		bool GetLook() { return mRightLook; }
 
@@ -59,7 +58,6 @@ namespace ya
 
 		int mHitDamage;
 		int mPlayerSTR;
-		int mEx;
 		int mLv;
 		int mSkillStack;
 		float mSkillTime;

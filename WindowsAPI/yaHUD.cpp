@@ -1,6 +1,5 @@
 #include "yaHUD.h"
 #include "yaImage.h"
-#include "yaHUD.h"
 #include "yaPlayer.h"
 #include "yaMushMom.h"
 #include "yaDarkWolf.h"
@@ -39,9 +38,10 @@ namespace ya
 		Player* playerObj = dynamic_cast<Player*>(mTarget);
 		int hp = _PlayerHp;
 		int mp = _PlayerMp;
+		int ex = _Ex;
 		float xRatioHp = (hp / 1000.0f);
 		float xRatioMp = (mp / 1000.0f);
-
+		float xRatioEx = (ex / 500.0f);
 		DarkWolf* darkwolf = dynamic_cast<DarkWolf*>(mTarget);
 		int bosshp = _BossHP;
 		float BossxRatioHp = (bosshp / 80000.0f);
@@ -52,11 +52,7 @@ namespace ya
 		func.AlphaFormat = AC_SRC_ALPHA;
 		func.SourceConstantAlpha = 255;
 
-		if (mTarget == nullptr)
-		{
-			
-		}
-		else
+		if(mTarget != nullptr)
 		{
 			if (scene->GetPlaySceneType() == eSceneType::Logo 
 				|| scene->GetPlaySceneType() == eSceneType::Play)
@@ -79,6 +75,19 @@ namespace ya
 						, mImage->GetWidth() * xRatioHp, mImage->GetHeight()
 						, mImage->GetDC(), 0, 0, mImage->GetWidth(), mImage->GetHeight(), func);
 				}
+   				if (mImage->GetKey() == L"exbar")
+				{
+					AlphaBlend(hdc, (int)mScreenPos.x, (int)mScreenPos.y
+						, mImage->GetWidth(), mImage->GetHeight()
+						, mImage->GetDC(), 0, 0, mImage->GetWidth(), mImage->GetHeight(), func);
+				}
+				if (mImage->GetKey() == L"ex")
+				{
+					AlphaBlend(hdc, (int)mScreenPos.x, (int)mScreenPos.y
+						, mImage->GetWidth() * xRatioEx, mImage->GetHeight()
+						, mImage->GetDC(), 0, 0, mImage->GetWidth(), mImage->GetHeight(), func);
+				}
+
 			}
 			if (scene->GetPlaySceneType() == eSceneType::Play)
 			{

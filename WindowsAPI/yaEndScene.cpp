@@ -1,6 +1,8 @@
 #include "yaEndScene.h"
 #include "yaBgImageObject.h"
 #include "yaObject.h"
+#include "yaSound.h"
+
 namespace ya
 {
 	EndScene::EndScene()
@@ -14,6 +16,8 @@ namespace ya
 		BgImageObject* bg = ya::object::Instantiate<BgImageObject>(eColliderLayer::BackGround);
 		bg->SetImage(L"EndScene", L"Map\\End.bmp");
 		//bg->SetPos(Vector2(-700.0f, -500.0f));
+
+		
 	}
 	void EndScene::Tick()
 	{
@@ -30,8 +34,12 @@ namespace ya
 	}
 	void EndScene::Enter()
 	{
+		mSound = new Sound();
+		mSound->LoadWavFile(L"..\\Sound\\RestNPeace.wav");
+		mSound->Play(true);
 	}
 	void EndScene::Exit()
 	{
+		delete mSound;
 	}
 }
